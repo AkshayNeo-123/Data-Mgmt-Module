@@ -1,0 +1,11 @@
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\bin\Debug\net8.0\DataMgmtModule.Domain.deps.json
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\bin\Debug\net8.0\DataMgmtModule.Domain.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\bin\Debug\net8.0\DataMgmtModule.Domain.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.AssemblyInfoInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.AssemblyInfo.cs
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.csproj.CoreCompileInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\refint\DataMgmtModule.Domain.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\DataMgmtModule.Domain.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Core\DataMgmtModule.Domain\obj\Debug\net8.0\ref\DataMgmtModule.Domain.dll

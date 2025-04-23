@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataMgmtModule.Domain.Entities;
+
+namespace DataMgmtModule.Application.Interface.Persistence
+{
+    public interface ICompoundingData
+    {
+        Task<int> AddCompoundingData(CompoundingDatum compoundingData);
+        Task<int> DeleteCompoundingDataAsync(int id);
+        Task<CompoundingDatum>GetCompoundingDataAsync(int id);
+
+        Task<int> UpdateCompoundingDataAsync(int id,CompoundingDatum compoundingData);
+        Task<IEnumerable<CompoundingDatum>>GetCompoundingDataByRecipeAsync(int id);   
+    }
+
+}

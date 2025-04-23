@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "EluY464Y8yWcm9mLNEbuTJAXaEuc0+dCpaljNEZyuX8=",
+  "Source": "DataMgmtModule.Api",
+  "BasePath": "_content/DataMgmtModule.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

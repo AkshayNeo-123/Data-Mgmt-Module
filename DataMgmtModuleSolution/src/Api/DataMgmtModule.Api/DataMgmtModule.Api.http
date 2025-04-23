@@ -1,0 +1,6 @@
+@DataMgmtModule.Api_HostAddress = http://localhost:5206
+
+GET {{DataMgmtModule.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

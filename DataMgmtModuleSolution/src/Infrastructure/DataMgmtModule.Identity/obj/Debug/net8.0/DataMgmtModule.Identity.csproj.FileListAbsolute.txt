@@ -1,0 +1,12 @@
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\bin\Debug\net8.0\DataMgmtModule.Identity.deps.json
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\bin\Debug\net8.0\DataMgmtModule.Identity.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\bin\Debug\net8.0\DataMgmtModule.Identity.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.csproj.AssemblyReference.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.AssemblyInfoInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.AssemblyInfo.cs
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.csproj.CoreCompileInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\refint\DataMgmtModule.Identity.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\DataMgmtModule.Identity.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Identity\obj\Debug\net8.0\ref\DataMgmtModule.Identity.dll

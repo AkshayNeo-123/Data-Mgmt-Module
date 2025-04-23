@@ -1,0 +1,17 @@
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Persistence.deps.json
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Persistence.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Persistence.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.csproj.AssemblyReference.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.AssemblyInfoInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.AssemblyInfo.cs
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.csproj.CoreCompileInputs.cache
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\refint\DataMgmtModule.Persistence.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmtModule.Persistence.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\ref\DataMgmtModule.Persistence.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Application.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Domain.dll
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Application.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\bin\Debug\net8.0\DataMgmtModule.Domain.pdb
+C:\Pranit\DataMgmtModule\DataMgmtModuleSolution\src\Infrastructure\DataMgmtModule.Persistence\obj\Debug\net8.0\DataMgmt.02BF3747.Up2Date
