@@ -19,7 +19,7 @@ namespace DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInj
 
         public async Task<int> Handle(DeleteInjectionModlingCommand request, CancellationToken cancellationToken)
         {
-            var deleted = await _repository.DeleteInjectionMoldingByRecipeId(request.Id);
+            var deleted = await _repository.DeleteInjectionMoldingByRecipeId(request.Id,request.UseId);
             return deleted;
         }
     }

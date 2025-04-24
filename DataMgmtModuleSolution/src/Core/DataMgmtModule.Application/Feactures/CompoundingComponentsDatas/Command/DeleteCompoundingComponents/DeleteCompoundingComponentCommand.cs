@@ -8,7 +8,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingComponentsDatas.Command.DeleteCompoundingComponents
 {
-    public record DeleteCompoundingComponentCommand(int Id):IRequest<bool>
+    public record DeleteCompoundingComponentCommand(int Id,int? userId):IRequest<bool>
     {
     }
 }

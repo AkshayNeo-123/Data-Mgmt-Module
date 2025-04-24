@@ -60,7 +60,8 @@ namespace DataMgmtModule.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> deleteCompoundingData(int CompoundingId)
         {
-            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId)));
+            var userId= HttpContext.Session.GetInt32("UserId");
+            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId, userId)));
 
         }
 

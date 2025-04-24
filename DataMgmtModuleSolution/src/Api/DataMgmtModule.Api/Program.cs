@@ -27,6 +27,12 @@ namespace DataMgmtModule.Api
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -54,11 +60,13 @@ namespace DataMgmtModule.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
 
 
             app.MapControllers();

@@ -10,7 +10,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
     public interface ICompoundingComponentsRepository
     {
         Task<int>AddCompoundingComponents(int id, CompoundingComponent compoundingComponents);
-        Task<bool> DeleteCompoundingComponents(int id);
+        Task<bool> DeleteCompoundingComponents(int id,int?userId);
         Task<CompoundingComponent> GetCompoundingComponentsAsync(int id);
         Task<int>UpdateCompoundingComponents(int id,CompoundingComponent[] compoundingComponents);
     }

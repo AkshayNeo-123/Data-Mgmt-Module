@@ -16,6 +16,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DataMgmtModule.Api.Controllers.AccountController",
+    "Method": "logout",
+    "RelativePath": "api/Account/Logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DataMgmtModule.Api.Controllers.CompoundingComponentsController",
     "Method": "GetCompoundingComponents",
     "RelativePath": "api/CompoundingComponents",
