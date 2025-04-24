@@ -20,6 +20,8 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int>AddCompoundingData(CompoundingDatum compoundingData)
         {
+            compoundingData.CreatedBy = 1;
+            compoundingData.CreatedDate = DateTime.Now;
             var result = await _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
 
             compoundingData.RecipeId = result.ReceipeId;
@@ -103,6 +105,8 @@ namespace DataMgmtModule.Persistence.Repository
         {
             //var existingData = await _persistenceDbContext.CompoundingData
             //                              .FirstOrDefaultAsync(x => x.ReceipeId == ReceipeId);
+            compoundingData.ModifiedBy = 1;
+            compoundingData.ModifiedDate = DateTime.Now;
             var existingData = await _persistenceDbContext.CompoundingData.FindAsync(id);
 
             if (existingData == null)
@@ -120,7 +124,8 @@ namespace DataMgmtModule.Persistence.Repository
             existingData.ResidualM = compoundingData.ResidualM;
             existingData.NotMeasured = compoundingData.NotMeasured;
             existingData.Date = compoundingData.Date;
-
+            existingData.ModifiedDate = compoundingData.ModifiedDate;
+            existingData.ModifiedBy = compoundingData.ModifiedBy;
 
             await _persistenceDbContext.SaveChangesAsync();
 

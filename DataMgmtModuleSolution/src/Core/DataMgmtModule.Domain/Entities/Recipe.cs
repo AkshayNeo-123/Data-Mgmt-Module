@@ -14,11 +14,14 @@ public partial class Recipe
     public int? ProjectId { get; set; }
 
     public DateTime? CreatedDate { get; set; }
-
+    public int? CreatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public int AdditiveId { get; set; }
 
     public int MainPolymerId { get; set; }
 
+    
     public virtual Additive Additive { get; set; } = null!;
 
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();

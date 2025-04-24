@@ -55,6 +55,10 @@ public partial class InjectionMolding
 
     public decimal? MoldTemperature { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+    public int? CreatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public virtual Projects Project { get; set; } = null!;
 
     public virtual Recipe Recipe { get; set; } = null!;

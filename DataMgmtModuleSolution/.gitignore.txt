@@ -1,0 +1,73 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# VS user-specific files
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# Build results
+*.dll
+*.exe
+*.app
+*.pdb
+*.cache
+*.db
+*.log
+
+# ASP.NET Core
+wwwroot/
+appsettings.*.json
+
+# Entity Framework
+Migrations/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Visual Studio Code settings
+.history/
+*.code-workspace
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Others
+TestResults/
+Coverage/
+*.DS_Store
+Thumbs.db
+
+# Dotnet secrets (if used)
+secrets.json
+
+# Node.js (if using frontend)
+node_modules/
+dist/
+
+# JetBrains Rider
+.idea/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Azure Function Tools
+.local.settings.json

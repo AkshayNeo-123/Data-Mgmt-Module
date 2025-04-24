@@ -31,7 +31,10 @@ namespace DataMgmtModule.Application.Dtos.Dosage
         public int Premix { get; set; }
         public int UnderwaterPelletizer { get; set; }
 
-
+        public DateTime? CreatedDate { get; set; }
+        public int? CreatedBy { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
     }
 }

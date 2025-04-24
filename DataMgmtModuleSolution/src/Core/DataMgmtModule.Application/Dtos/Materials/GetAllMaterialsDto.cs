@@ -26,5 +26,10 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public string? Description { get; set; }
 
         public MvrMfrType MVR_MFR { get; set; }
+
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 }

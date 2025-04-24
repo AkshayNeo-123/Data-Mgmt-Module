@@ -15,6 +15,8 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<Materials> AddMaterials(Materials material)
         {
+            material.CreatedDate = DateTime.Now;
+            material.CreatedBy = 1;
             _context.Materials.Add(material);
             await _context.SaveChangesAsync();
             return material;
@@ -23,12 +25,6 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task DeleteMaterials(int id)
         {
             var material = await _context.Materials.FindAsync(id);
-
-            //if (book == null)
-            //{
-            //    throw new NotFoundException($"Book with ID {id} not found.");
-            //}
-
             _context.Materials.Remove(material);
             await _context.SaveChangesAsync();
         }
@@ -59,6 +55,8 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.Quantity = material.Quantity;
             existingMaterial.Density = material.Density;
             existingMaterial.Description = material.Description;
+            existingMaterial.ModifiedDate = DateTime.Now;
+            existingMaterial.ModifiedBy = 1;
 
             await _context.SaveChangesAsync();
         }
