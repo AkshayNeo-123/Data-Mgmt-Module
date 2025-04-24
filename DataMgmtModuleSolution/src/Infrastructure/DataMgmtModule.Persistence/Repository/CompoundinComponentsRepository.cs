@@ -55,7 +55,7 @@ namespace DataMgmtModule.Persistence.Repository
 
        
 
-        public async Task<bool> DeleteCompoundingComponents(int id)
+        public async Task<bool> DeleteCompoundingComponents(int id, int? userId)
         {
 
             var searchCompoundings = await _persistenceDbContext.CompoundingData.Where(x => x.RecipeId == id).ToListAsync();
@@ -85,7 +85,7 @@ namespace DataMgmtModule.Persistence.Repository
                 Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM,
                 NotMeasured = searchCompounding.NotMeasured,
-                DeletedBy = "admin",
+                DeletedBy = userId,
                 DeletedDate = DateTime.UtcNow
             };
                 await _persistenceDbContext.CompoundLogs.AddAsync(logger);

@@ -35,6 +35,12 @@ namespace DataMgmtModule.Api.Middlewares
                 case NotFoundException notFoundException:
                     statusCode = HttpStatusCode.NotFound;
                     break;
+                case BadRequestException badRequestException:
+                    statusCode = HttpStatusCode.BadRequest;
+                    break;
+                case InActiveUserException inActiveUserException:
+                    statusCode = HttpStatusCode.Forbidden;
+                    break;
             }
             context.Response.StatusCode = (int)statusCode;
             var response = new

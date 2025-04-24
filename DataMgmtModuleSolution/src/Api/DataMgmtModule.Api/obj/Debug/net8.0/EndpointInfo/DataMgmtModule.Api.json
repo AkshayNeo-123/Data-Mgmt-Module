@@ -36,6 +36,18 @@
         }
       }
     },
+    "/api/Account/Logout": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/CompoundingComponents": {
       "get": {
         "tags": [
@@ -2412,12 +2424,12 @@
       },
       "LoginRequest": {
         "required": [
-          "password",
-          "userName"
+          "email",
+          "password"
         ],
         "type": "object",
         "properties": {
-          "userName": {
+          "email": {
             "minLength": 1,
             "type": "string"
           },

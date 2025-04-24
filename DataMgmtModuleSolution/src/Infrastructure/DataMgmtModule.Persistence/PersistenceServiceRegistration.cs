@@ -28,6 +28,7 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<ICompoundingComponentsRepository, CompoundingComponentsRepository>();
             services.AddScoped<IDosageRepository, DosageRepository>();
             services.AddScoped<IInjectionMoldingRepository, InjectionMoldingRepository>();
+            services.AddScoped<IAuth, AuthRepository>();
 
             return services;
         }

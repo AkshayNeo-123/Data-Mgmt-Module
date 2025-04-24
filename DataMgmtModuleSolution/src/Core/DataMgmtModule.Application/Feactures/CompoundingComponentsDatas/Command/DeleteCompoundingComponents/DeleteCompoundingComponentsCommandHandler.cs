@@ -20,7 +20,7 @@ namespace DataMgmtModule.Application.Feactures.CompoundingComponentsDatas.Comman
 
         public async Task<bool> Handle(DeleteCompoundingComponentCommand request, CancellationToken cancellationToken)
         {
-            var data = await _compoundingComponentsRepository.DeleteCompoundingComponents(request.Id);
+            var data = await _compoundingComponentsRepository.DeleteCompoundingComponents(request.Id,request.userId);
                 return data;
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -33,7 +34,7 @@ namespace DataMgmtModule.Persistence.Repository
             return result.ReceipeId;
         }
 
-        public async Task<int> DeleteRecipe(int id)
+        public async Task<int> DeleteRecipe(int id,int? userId)
         {
             var components = await _persistenceDbContext.RecipeComponents
                 .Where(x => x.RecipeId == id)
@@ -46,7 +47,12 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 return 0;
             }
+            //var userId = HttpContext.Session.GetInt32("UserId");
 
+<<<<<<< HEAD
+=======
+            //  Create log entry
+>>>>>>> main_Pranit
             var log = new RecipesLog
             {
                 RecipeId = recipe.ReceipeId,
@@ -56,9 +62,14 @@ namespace DataMgmtModule.Persistence.Repository
                 CreatedDate = recipe.CreatedDate,
                 AdditiveId = recipe.AdditiveId,
                 MainPolymerId = recipe.MainPolymerId,
+<<<<<<< HEAD
                 DeletedBy = "Admin",
                 DeletedDate = DateTime.UtcNow,
                 
+=======
+                DeletedBy = userId,
+                DeletedDate = DateTime.UtcNow
+>>>>>>> main_Pranit
             };
 
             await _persistenceDbContext.RecipesLogs.AddAsync(log);

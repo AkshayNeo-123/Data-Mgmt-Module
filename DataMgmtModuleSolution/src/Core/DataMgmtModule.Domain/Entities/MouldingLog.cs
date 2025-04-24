@@ -55,7 +55,7 @@ public partial class MouldingLog
 
     public decimal? MoldTemperature { get; set; }
 
-    public string? DeletedBy { get; set; }
+    public int? DeletedBy { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

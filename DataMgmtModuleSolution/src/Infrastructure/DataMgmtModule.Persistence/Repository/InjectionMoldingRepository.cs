@@ -157,7 +157,7 @@ namespace DataMgmtModule.Persistence.Repository
 
 
 
-        public async Task<int> DeleteInjectionMoldingByRecipeId(int RecipeId)
+        public async Task<int> DeleteInjectionMoldingByRecipeId(int RecipeId, int? userId)
         {
             //var injectionMolding = await _dbContext.InjectionMolding.FindAsync(id);
             var injectionMolding1 = await _dbContext.InjectionMoldings.Where(x => x.RecipeId == RecipeId).ToListAsync();
@@ -168,7 +168,7 @@ namespace DataMgmtModule.Persistence.Repository
 
                 var log = new MouldingLog
                 {
-
+                    Id=injectionMolding.Id,
                     ProjectId = injectionMolding.ProjectId,
                     RecipeId = injectionMolding.RecipeId,
                     ParameterSet = injectionMolding.ParameterSet,
@@ -193,7 +193,7 @@ namespace DataMgmtModule.Persistence.Repository
                     MeltTemperature = injectionMolding.MeltTemperature,
                     NozzleTemperature = injectionMolding.NozzleTemperature,
                     MoldTemperature = injectionMolding.MoldTemperature,
-                    DeletedBy = "admin",
+                    DeletedBy = userId,
                     DeletedDate = DateTime.UtcNow
                 };
 

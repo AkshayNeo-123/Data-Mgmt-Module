@@ -35,7 +35,7 @@ namespace DataMgmtModule.Persistence.Repository
             else return lastCdata.CompoundingId;
         }
 
-        public async Task<int> DeleteCompoundingDataAsync(int id)
+        public async Task<int> DeleteCompoundingDataAsync(int id, int? userId)
         {
             
 
@@ -57,7 +57,7 @@ namespace DataMgmtModule.Persistence.Repository
                 Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM, 
                 NotMeasured = searchCompounding.NotMeasured,  
-                DeletedBy = "admin", 
+                DeletedBy = userId, 
                 DeletedDate = DateTime.UtcNow
             };
             

@@ -27,7 +27,7 @@ public partial class CompoundLog
 
     public int? NotMeasured { get; set; }
 
-    public string? DeletedBy { get; set; }
+    public int? DeletedBy { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

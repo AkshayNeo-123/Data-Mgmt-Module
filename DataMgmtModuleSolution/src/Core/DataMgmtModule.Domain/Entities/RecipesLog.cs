@@ -19,7 +19,7 @@ public partial class RecipesLog
 
     public int? MainPolymerId { get; set; }
 
-    public string? DeletedBy { get; set; }
+    public int? DeletedBy { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 
