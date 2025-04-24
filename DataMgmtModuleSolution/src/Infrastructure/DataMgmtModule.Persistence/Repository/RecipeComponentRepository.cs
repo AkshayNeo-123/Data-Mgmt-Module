@@ -20,6 +20,8 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<int> AddRecipeComponent(int id, RecipeComponent component)
         {
             component.RecipeId = id;
+            component.CreatedBy = 1;
+            component.CreatedDate = DateTime.Now;
              _persistenceDbContext.RecipeComponents.Add(component);
             return await _persistenceDbContext.SaveChangesAsync();
         }

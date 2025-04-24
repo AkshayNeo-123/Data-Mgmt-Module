@@ -45,6 +45,10 @@ public partial class Dosage
 
     public int? Premix { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+    public int? CreatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public int? UnderwaterPelletizer { get; set; }
 
     public virtual CompoundingDatum? Compounding { get; set; }

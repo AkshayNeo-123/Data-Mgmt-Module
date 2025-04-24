@@ -25,7 +25,10 @@ public partial class Projects
     public string? ProjectDescription { get; set; }
 
     public Priorities? Priority { get; set; }
-
+    public int? CreatedBy { get; set; }
+    public DateTime? CreatedDate { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();

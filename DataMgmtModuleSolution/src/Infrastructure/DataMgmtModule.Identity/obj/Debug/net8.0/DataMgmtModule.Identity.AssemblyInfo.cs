@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataMgmtModule.Identity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+089a6aa25aa7b02a7f945bfdbe73b2163c89a37c")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataMgmtModule.Identity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataMgmtModule.Identity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -27,6 +27,10 @@ public partial class CompoundingDatum
 
     public int? NotMeasured { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+    public int? CreatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();
 
     public virtual ICollection<Dosage> Dosages { get; set; } = new List<Dosage>();

@@ -40,5 +40,9 @@ namespace DataMgmtModule.Application.Dtos.InjectionMolding
         public decimal? MeltTemperature { get; set; }
         public decimal? NozzleTemperature { get; set; }
         public decimal? MoldTemperature { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int? CreatedBy { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 }

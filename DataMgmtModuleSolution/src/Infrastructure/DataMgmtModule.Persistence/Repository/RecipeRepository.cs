@@ -25,6 +25,8 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<int> AddRecipe(Recipe recipe)
         {
             recipe.CreatedDate = DateTime.Now;
+            recipe.CreatedBy = 1;
+
             await _persistenceDbContext.Recipes.AddAsync(recipe);
             await _persistenceDbContext.SaveChangesAsync();
             var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
@@ -45,7 +47,6 @@ namespace DataMgmtModule.Persistence.Repository
                 return 0;
             }
 
-            // 👇 Create log entry
             var log = new RecipesLog
             {
                 RecipeId = recipe.ReceipeId,
@@ -56,7 +57,8 @@ namespace DataMgmtModule.Persistence.Repository
                 AdditiveId = recipe.AdditiveId,
                 MainPolymerId = recipe.MainPolymerId,
                 DeletedBy = "Admin",
-                DeletedDate = DateTime.UtcNow
+                DeletedDate = DateTime.UtcNow,
+                
             };
 
             await _persistenceDbContext.RecipesLogs.AddAsync(log);
@@ -82,9 +84,12 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> UpdateRecipe(int id,Recipe recipe)
         {
+ 
             var result =await RecipeFindById(id);
             result.ProductName = recipe.ProductName;
             result.Comments = recipe.Comments;
+            result.ModifiedBy = 1;
+            result.ModifiedDate= DateTime.Now;
             return await _persistenceDbContext.SaveChangesAsync();
 
 
@@ -92,7 +97,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> UpdateRecipeComponent(int id, RecipeComponent[] recipeComponent)
         {
-
+            
             var oldcomponent = await _persistenceDbContext.RecipeComponents.Where(x => x.RecipeId == id).ToListAsync();
             if (oldcomponent == null)
             {
@@ -103,6 +108,8 @@ namespace DataMgmtModule.Persistence.Repository
             foreach(var item in recipeComponent)
             {
                 item.RecipeId = id;
+                item.ModifiedDate = DateTime.Now;
+                item.ModifiedBy = 1;
                 await _persistenceDbContext.RecipeComponents.AddAsync(item);
                 await _persistenceDbContext.SaveChangesAsync();
 

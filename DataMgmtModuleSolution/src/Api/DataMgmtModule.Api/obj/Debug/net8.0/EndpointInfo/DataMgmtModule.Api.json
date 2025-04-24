@@ -1844,6 +1844,26 @@
             "format": "int32",
             "nullable": true
           },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "compoundingComponents": {
             "type": "array",
             "items": {
@@ -2081,6 +2101,21 @@
             "type": "string",
             "format": "date-time"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "additiveId": {
             "type": "integer",
             "format": "int32"
@@ -2213,6 +2248,26 @@
             "format": "double",
             "nullable": true
           },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "project": {
             "$ref": "#/components/schemas/Projects"
           },
@@ -2330,6 +2385,26 @@
           "moldTemperature": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -2467,6 +2542,26 @@
           "priority": {
             "$ref": "#/components/schemas/Priorities"
           },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "injectionMoldings": {
             "type": "array",
             "items": {
@@ -2505,6 +2600,21 @@
             "nullable": true
           },
           "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -2595,6 +2705,26 @@
           "componentId": {
             "type": "integer",
             "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           },
           "component": {
             "$ref": "#/components/schemas/Component"

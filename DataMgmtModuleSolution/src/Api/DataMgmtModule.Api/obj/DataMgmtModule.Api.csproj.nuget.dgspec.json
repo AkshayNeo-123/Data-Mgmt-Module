@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj": {}
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj": {}
   },
   "projects": {
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj": {
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj",
         "projectName": "DataMgmtModule.Api",
-        "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\DataMgmtModule.Api.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Api\\DataMgmtModule.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,21 +26,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
-                "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj"
+              "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj"
               },
-              "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj": {
-                "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj"
+              "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj"
               },
-              "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj": {
-                "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj"
+              "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj"
               }
             }
           }
@@ -109,24 +108,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj",
         "projectName": "DataMgmtModule.Application",
-        "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -135,15 +134,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj": {
-                "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj"
+              "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj"
               }
             }
           }
@@ -189,24 +187,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj": {
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj",
         "projectName": "DataMgmtModule.Domain",
-        "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\DataMgmtModule.Domain.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -215,7 +213,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -255,24 +252,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj": {
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj",
         "projectName": "DataMgmtModule.Identity",
-        "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\DataMgmtModule.Identity.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Identity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -281,7 +278,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -331,24 +327,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj": {
+    "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj",
         "projectName": "DataMgmtModule.Persistence",
-        "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\DataMgmtModule.Persistence.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Infrastructure\\DataMgmtModule.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -357,15 +353,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
-                "projectPath": "C:\\Pranit\\DataMgmtModule\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj"
+              "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj": {
+                "projectPath": "C:\\Users\\user\\Documents\\GitFinalProject\\Data-Mgmt-Module\\DataMgmtModuleSolution\\src\\Core\\DataMgmtModule.Application\\DataMgmtModule.Application.csproj"
               }
             }
           }
@@ -419,7 +414,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

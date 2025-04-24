@@ -33,9 +33,14 @@ public partial class CompoundingComponent
 
     public int ComponentId { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+    public int? CreatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public virtual Component Component { get; set; } = null!;
 
     public virtual CompoundingDatum? Compounding { get; set; }
 
     public virtual Recipe? Recipe { get; set; }
+
 }

@@ -16,6 +16,8 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<InjectionMolding> AddAsync(InjectionMolding entity)
         {
+            entity.CreatedBy = 1;
+            entity.CreatedDate = DateTime.Now;
             var recipe = await _dbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
             entity.RecipeId = recipe.ReceipeId;
             _dbContext.InjectionMoldings.Add(entity);
@@ -104,6 +106,9 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> UpdateInjectionMolding(int id, InjectionMolding injectionmolding)
         {
+            injectionmolding.ModifiedBy = 1;
+            injectionmolding.ModifiedDate = DateTime.Now;
+
             var existingMaterial = await _dbContext.InjectionMoldings.FindAsync(id);
             if (existingMaterial == null)
                 throw new Exception($" ID  not found.");
@@ -139,7 +144,8 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.MeltTemperature = injectionmolding.MeltTemperature;
             existingMaterial.NozzleTemperature = injectionmolding.NozzleTemperature;
             existingMaterial.MoldTemperature = injectionmolding.MoldTemperature;
-
+            existingMaterial.ModifiedBy = injectionmolding.ModifiedBy;
+            existingMaterial.ModifiedDate = injectionmolding.ModifiedDate;
 
 
             await _dbContext.SaveChangesAsync();
