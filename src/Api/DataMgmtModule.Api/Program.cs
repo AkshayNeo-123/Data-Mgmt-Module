@@ -19,18 +19,28 @@ namespace DataMgmtModule.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()  // Allows any origin
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                    //.AllowCredentials();
+                });
+            });
 
-            
 
 
-        builder.Services.AddPersistenceServices(builder.Configuration);
+
+            builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
             });
 
 
@@ -63,6 +73,7 @@ namespace DataMgmtModule.Api
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
             app.UseAuthorization();

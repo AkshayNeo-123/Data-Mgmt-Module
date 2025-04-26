@@ -35,7 +35,7 @@ namespace DataMgmtModule.Api.Controllers
             return user == null ? NotFound() : Ok(user);
         }
         [HttpPost]
-        public async Task<IActionResult> AddUserAsync(User user)
+        public async Task<IActionResult> AddUserAsync(UserDto user)
         {
             var created = await _mediator.Send(new AddUserCommand(user));
             return Ok(created);

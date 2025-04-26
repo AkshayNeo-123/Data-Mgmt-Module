@@ -24,6 +24,10 @@ public partial class Contact
     public string Email { get; set; } = null!;
 
     public string? Phone { get; set; }
+    public int? CreatedBy { get; set; }
+    public int? updatedBy { get; set; }
+    public DateTime? CreatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual ICollection<Materials> Materials { get; set; } = new List<Materials>();
 }

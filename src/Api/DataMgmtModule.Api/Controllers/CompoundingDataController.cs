@@ -6,6 +6,7 @@ using DataMgmtModule.Application.Feactures.CompoundingComponentsDates.Command.Ad
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.AddCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.DeleteCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.UpdateCompoundingData;
+using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetAllCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundDataByIdQuery;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundingDataByRecipe;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.AddDosages;
@@ -29,6 +30,13 @@ namespace DataMgmtModule.Api.Controllers
         public CompoundingDataController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCompoundingData()
+        {
+            var getAllCompounding = await _mediator.Send(new GetAllCompoundDataQuery());
+            return Ok(getAllCompounding);
         }
         [HttpPost]
         public async Task<IActionResult> AddCompoundingData(CompoundingDataAndComponents compoundingDataDTO)
