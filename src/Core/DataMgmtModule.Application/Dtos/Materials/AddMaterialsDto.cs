@@ -26,5 +26,9 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public string? Description { get; set; }
 
         public MvrMfrType MVR_MFR { get; set; }
+
+        public int AdditiveId { get; set; }
+
+        public int MainPolymerId { get; set; }
     }
 }

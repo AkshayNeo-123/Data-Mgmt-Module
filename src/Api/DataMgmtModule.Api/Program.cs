@@ -32,7 +32,6 @@ namespace DataMgmtModule.Api
 
 
 
-
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddApplicationServices();
@@ -74,7 +73,6 @@ namespace DataMgmtModule.Api
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseCors("AllowAll");
-
             app.UseAuthentication();
             app.UseAuthorization();
 
