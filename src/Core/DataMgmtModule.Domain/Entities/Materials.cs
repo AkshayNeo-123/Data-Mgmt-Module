@@ -30,4 +30,13 @@ public partial class Materials: Common
     public int? MVR_MFR { get; set; }
 
     public virtual Contact Manufacturer { get; set; } = null!;
+
+    public int AdditiveId { get; set; }
+
+    public int MainPolymerId { get; set; }
+
+    public virtual Additive Additive { get; set; } = null!;
+
+    public virtual MainPolymer MainPolymer { get; set; } = null!;
+
 }

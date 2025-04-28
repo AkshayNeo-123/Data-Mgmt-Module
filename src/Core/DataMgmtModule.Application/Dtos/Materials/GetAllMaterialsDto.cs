@@ -5,6 +5,7 @@ namespace DataMgmtModule.Application.Dtos.Materials
 {
    public class GetAllMaterialsDto
     {
+        public int MaterialId { get; set; }
         public MaterialType MaterialsType { get; set; }
 
         public string? Designation { get; set; }
@@ -30,5 +31,9 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+
+        public int AdditiveId { get; set; }
+
+        public int MainPolymerId { get; set; }
     }
 }
