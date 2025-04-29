@@ -13,11 +13,11 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
+    public string? PasswordHash { get; set; }
+
     public string? Phone { get; set; }
 
     public int? RoleId { get; set; }
-
-    public string? PasswordHash { get; set; }
 
     public string? Status { get; set; }
 
