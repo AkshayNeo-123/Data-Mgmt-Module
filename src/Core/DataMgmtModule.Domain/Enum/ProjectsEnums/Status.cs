@@ -8,8 +8,8 @@ namespace DataMgmtModule.Domain.Enum.ProjectsEnums
 {
     public enum Status
     {
-        OnGoing=1,
-        Planed,
+        Planed=1,
+        OnGoing,
         Completed
     }
 }

@@ -10,6 +10,7 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 {
     public class GetAllProjectsDto
     {
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         [Required]
         public ProjectTypes ProjectType { get; set; }

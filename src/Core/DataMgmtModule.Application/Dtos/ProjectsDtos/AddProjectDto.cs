@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataMgmtModule.Domain.Enum.ProjectsEnums;
+using System.Text.Json.Serialization;
 
 namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 {
@@ -22,6 +23,7 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         [Required]
         public Priorities? Priority { get; set; }
         [Required]
+        [JsonPropertyName("projectDescription")]
         public string? Project_Description { get; set; }
         [Required]
         public DateTime? StartDate { get; set; }

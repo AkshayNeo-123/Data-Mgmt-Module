@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataMgmtModule.Domain.Enum.ContactEnum;
 
 namespace DataMgmtModule.Domain.Entities;
 
@@ -9,7 +10,7 @@ public partial class Contact
 
     public string ContactName { get; set; } = null!;
 
-    public int ContactType { get; set; }
+    public ContactTypes ContactType { get; set; }
 
     public string AddressLine1 { get; set; } = null!;
 
