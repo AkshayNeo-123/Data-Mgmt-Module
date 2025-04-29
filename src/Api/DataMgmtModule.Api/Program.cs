@@ -5,6 +5,7 @@ using Serilog;
 using DataMgmtModule.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using DataMgmtModule.Api.Services;
 
 namespace DataMgmtModule.Api
 {
@@ -34,6 +35,7 @@ namespace DataMgmtModule.Api
 
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddScoped<FileService>();
             builder.Services.AddApplicationServices();
 
             builder.Services.AddDistributedMemoryCache();

@@ -23,7 +23,7 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         [Required]
         public DateTime EndDate { get; set; }
         [Required]
-        public byte IsDelete { get; set; }
+        //public byte IsDelete { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }
