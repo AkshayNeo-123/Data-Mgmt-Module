@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+using DataMgmtModule.Domain.Entities;
 using DataMgmtModule.Domain.Enum.MaterialsEnum;
 
 namespace DataMgmtModule.Application.Dtos.Materials
@@ -11,6 +13,8 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public string? Designation { get; set; }
 
         public int? ManufacturerId { get; set; }
+        [ForeignKey("ManufacturerId")]
+        public virtual Contact Manufacturer { get; set; } = null!; 
 
         public decimal Quantity { get; set; }
 
@@ -33,7 +37,12 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public DateTime? ModifiedDate { get; set; }
 
         public int AdditiveId { get; set; }
+        public virtual Additive Additive { get; set; } = null!;
 
         public int MainPolymerId { get; set; }
+        [ForeignKey("MainPolymerId")]
+        //public Vart MainPolymer MainPolymer { get; set; } = null!;public virtual Additive Additive { get; set; } = null!;
+
+        public virtual MainPolymer MainPolymer { get; set; } = null!;
     }
 }
