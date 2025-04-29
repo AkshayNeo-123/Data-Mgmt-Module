@@ -60,8 +60,19 @@ namespace DataMgmtModule.Persistence.Repository
 
             
             existingMaterial.Quantity = material.Quantity;
+           
+            existingMaterial.Quantity = material.Quantity;
             existingMaterial.Density = material.Density;
             existingMaterial.Description = material.Description;
+            existingMaterial.AdditiveId = material.AdditiveId;
+            existingMaterial.MaterialsType = material.MaterialsType;
+            existingMaterial.MainPolymerId = material.MainPolymerId; 
+            existingMaterial.MVR_MFR = material.MVR_MFR;
+            existingMaterial.TdsfilePath = material.TdsfilePath;
+            existingMaterial.MsdsfilePath = material.MsdsfilePath;
+            existingMaterial.StorageLocation = material.StorageLocation; 
+            existingMaterial.TestMethod = material.TestMethod;
+            existingMaterial.ManufacturerId = material.ManufacturerId;
             existingMaterial.ModifiedDate = DateTime.Now;
             existingMaterial.ModifiedBy = userId;
 
