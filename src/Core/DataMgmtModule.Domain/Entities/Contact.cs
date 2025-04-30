@@ -30,5 +30,5 @@ public partial class Contact
     public DateTime? CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
 
-    public virtual ICollection<Materials>? Materials { get; set; } = new List<Materials>();
+    //public virtual ICollection<Materials>? Materials { get; set; } = new List<Materials>();
 }
