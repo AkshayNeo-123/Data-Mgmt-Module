@@ -18,6 +18,8 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         public Areas Area { get; set; }
         [Required]
         public Status Status { get; set; }
+
+        public Priorities? Priority { get; set; }
         public string? Project_Description { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
