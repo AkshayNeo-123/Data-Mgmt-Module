@@ -10,6 +10,7 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 {
     public class GetAllProjectsDto
     {
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         [Required]
         public ProjectTypes ProjectType { get; set; }
@@ -17,13 +18,15 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         public Areas Area { get; set; }
         [Required]
         public Status Status { get; set; }
+
+        public Priorities? Priority { get; set; }
         public string? Project_Description { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
         [Required]
-        public byte IsDelete { get; set; }
+        //public byte IsDelete { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }

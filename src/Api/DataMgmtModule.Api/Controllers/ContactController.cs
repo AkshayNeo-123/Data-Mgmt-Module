@@ -4,6 +4,7 @@ using DataMgmtModule.Application.Feactures.ContactFeatures.Command.DeleteContact
 using DataMgmtModule.Application.Feactures.ContactFeatures.Command.UpdateContacts;
 using DataMgmtModule.Application.Feactures.ContactFeatures.Query.GetAllContactcsData;
 using DataMgmtModule.Application.Feactures.ContactFeatures.Query.GetById;
+using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -17,9 +18,11 @@ namespace DataMgmtModule.Api.Controllers
     {
 
         private readonly IMediator _mediator;
-        public ContactController(IMediator mediator)
+        private readonly IContactRepository _contactRepository;
+        public ContactController(IMediator mediator, IContactRepository contactRepository)
         {
             _mediator = mediator;
+            _contactRepository = contactRepository;
         }
         [HttpPost]
         public async Task<IActionResult>AddContactsAsync(AddContactDTO contact)
@@ -33,6 +36,13 @@ namespace DataMgmtModule.Api.Controllers
         public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsAsync()
         {
             var getAllData =await _mediator.Send(new GetAllContactsQuery());
+            return Ok(getAllData);
+        }
+
+        [HttpGet("GetAllManufacturer")]
+        public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsOfManufacturer()
+        {
+            var getAllData = await _contactRepository.GetAllContactsofmanufacturer();
             return Ok(getAllData);
         }
 

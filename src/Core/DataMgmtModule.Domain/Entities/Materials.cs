@@ -23,7 +23,7 @@ public partial class Materials: Common
 
     public string? MsdsfilePath { get; set; }
 
-    public int? StorageLocation { get; set; }
+    public int? StorageLocation { get; set; } 
 
     public string? Description { get; set; }
 

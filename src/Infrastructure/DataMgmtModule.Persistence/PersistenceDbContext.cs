@@ -272,10 +272,11 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Manufacturer).WithMany(p => p.Materials)
-                    .HasForeignKey(d => d.ManufacturerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Contacts_Materials");
+                //entity.HasOne(d => d.Manufacturer)
+                ////.WithMany(p => p.Materials)
+                //    .HasForeignKey(d => d.ManufacturerId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("fk_Contacts_Materials");
             });
 
             modelBuilder.Entity<MouldingLog>(entity =>

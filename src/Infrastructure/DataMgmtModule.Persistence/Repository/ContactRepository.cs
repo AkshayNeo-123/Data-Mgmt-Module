@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
+using DataMgmtModule.Domain.Enum.ContactEnum;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -45,6 +46,33 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
             var getAllData = await _persistenceDbContext.Contacts.ToListAsync();
+            if (getAllData == null)
+            {
+                throw new NotFoundException("Contact Data Not  Found");
+            }
+            return getAllData;
+        }
+        public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
+        {
+            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.ContactType == ContactTypes.Manufacturer).ToListAsync();
+            if (getAllData == null)
+            {
+                throw new NotFoundException("Contact Data Not  Found");
+            }
+            return getAllData;
+        }
+        public async Task<IEnumerable<Contact>> GetAllContactsofSupplier()
+        {
+            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Supplier).ToListAsync();
+            if (getAllData == null)
+            {
+                throw new NotFoundException("Contact Data Not  Found");
+            }
+            return getAllData;
+        }
+        public async Task<IEnumerable<Contact>> GetAllContactsofBoth()
+        {
+            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Both).ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");

@@ -21,10 +21,10 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> AddProject(Projects project, int? userId)
         {
-            project.Status = Status.OnGoing;
+            project.Status = Status.Planed;
             project.IsDelete = false;
             project.CreatedDate = DateTime.Now;
-            project.CreatedBy = userId;
+            project.CreatedBy = 1;
 
             _persistenceDbContext.Add(project);
             return await _persistenceDbContext.SaveChangesAsync();
@@ -32,7 +32,28 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<IEnumerable<Projects>> GetAllProjects()
         {
-            var projects = await _persistenceDbContext.Projects.ToListAsync();
+            var projects = await _persistenceDbContext.Projects.Where(x=>x.IsDelete==false).ToListAsync();
+            //foreach(var project in projects)
+            //{
+            //    if (project.Status == Status.OnGoing)
+            //    {
+            //        if (project.EndDate < DateTime.Now)
+            //        {
+            //         project.Status = Status.Completed;
+            //         await _persistenceDbContext.SaveChangesAsync();
+            //        }
+
+                    
+            //    }
+            //    if(project.Status == Status.Planed)
+            //    {
+            //        if (DateTime.Now < project.StartDate)
+            //        {
+            //            project.Status = Status.OnGoing;
+            //            await _persistenceDbContext.SaveChangesAsync();
+            //        }
+            //    }
+            //}
             return projects;
 
         }

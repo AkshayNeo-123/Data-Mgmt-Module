@@ -5,6 +5,7 @@ using Serilog;
 using DataMgmtModule.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using DataMgmtModule.Api.Services;
 
 namespace DataMgmtModule.Api
 {
@@ -14,11 +15,16 @@ namespace DataMgmtModule.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
 
             // Add services to the container.
 
             builder.Services.AddControllers();
+                //.AddJsonOptions(options =>
+                //{
+                //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                //    options.JsonSerializerOptions.WriteIndented = true;
+                //});
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -34,6 +40,7 @@ namespace DataMgmtModule.Api
 
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddScoped<FileService>();
             builder.Services.AddApplicationServices();
 
             builder.Services.AddDistributedMemoryCache();
@@ -63,11 +70,11 @@ namespace DataMgmtModule.Api
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
             app.UseSession();
             app.UseHttpsRedirection();
