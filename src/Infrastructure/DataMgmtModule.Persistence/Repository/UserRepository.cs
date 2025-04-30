@@ -27,7 +27,7 @@ namespace DataMgmtModule.Persistence.Repository
                 .FirstOrDefault();
         }
 
-        public async Task<List<User>> GetAllUsersAsync() => await _context.Users.ToListAsync();
+        public async Task<List<User>> GetAllUsersAsync() => await _context.Users.Include(z=>z.Role).ToListAsync();
         public async Task<User?> GetUserByIdAsync(int id) => await _context.Users.FindAsync(id);
         public async Task<User> AddUserAsync(User user)
         {
