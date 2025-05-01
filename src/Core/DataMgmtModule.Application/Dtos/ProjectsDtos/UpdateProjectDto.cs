@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataMgmtModule.Domain.Enum.ProjectsEnums;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 {
@@ -13,11 +13,15 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         [Required]
         public string ProjectName { get; set; }
         [Required]
-        public ProjectTypes ProjectType { get; set; }
+        public int ProjectTypeId { get; set; }
+        //public ProjectTypes ProjectTypes { get; set; }
         [Required]
-        public Areas Area { get; set; }
+        public int AreaId { get; set; }
         [Required]
-        public Priorities Priority { get; set; }
+        public int StatusId { get; set; }
+        //public Areas Areas { get; set; }
+        [Required]
+        public int PriorityId { get; set; }
         [Required]
         public string Project_Description { get; set; }
         [Required]

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class ProjectTypes
+    public class Areas
     {
         public int Id { get; set; }
-        public string ProjectTypeName { get; set; }
+        public string Area { get; set; }
         public bool IsDelete { get; set; }
     }
 }

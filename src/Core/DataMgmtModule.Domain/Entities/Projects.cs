@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataMgmtModule.Domain.Enum.ProjectsEnums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
 public partial class Projects:Common
 {
+    [Key]
     public int ProjectId { get; set; }
 
     public string? ProjectName { get; set; }
 
-    public ProjectTypes? ProjectType { get; set; }
+    public int? ProjectTypeId { get; set; }
+    [ForeignKey("ProjectTypeId")]
+    public ProjectTypes ProjectTypes { get; set; }
 
-    public Areas? Area { get; set; }
+    public int? AreaId { get; set; }
+    [ForeignKey("AreaId")]
+    public Areas Areas { get; set; }
 
-    public Status? Status { get; set; }
+    public int? StatusId { get; set; }
+    [ForeignKey("StatusId")]
+    public Status Status { get; set; }
 
     public DateTime? StartDate { get; set; }
 
@@ -24,7 +32,9 @@ public partial class Projects:Common
 
     public string? Project_Description { get; set; }
 
-    public Priorities? Priority { get; set; }
+    public int? PriorityId { get; set; }
+    [ForeignKey("PriorityId")]
+    public Priorities Priorities { get; set; }
 
     public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
 
