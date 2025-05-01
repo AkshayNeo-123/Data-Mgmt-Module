@@ -4,6 +4,7 @@ using DataMgmtModule.Application.Feactures.Materials.Command.DeleteMaterials;
 using DataMgmtModule.Application.Feactures.Materials.Command.UpdateMaterials;
 using DataMgmtModule.Application.Feactures.Materials.Query.GetAllMaterials;
 using DataMgmtModule.Application.Feactures.Materials.Query.GetMaterialById;
+using DataMgmtModule.Application.Feactures.ProjectsFeactures.Commands.DeleteProject;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,10 +29,21 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteMaterial(int id)
+        //{
+        //    await _mediator.Send(new DeleteMaterialsCommand(id));
+        //    return Ok($"Material with ID {id} has been deleted.");
+        //}
+
+
         public async Task<IActionResult> DeleteMaterial(int id)
         {
-            await _mediator.Send(new DeleteMaterialsCommand(id));
-            return Ok($"Material with ID {id} has been deleted.");
+            var result = await _mediator.Send(new DeleteMaterialsCommand(id));
+            if (result == 0)
+            {
+                return Ok(new { Messge = "It is already Deleted!!" });
+            }
+            return Ok(new { Messge = "Deleted Successfully!!" });
         }
 
         [HttpPost("AddMaterials")]

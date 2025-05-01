@@ -22,24 +22,31 @@ namespace DataMgmtModule.Persistence.Repository
             return material;
         }
 
-        public async Task DeleteMaterials(int id)
+        public async Task<int> DeleteMaterials(int id)
         {
-            var material = await _context.Materials.FindAsync(id);
+            var materials = await GetByIdMaterials(id);
+            if (materials.IsDelete == false)
+            {
+                materials.IsDelete = true;
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
 
-            //if (book == null)
-            //{
-            //    throw new NotFoundException($"Book with ID {id} not found.");
-            //}
-
-            _context.Materials.Remove(material);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Materials>> GetAllMaterials()
         {
-            //return await _context.Materials.Include(x=>x.Additive).Include(m=>m.MainPolymer).Include(c=>c.Manufacturer).ToListAsync();
-            return await _context.Materials.Include(x=>x.Additive).Include(z=>z.Manufacturer).Include(s=>s.Supplier).Include(m=>m.MainPolymer).ToListAsync();
+            var materials = await _context.Materials
+                .Where(x => x.IsDelete == false)
+                .Include(x => x.Additive)
+                .Include(x => x.Manufacturer)
+                .Include(x => x.Supplier)
+                .Include(x => x.MainPolymer)
+                .ToListAsync();
+
+            return materials;
         }
+
 
         public async Task<Materials?> GetByIdMaterials(int id)
         {
@@ -66,7 +73,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.Density = material.Density;
             existingMaterial.Description = material.Description;
             existingMaterial.AdditiveId = material.AdditiveId;
-            existingMaterial.MaterialsType = material.MaterialsType;
+            //existingMaterial.MaterialsType = material.MaterialsType;
             existingMaterial.MainPolymerId = material.MainPolymerId; 
             existingMaterial.MVR_MFR = material.MVR_MFR;
             existingMaterial.TdsfilePath = material.TdsfilePath;

@@ -5,7 +5,7 @@ namespace DataMgmtModule.Application.Dtos.Materials
 {
    public class AddMaterialsDto
     {
-        public MaterialType MaterialsType { get; set; }
+        //public MaterialType MaterialsType { get; set; }
 
         public string? MaterialName { get; set; }
 

@@ -8,7 +8,7 @@ public partial class Materials: Common
     public int MaterialId { get; set; }
 
     public string? MaterialName { get; set; }
-    public int? MaterialsType { get; set; }
+    //public int? MaterialsType { get; set; }
 
     public string? Designation { get; set; }
 
@@ -33,6 +33,9 @@ public partial class Materials: Common
     public string? Description { get; set; }
 
     public int? MVR_MFR { get; set; }
+
+    public bool IsDelete { get; set; }
+
 
     public virtual Contact Manufacturer { get; set; } = null!;
 
