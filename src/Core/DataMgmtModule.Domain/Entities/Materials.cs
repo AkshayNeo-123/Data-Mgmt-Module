@@ -7,11 +7,16 @@ public partial class Materials: Common
 {
     public int MaterialId { get; set; }
 
+    public string? MaterialName { get; set; }
     public int? MaterialsType { get; set; }
 
     public string? Designation { get; set; }
 
     public int ManufacturerId { get; set; }
+
+    public int SupplierId { get; set; }  
+
+    public virtual Contact Supplier { get; set; } = null!;  
 
     public decimal? Quantity { get; set; }
 

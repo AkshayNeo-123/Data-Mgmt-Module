@@ -7,9 +7,12 @@ namespace DataMgmtModule.Application.Dtos.Materials
     {
         public MaterialType MaterialsType { get; set; }
 
+        public string? MaterialName { get; set; }
+
         public string? Designation { get; set; }
 
         public int? ManufacturerId { get; set; }
+        public int? SupplierId { get; set; }
 
         public decimal Quantity { get; set; }
 

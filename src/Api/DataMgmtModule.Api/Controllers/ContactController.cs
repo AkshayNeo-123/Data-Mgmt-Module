@@ -52,11 +52,11 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(getAllData);
         }
         [HttpGet("GetAllBoth")]
-        public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsOfManufacturerSupplier()
-        {
-            var getAllData = await _contactRepository.GetAllContactsofBoth();
-            return Ok(getAllData);
-        }
+        //public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsOfManufacturerSupplier()
+        //{
+        //    var getAllData = await _contactRepository.GetAllContactsofBoth();
+        //    return Ok(getAllData);
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult>GetContactAsync(int id)

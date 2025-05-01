@@ -38,7 +38,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<Materials>> GetAllMaterials()
         {
             //return await _context.Materials.Include(x=>x.Additive).Include(m=>m.MainPolymer).Include(c=>c.Manufacturer).ToListAsync();
-            return await _context.Materials.Include(x=>x.Additive).Include(z=>z.Manufacturer).Include(m=>m.MainPolymer).ToListAsync();
+            return await _context.Materials.Include(x=>x.Additive).Include(z=>z.Manufacturer).Include(s=>s.Supplier).Include(m=>m.MainPolymer).ToListAsync();
         }
 
         public async Task<Materials?> GetByIdMaterials(int id)
@@ -62,6 +62,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.Quantity = material.Quantity;
            
             existingMaterial.Quantity = material.Quantity;
+            existingMaterial.MaterialName = material.MaterialName;
             existingMaterial.Density = material.Density;
             existingMaterial.Description = material.Description;
             existingMaterial.AdditiveId = material.AdditiveId;

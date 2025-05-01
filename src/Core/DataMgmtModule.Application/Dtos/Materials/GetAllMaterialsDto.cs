@@ -10,12 +10,18 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public int MaterialId { get; set; }
         public MaterialType MaterialsType { get; set; }
 
+        public string? MaterialName { get; set; }
+
         public string? Designation { get; set; }
 
         public int? ManufacturerId { get; set; }
         [ForeignKey("ManufacturerId")]
-        public virtual Contact Manufacturer { get; set; } = null!; 
+        public virtual Contact Manufacturer { get; set; } = null!;
 
+
+        public int SupplierId { get; set; }
+        [ForeignKey("SupplierId")]
+        public virtual Contact Supplier { get; set; } = null!;
         public decimal Quantity { get; set; }
 
         public decimal Density { get; set; }
