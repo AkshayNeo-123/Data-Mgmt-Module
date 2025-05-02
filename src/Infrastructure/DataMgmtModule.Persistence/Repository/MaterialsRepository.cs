@@ -13,7 +13,7 @@ namespace DataMgmtModule.Persistence.Repository
             _context = context;
         }
 
-        public async Task<Materials> AddMaterials(Materials material , int? userId)
+        public async Task<Materials> AddMaterials(Materials material, int? userId)
         {
             material.CreatedDate = DateTime.Now;
             material.CreatedBy = userId;
@@ -21,6 +21,7 @@ namespace DataMgmtModule.Persistence.Repository
             await _context.SaveChangesAsync();
             return material;
         }
+
 
         public async Task<int> DeleteMaterials(int id)
         {
@@ -42,6 +43,8 @@ namespace DataMgmtModule.Persistence.Repository
                 .Include(x => x.Manufacturer)
                 .Include(x => x.Supplier)
                 .Include(x => x.MainPolymer)
+                .Include(x => x.MvrMfr)
+                .Include(x => x.StorageLocation)
                 .ToListAsync();
 
             return materials;
@@ -75,10 +78,10 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.AdditiveId = material.AdditiveId;
             //existingMaterial.MaterialsType = material.MaterialsType;
             existingMaterial.MainPolymerId = material.MainPolymerId; 
-            existingMaterial.MVR_MFR = material.MVR_MFR;
+            existingMaterial.MvrMfrId = material.MvrMfrId;
             existingMaterial.TdsfilePath = material.TdsfilePath;
             existingMaterial.MsdsfilePath = material.MsdsfilePath;
-            existingMaterial.StorageLocation = material.StorageLocation; 
+            existingMaterial.StorageLocationId = material.StorageLocationId; 
             existingMaterial.TestMethod = material.TestMethod;
             existingMaterial.ManufacturerId = material.ManufacturerId;
             existingMaterial.ModifiedDate = DateTime.Now;

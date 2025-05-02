@@ -54,22 +54,32 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.ContactType == ContactTypes.Manufacturer).ToListAsync();
-            if (getAllData == null)
+            var getAllData = await _persistenceDbContext.Contacts
+                .Where(x => x.ContactType == ContactTypes.Manufacturer || x.ContactType == ContactTypes.Both)
+                .ToListAsync();
+
+            if (getAllData == null || !getAllData.Any()) 
             {
-                throw new NotFoundException("Contact Data Not  Found");
+                throw new NotFoundException("Contact Data Not Found");
             }
+
             return getAllData;
         }
+
         public async Task<IEnumerable<Contact>> GetAllContactsofSupplier()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Supplier).ToListAsync();
-            if (getAllData == null)
+            var getAllData = await _persistenceDbContext.Contacts
+                .Where(x => x.ContactType == ContactTypes.Supplier || x.ContactType == ContactTypes.Both)
+                .ToListAsync();
+
+            if (getAllData == null || !getAllData.Any()) 
             {
-                throw new NotFoundException("Contact Data Not  Found");
+                throw new NotFoundException("Contact Data Not Found");
             }
+
             return getAllData;
         }
+
         public async Task<IEnumerable<Contact>> GetAllContactsofBoth()
         {
             var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Both).ToListAsync();

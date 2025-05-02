@@ -1,14 +1,12 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using DataMgmtModule.Domain.Entities;
-using DataMgmtModule.Domain.Enum.MaterialsEnum;
 
 namespace DataMgmtModule.Application.Dtos.Materials
 {
    public class GetAllMaterialsDto
     {
         public int MaterialId { get; set; }
-        public MaterialType MaterialsType { get; set; }
 
         public string? MaterialName { get; set; }
 
@@ -32,11 +30,14 @@ namespace DataMgmtModule.Application.Dtos.Materials
 
         public string? MSDSFilePath { get; set; }
 
-        public StorageLocation StorageLocation { get; set; }
+        public int? MvrMfrId { get; set; }
 
+        public int? StorageLocationId { get; set; }
+
+        public virtual StorageLocation? StorageLocation { get; set; }
+        public virtual MvrMfr? MvrMfr { get; set; }
         public string? Description { get; set; }
 
-        public MvrMfrType MVR_MFR { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }

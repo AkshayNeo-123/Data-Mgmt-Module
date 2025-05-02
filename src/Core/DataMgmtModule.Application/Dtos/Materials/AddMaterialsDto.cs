@@ -1,5 +1,4 @@
 ﻿
-using DataMgmtModule.Domain.Enum.MaterialsEnum;
 
 namespace DataMgmtModule.Application.Dtos.Materials
 {
@@ -24,11 +23,12 @@ namespace DataMgmtModule.Application.Dtos.Materials
 
         public string? MSDSFilePath { get; set; }
 
-        public StorageLocation StorageLocation { get; set; }
+        public int? MvrMfrId { get; set; }
+
+        public int? StorageLocationId { get; set; }
 
         public string? Description { get; set; }
 
-        public MvrMfrType MVR_MFR { get; set; }
 
         public int AdditiveId { get; set; }
 

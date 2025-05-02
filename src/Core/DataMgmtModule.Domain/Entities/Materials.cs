@@ -28,12 +28,15 @@ public partial class Materials: Common
 
     public string? MsdsfilePath { get; set; }
 
-    public int? StorageLocation { get; set; } 
 
     public string? Description { get; set; }
 
-    public int? MVR_MFR { get; set; }
+    public int? MvrMfrId { get; set; }
 
+    // Foreign key for StorageLocation
+    public int? StorageLocationId { get; set; }
+    public virtual StorageLocation? StorageLocation { get; set; }
+    public virtual MvrMfr? MvrMfr { get; set; }
     public bool IsDelete { get; set; }
 
 
