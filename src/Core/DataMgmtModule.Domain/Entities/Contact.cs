@@ -25,6 +25,7 @@ public partial class Contact
     public string Email { get; set; } = null!;
 
     public string? Phone { get; set; }
+    public bool isDelete { get; set; }
     public int? CreatedBy { get; set; }
     public int? updatedBy { get; set; }
     public DateTime? CreatedDate { get; set; }

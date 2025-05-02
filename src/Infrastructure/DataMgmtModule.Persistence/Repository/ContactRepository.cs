@@ -34,18 +34,23 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> DeleteContactAsync(int id)
         {
             var getData = await _persistenceDbContext.Contacts.FindAsync(id);
-            if (getData == null)
+            //if (getData == null)
+            //{
+            //    throw new NotFoundException($"Contact data with id {id} not found");
+            //}
+            if (getData.isDelete == false)
             {
-                throw new NotFoundException($"Contact data with id {id} not found");
+                getData.isDelete = true;
+                await _persistenceDbContext.SaveChangesAsync();
+
             }
-            _persistenceDbContext.Contacts.Remove(getData);
-            await _persistenceDbContext.SaveChangesAsync();
+            //_persistenceDbContext.Contacts.Remove(getData);
             return true;
         }
 
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
-            var getAllData = await _persistenceDbContext.Contacts.ToListAsync();
+            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.isDelete==false).ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");

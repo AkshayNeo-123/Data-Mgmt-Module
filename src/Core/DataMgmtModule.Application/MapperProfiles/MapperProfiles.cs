@@ -59,6 +59,7 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<InjectionMolding, AddInjectionMoldingDto>().ReverseMap();
 
             CreateMap<Contact, AddContactDTO>().ReverseMap();
+            CreateMap<Contact, GetAllContacts>().ReverseMap();
 
         }
     }

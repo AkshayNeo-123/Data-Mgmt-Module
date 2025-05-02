@@ -19,7 +19,7 @@ namespace DataMgmtModule.Persistence.Repository
             _context = context;
         }
 
-        public async Task<List<Additive>> GetAllAsync() => await _context.Additives.ToListAsync();
+        public async Task<List<Additive>> GetAllAsync() => await _context.Additives.Where(x=>x.isDelete==false).ToListAsync();
 
         public async Task<Additive?> GetByIdAsync(int id) => await _context.Additives.FindAsync(id);
 
@@ -52,10 +52,15 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> DeleteAsync(int id)
         {
             var additive = await _context.Additives.FindAsync(id);
-            if (additive == null) return false;
+            //if (additive == null) return false;
 
-            _context.Additives.Remove(additive);
-            await _context.SaveChangesAsync();
+            //_context.Additives.Remove(additive);
+            if (additive.isDelete == false)
+            {
+                additive.isDelete = true;
+                await _context.SaveChangesAsync();
+
+            }
             return true;
         }
     }
