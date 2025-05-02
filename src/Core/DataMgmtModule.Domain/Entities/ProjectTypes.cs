@@ -9,7 +9,7 @@ namespace DataMgmtModule.Domain.Entities
     public class ProjectTypes
     {
         public int Id { get; set; }
-        public int ProjectTypeName { get; set; }
-        public Boolean IsDelete { get; set; }
+        public string ProjectTypeName { get; set; }
+        public bool IsDelete { get; set; }
     }
 }
