@@ -61,6 +61,9 @@ namespace DataMgmtModule.Persistence
 
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
+        public virtual DbSet<MvrMfr> MvrMfr { get; set; }
+
+        public virtual DbSet<StorageLocation> StorageLocation { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ProjectTypes> ProjectTypes { get; set; }
         public virtual DbSet<Areas> Areas { get; set; }
@@ -266,7 +269,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("MSDSFilePath");
-                entity.Property(e => e.MVR_MFR).HasColumnName("MVR_MFR");
+                //entity.Property(e => e.MvrMfrId).HasColumnName("MvrMfrId");
                 entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
                 entity.Property(e => e.TdsfilePath)
                     .HasMaxLength(255)

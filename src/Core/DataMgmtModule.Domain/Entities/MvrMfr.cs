@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class ProjectTypes
+    public class MvrMfr
     {
         public int Id { get; set; }
-        public string ProjectTypeName { get; set; }
-        public bool IsDelete { get; set; }
+        [MaxLength(100)]
+        public string Name { get; set; }
+
     }
+
 }

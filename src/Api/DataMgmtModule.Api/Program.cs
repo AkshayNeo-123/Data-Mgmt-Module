@@ -6,6 +6,7 @@ using DataMgmtModule.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using DataMgmtModule.Api.Services;
+using Microsoft.Extensions.FileProviders;
 
 namespace DataMgmtModule.Api
 {
@@ -68,10 +69,16 @@ namespace DataMgmtModule.Api
             builder.Host.UseSerilog();
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
             {
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/Uploads"
+            });
+            // Configure the HTTP request pipeline.
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
         }
