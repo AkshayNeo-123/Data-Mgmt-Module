@@ -23,7 +23,7 @@ namespace DataMgmtModule.Persistence.Repository
             try
             {
 
-               return await _context.MainPolymers.Where(x=>x.isDelete==false).ToListAsync();
+               return await _context.MainPolymers.Where(x=>x.IsDelete==false).ToListAsync();
             }
             catch (Exception Ex)
             {
@@ -38,6 +38,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var polymer = new MainPolymer
             {
+                IsDelete=false,
                 PolymerName = dto.PolymerName,
                 CreatedBy = userId,
                 CreatedDate = DateTime.Now
@@ -67,9 +68,9 @@ namespace DataMgmtModule.Persistence.Repository
 
             //_context.MainPolymers.Remove(polymer);
 
-            if (polymer.isDelete == false)
+            if (polymer.IsDelete == false)
             {
-                polymer.isDelete = true;
+                polymer.IsDelete = true;
                 await _context.SaveChangesAsync();
 
             }
