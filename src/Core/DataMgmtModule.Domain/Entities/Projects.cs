@@ -11,6 +11,7 @@ public partial class Projects:Common
     public int ProjectId { get; set; }
 
     public string? ProjectName { get; set; }
+    public string? ProjectNumber { get; set; }
 
     public int? ProjectTypeId { get; set; }
     [ForeignKey("ProjectTypeId")]

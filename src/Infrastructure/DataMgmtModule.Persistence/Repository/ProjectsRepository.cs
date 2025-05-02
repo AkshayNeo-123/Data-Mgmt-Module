@@ -87,17 +87,23 @@ namespace DataMgmtModule.Persistence.Repository
             var project = await GetProjectById(id);
             project.ModifiedDate = DateTime.Now;
             project.ModifiedBy = userId;
-            
+            project.StatusId = updatedProject.StatusId;
 
             project.PriorityId = updatedProject.PriorityId;
             project.ProjectName = updatedProject.ProjectName;
             project.Project_Description = updatedProject.Project_Description;
             project.ProjectTypeId = updatedProject.ProjectTypeId;
             project.AreaId = updatedProject.AreaId;
+            //if (updatedProject.StartDate!=null)
+            //{
+
             project.StartDate = updatedProject.StartDate;
+            //}
             project.EndDate = updatedProject.EndDate;
             return await _persistenceDbContext.SaveChangesAsync();
 
         }
+        
+
     }
 }

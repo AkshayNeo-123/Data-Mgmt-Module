@@ -16,6 +16,8 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         
         [Required]
         public string ProjectName { get; set; }
+        [Required]
+        public string? ProjectNumber { get; set; }
         //[Required]
         public int? ProjectTypeId { get; set; }
         //public ProjectTypes ProjectTypes { get; set; }
