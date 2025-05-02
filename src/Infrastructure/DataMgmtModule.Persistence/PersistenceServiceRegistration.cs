@@ -32,6 +32,19 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IMainPolymerRepository, MainPolymerRepository>();
             services.AddScoped<IAdditiveRepository, AdditiveRepository>();
+            services.AddScoped<IAreasRepository, AreasRepository>();
+            services.AddScoped<IPrioritiesRepository, PrioritiesRepository>();
+            services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<IMaterialMasterRepository, MaterialMasterRepository>();
+            
+
+            
+
+           
+
+
+
 
             return services;
         }

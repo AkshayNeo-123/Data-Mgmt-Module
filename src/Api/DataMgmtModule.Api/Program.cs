@@ -76,14 +76,14 @@ namespace DataMgmtModule.Api
         Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
                 RequestPath = "/Uploads"
             });
-            // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
+            //Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-        }
+            }
 
-        app.UseSession();
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseCors("AllowAll");
