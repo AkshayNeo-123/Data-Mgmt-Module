@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
-using DataMgmtModule.Domain.Enum.ProjectsEnums;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -21,7 +20,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> AddProject(Projects project, int? userId)
         {
-            project.Status = Status.Planed;
+            
             project.IsDelete = false;
             project.CreatedDate = DateTime.Now;
             project.CreatedBy = 1;
@@ -32,7 +31,7 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<IEnumerable<Projects>> GetAllProjects()
         {
-            var projects = await _persistenceDbContext.Projects.Where(x=>x.IsDelete==false).ToListAsync();
+            var projects = await _persistenceDbContext.Projects.Where(x=>x.IsDelete==false).Include(x=>x.ProjectTypes).Include(x => x.Areas).Include(x => x.Priorities).Include(x => x.Status).ToListAsync();
             //foreach(var project in projects)
             //{
             //    if (project.Status == Status.OnGoing)
@@ -88,16 +87,23 @@ namespace DataMgmtModule.Persistence.Repository
             var project = await GetProjectById(id);
             project.ModifiedDate = DateTime.Now;
             project.ModifiedBy = userId;
+            project.StatusId = updatedProject.StatusId;
 
-            project.Priority = updatedProject.Priority;
+            project.PriorityId = updatedProject.PriorityId;
             project.ProjectName = updatedProject.ProjectName;
             project.Project_Description = updatedProject.Project_Description;
-            project.ProjectType = updatedProject.ProjectType;
-            project.Area = updatedProject.Area;
+            project.ProjectTypeId = updatedProject.ProjectTypeId;
+            project.AreaId = updatedProject.AreaId;
+            //if (updatedProject.StartDate!=null)
+            //{
+
             project.StartDate = updatedProject.StartDate;
+            //}
             project.EndDate = updatedProject.EndDate;
             return await _persistenceDbContext.SaveChangesAsync();
 
         }
+        
+
     }
 }

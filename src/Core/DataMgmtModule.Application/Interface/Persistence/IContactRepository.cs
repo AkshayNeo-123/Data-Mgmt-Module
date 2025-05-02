@@ -16,5 +16,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<bool>DeleteContactAsync(int id);
         Task<IEnumerable<Contact>> GetAllContactsofmanufacturer();
         Task<IEnumerable<Contact>> GetAllContactsofSupplier();
+        Task<IEnumerable<Contact>> GetAllContactsofBoth();
     }
 }

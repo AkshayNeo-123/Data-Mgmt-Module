@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class MvrMfr
+    public class Areas
     {
         public int Id { get; set; }
-        [MaxLength(100)]
-        public string Name { get; set; }
-
+        public string Area { get; set; }
+        public bool IsDelete { get; set; }
     }
-
 }
