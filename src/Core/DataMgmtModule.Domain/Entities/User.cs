@@ -24,4 +24,5 @@ public partial class User
     public DateTime? CreatedDate { get; set; }
 
     public virtual Roles? Role { get; set; }
+    public bool isDelete { get; set; } = false;
 }

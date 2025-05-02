@@ -27,7 +27,11 @@ namespace DataMgmtModule.Persistence.Repository
                 .FirstOrDefault();
         }
 
-        public async Task<List<User>> GetAllUsersAsync() => await _context.Users.Include(z=>z.Role).ToListAsync();
+        public async Task<List<User>> GetAllUsersAsync() => 
+            await _context.Users
+                .Include(z=>z.Role)
+                .Where(u=>!u.isDelete)
+                .ToListAsync();
         public async Task<User?> GetUserByIdAsync(int id) => await _context.Users.FindAsync(id);
         public async Task<User> AddUserAsync(User user)
         {
@@ -49,7 +53,8 @@ namespace DataMgmtModule.Persistence.Repository
             var user = await _context.Users.FindAsync(id);
             if(user == null) return false;
 
-            _context.Users.Remove(user);
+            user.isDelete = true;
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;
         }
