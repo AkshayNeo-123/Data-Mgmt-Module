@@ -25,16 +25,16 @@ namespace DataMgmtModule.Persistence.Repository
             var email = await _persistenceDbContext.Users.Where(x => x.Email == loginRequest.Email).FirstOrDefaultAsync();
             if (email == null)
             {
-                throw new NotFoundException("Email Id is Wrong");
+                throw new NotFoundException("Invalid Username or Password");
             }
             if (email.PasswordHash != loginRequest.Password)
             {
-                throw new NotFoundException("Password is Wrong");
+                throw new NotFoundException("Invalid Username or Password");
             }
 
-            if (email.Status.Equals("InActive"))
+            if (email.Status.Equals("InActive") || email.isDelete == true)
             {
-                throw new InActiveUserException("User is InActive");
+                throw new InActiveUserException("User doesn't exist");
             }
             var response = new LoginResponse
             {

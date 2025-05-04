@@ -6,6 +6,7 @@ namespace DataMgmtModule.Application.Dtos.Materials
   public class UpdateMaterialsDto
     {
         public int? MaterialsType { get; set; }
+        public string? MaterialName { get; set; }
         public int ManufacturerId { get; set; }
 
         public decimal? Quantity { get; set; }

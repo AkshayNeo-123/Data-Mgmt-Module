@@ -3,13 +3,6 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.Materials.Command.DeleteMaterials
 {
-  public class DeleteMaterialsCommand : IRequest<Unit>
-    {
-        public int MaterialId { get; set; }
+    public record DeleteMaterialsCommand(int id) : IRequest<int>;
 
-        public DeleteMaterialsCommand(int id)
-        {
-            MaterialId = id;
-        }
-    }
 }

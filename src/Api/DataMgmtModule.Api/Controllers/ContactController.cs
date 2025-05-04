@@ -45,6 +45,18 @@ namespace DataMgmtModule.Api.Controllers
             var getAllData = await _contactRepository.GetAllContactsofmanufacturer();
             return Ok(getAllData);
         }
+        [HttpGet("GetAllSupplier")]
+        public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsOfSupplier()
+        {
+            var getAllData = await _contactRepository.GetAllContactsofSupplier();
+            return Ok(getAllData);
+        }
+        [HttpGet("GetAllBoth")]
+        //public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsOfManufacturerSupplier()
+        //{
+        //    var getAllData = await _contactRepository.GetAllContactsofBoth();
+        //    return Ok(getAllData);
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult>GetContactAsync(int id)

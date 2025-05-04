@@ -61,12 +61,19 @@ namespace DataMgmtModule.Persistence
 
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
+        public virtual DbSet<MvrMfr> MvrMfr { get; set; }
+
+        public virtual DbSet<StorageLocation> StorageLocation { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ProjectTypes> ProjectTypes { get; set; }
+        public virtual DbSet<Areas> Areas { get; set; }
+        public virtual DbSet<Priorities> Priorities { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
 
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
+        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        //        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -262,7 +269,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("MSDSFilePath");
-                entity.Property(e => e.MVR_MFR).HasColumnName("MVR_MFR");
+                //entity.Property(e => e.MvrMfrId).HasColumnName("MvrMfrId");
                 entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
                 entity.Property(e => e.TdsfilePath)
                     .HasMaxLength(255)

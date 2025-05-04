@@ -23,7 +23,7 @@ namespace DataMgmtModule.Persistence.Repository
             try
             {
 
-               return await _context.MainPolymers.ToListAsync();
+               return await _context.MainPolymers.Where(x=>x.isDelete==false).ToListAsync();
             }
             catch (Exception Ex)
             {
@@ -63,10 +63,16 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> DeleteAsync(int id)
         {
             var polymer = await _context.MainPolymers.FindAsync(id);
-            if (polymer == null) return false;
+            //if (polymer == null) return false;
 
-            _context.MainPolymers.Remove(polymer);
-            await _context.SaveChangesAsync();
+            //_context.MainPolymers.Remove(polymer);
+
+            if (polymer.isDelete == false)
+            {
+                polymer.isDelete = true;
+                await _context.SaveChangesAsync();
+
+            }
             return true;
         }
     }

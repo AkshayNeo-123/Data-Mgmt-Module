@@ -34,18 +34,23 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> DeleteContactAsync(int id)
         {
             var getData = await _persistenceDbContext.Contacts.FindAsync(id);
-            if (getData == null)
+            //if (getData == null)
+            //{
+            //    throw new NotFoundException($"Contact data with id {id} not found");
+            //}
+            if (getData.isDelete == false)
             {
-                throw new NotFoundException($"Contact data with id {id} not found");
+                getData.isDelete = true;
+                await _persistenceDbContext.SaveChangesAsync();
+
             }
-            _persistenceDbContext.Contacts.Remove(getData);
-            await _persistenceDbContext.SaveChangesAsync();
+            //_persistenceDbContext.Contacts.Remove(getData);
             return true;
         }
 
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
-            var getAllData = await _persistenceDbContext.Contacts.ToListAsync();
+            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.isDelete==false).ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");
@@ -54,22 +59,32 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.ContactType == ContactTypes.Manufacturer).ToListAsync();
-            if (getAllData == null)
+            var getAllData = await _persistenceDbContext.Contacts
+                .Where(x => x.ContactType == ContactTypes.Manufacturer || x.ContactType == ContactTypes.Both)
+                .ToListAsync();
+
+            if (getAllData == null || !getAllData.Any()) 
             {
-                throw new NotFoundException("Contact Data Not  Found");
+                throw new NotFoundException("Contact Data Not Found");
             }
+
             return getAllData;
         }
+
         public async Task<IEnumerable<Contact>> GetAllContactsofSupplier()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Supplier).ToListAsync();
-            if (getAllData == null)
+            var getAllData = await _persistenceDbContext.Contacts
+                .Where(x => x.ContactType == ContactTypes.Supplier || x.ContactType == ContactTypes.Both)
+                .ToListAsync();
+
+            if (getAllData == null || !getAllData.Any()) 
             {
-                throw new NotFoundException("Contact Data Not  Found");
+                throw new NotFoundException("Contact Data Not Found");
             }
+
             return getAllData;
         }
+
         public async Task<IEnumerable<Contact>> GetAllContactsofBoth()
         {
             var getAllData = await _persistenceDbContext.Contacts.Where(x => x.ContactType == ContactTypes.Both).ToListAsync();

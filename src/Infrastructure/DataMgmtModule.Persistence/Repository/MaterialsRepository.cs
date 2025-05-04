@@ -13,7 +13,7 @@ namespace DataMgmtModule.Persistence.Repository
             _context = context;
         }
 
-        public async Task<Materials> AddMaterials(Materials material , int? userId)
+        public async Task<Materials> AddMaterials(Materials material, int? userId)
         {
             material.CreatedDate = DateTime.Now;
             material.CreatedBy = userId;
@@ -22,24 +22,34 @@ namespace DataMgmtModule.Persistence.Repository
             return material;
         }
 
-        public async Task DeleteMaterials(int id)
+
+        public async Task<int> DeleteMaterials(int id)
         {
-            var material = await _context.Materials.FindAsync(id);
+            var materials = await GetByIdMaterials(id);
+            if (materials.IsDelete == false)
+            {
+                materials.IsDelete = true;
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
 
-            //if (book == null)
-            //{
-            //    throw new NotFoundException($"Book with ID {id} not found.");
-            //}
-
-            _context.Materials.Remove(material);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Materials>> GetAllMaterials()
         {
-            //return await _context.Materials.Include(x=>x.Additive).Include(m=>m.MainPolymer).Include(c=>c.Manufacturer).ToListAsync();
-            return await _context.Materials.Include(x=>x.Additive).Include(z=>z.Manufacturer).Include(m=>m.MainPolymer).ToListAsync();
+            var materials = await _context.Materials
+                .Where(x => x.IsDelete == false)
+                .Include(x => x.Additive)
+                .Include(x => x.Manufacturer)
+                .Include(x => x.Supplier)
+                .Include(x => x.MainPolymer)
+                .Include(x => x.MvrMfr)
+                .Include(x => x.StorageLocation)
+                .ToListAsync();
+
+            return materials;
         }
+
 
         public async Task<Materials?> GetByIdMaterials(int id)
         {
@@ -62,15 +72,16 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.Quantity = material.Quantity;
            
             existingMaterial.Quantity = material.Quantity;
+            existingMaterial.MaterialName = material.MaterialName;
             existingMaterial.Density = material.Density;
             existingMaterial.Description = material.Description;
             existingMaterial.AdditiveId = material.AdditiveId;
-            existingMaterial.MaterialsType = material.MaterialsType;
+            //existingMaterial.MaterialsType = material.MaterialsType;
             existingMaterial.MainPolymerId = material.MainPolymerId; 
-            existingMaterial.MVR_MFR = material.MVR_MFR;
+            existingMaterial.MvrMfrId = material.MvrMfrId;
             existingMaterial.TdsfilePath = material.TdsfilePath;
             existingMaterial.MsdsfilePath = material.MsdsfilePath;
-            existingMaterial.StorageLocation = material.StorageLocation; 
+            existingMaterial.StorageLocationId = material.StorageLocationId; 
             existingMaterial.TestMethod = material.TestMethod;
             existingMaterial.ManufacturerId = material.ManufacturerId;
             existingMaterial.ModifiedDate = DateTime.Now;

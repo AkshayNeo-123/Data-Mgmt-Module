@@ -11,7 +11,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.ContactFeatures.Query.GetAllContactcsData
 {
-    public class GetAllContactsQueryhandler : IRequestHandler<GetAllContactsQuery, IEnumerable<AddContactDTO>>
+    public class GetAllContactsQueryhandler : IRequestHandler<GetAllContactsQuery, IEnumerable<GetAllContacts>>
     {
         private readonly IContactRepository _contactRepository;
         private readonly IMapper _mapper;
@@ -20,10 +20,10 @@ namespace DataMgmtModule.Application.Feactures.ContactFeatures.Query.GetAllConta
             _contactRepository = contactRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<AddContactDTO>> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetAllContacts>> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)
         {
             var getAllData = await _contactRepository.GetAllContacts();
-            var mappedResult = _mapper.Map<IEnumerable<AddContactDTO>>(getAllData);
+            var mappedResult = _mapper.Map<IEnumerable<GetAllContacts>>(getAllData);
             return mappedResult;
 
         }

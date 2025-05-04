@@ -9,6 +9,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<Materials?> GetByIdMaterials(int id);
         Task<Materials> AddMaterials(Materials material,int? userId);
         Task UpdateMaterials(Materials material,int? userId);
-        Task DeleteMaterials(int id);
+        Task <int> DeleteMaterials(int id);
+      
     }
 }

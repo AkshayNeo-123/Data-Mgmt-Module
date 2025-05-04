@@ -7,11 +7,16 @@ public partial class Materials: Common
 {
     public int MaterialId { get; set; }
 
-    public int? MaterialsType { get; set; }
+    public string? MaterialName { get; set; }
+    //public int? MaterialsType { get; set; }
 
     public string? Designation { get; set; }
 
     public int ManufacturerId { get; set; }
+
+    public int SupplierId { get; set; }  
+
+    public virtual Contact Supplier { get; set; } = null!;  
 
     public decimal? Quantity { get; set; }
 
@@ -23,11 +28,17 @@ public partial class Materials: Common
 
     public string? MsdsfilePath { get; set; }
 
-    public int? StorageLocation { get; set; } 
 
     public string? Description { get; set; }
 
-    public int? MVR_MFR { get; set; }
+    public int? MvrMfrId { get; set; }
+
+    // Foreign key for StorageLocation
+    public int? StorageLocationId { get; set; }
+    public virtual StorageLocation? StorageLocation { get; set; }
+    public virtual MvrMfr? MvrMfr { get; set; }
+    public bool IsDelete { get; set; }
+
 
     public virtual Contact Manufacturer { get; set; } = null!;
 

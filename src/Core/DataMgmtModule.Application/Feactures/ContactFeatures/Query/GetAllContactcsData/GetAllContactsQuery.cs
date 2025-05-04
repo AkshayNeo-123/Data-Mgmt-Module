@@ -9,7 +9,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.ContactFeatures.Query.GetAllContactcsData
 {
-    public record GetAllContactsQuery():IRequest<IEnumerable<AddContactDTO>>
+    public record GetAllContactsQuery():IRequest<IEnumerable<GetAllContacts>>
     {
     }
 }
