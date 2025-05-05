@@ -23,7 +23,7 @@ namespace DataMgmtModule.Persistence.Repository
             
             project.IsDelete = false;
             project.CreatedDate = DateTime.Now;
-            project.CreatedBy = 1;
+            
 
             _persistenceDbContext.Add(project);
             return await _persistenceDbContext.SaveChangesAsync();
@@ -86,7 +86,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var project = await GetProjectById(id);
             project.ModifiedDate = DateTime.Now;
-            project.ModifiedBy = userId;
+            project.ModifiedBy = updatedProject.ModifiedBy;
             project.StatusId = updatedProject.StatusId;
 
             project.PriorityId = updatedProject.PriorityId;

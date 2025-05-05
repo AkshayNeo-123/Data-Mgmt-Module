@@ -19,7 +19,9 @@ namespace DataMgmtModule.Application.Dtos.Materials
 
         public string? MsdsfilePath { get; set; }
 
-        public int? StorageLocation { get; set; }
+        public int? StorageLocationId { get; set; }
+
+        public int? MvrMfrId { get; set; }
 
         public string? Description { get; set; }
 
@@ -29,8 +31,7 @@ namespace DataMgmtModule.Application.Dtos.Materials
 
         public int MainPolymerId { get; set; }
 
-        public int? StorageLocationId { get; set; }
+        public int? ModifiedBy { get; set; }
 
-        public int? MvrMfrId { get; set; }
     }
 }

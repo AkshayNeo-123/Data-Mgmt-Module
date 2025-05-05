@@ -21,7 +21,7 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         public Areas Areas { get; set; }
         [Required]
         public int? StatusId { get; set; }
-        public Status Status { get; set; }
+        public Status Status { get; set; }            
 
         public int? PriorityId { get; set; }
         public Priorities Priorities { get; set; }

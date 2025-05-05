@@ -33,6 +33,8 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
+        public int? CreatedBy { get; set; }
+
 
 
 
