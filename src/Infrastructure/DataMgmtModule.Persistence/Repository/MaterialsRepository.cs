@@ -16,7 +16,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<Materials> AddMaterials(Materials material, int? userId)
         {
             material.CreatedDate = DateTime.Now;
-            material.CreatedBy = userId;
+            //material.CreatedBy = userId;
             _context.Materials.Add(material);
             await _context.SaveChangesAsync();
             return material;
@@ -85,7 +85,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.TestMethod = material.TestMethod;
             existingMaterial.ManufacturerId = material.ManufacturerId;
             existingMaterial.ModifiedDate = DateTime.Now;
-            existingMaterial.ModifiedBy = userId;
+            existingMaterial.ModifiedBy = material.ModifiedBy;
 
             await _context.SaveChangesAsync();
         }
