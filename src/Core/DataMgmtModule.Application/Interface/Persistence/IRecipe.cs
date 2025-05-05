@@ -1,4 +1,5 @@
 ﻿
+using DataMgmtModule.Application.Dtos.RecipeDtos;
 using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Interface.Persistence
@@ -10,7 +11,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> UpdateRecipe(int id,Recipe recipe, int? userId); 
         Task<int> UpdateRecipeComponent(int id, RecipeComponent[] recipeComponent,int? userId);
         Task<Recipe> RecipeFindById(int id);
-        Task<IEnumerable<Recipe>> GetAllRecipes();
+        Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes();
         
     }
 }

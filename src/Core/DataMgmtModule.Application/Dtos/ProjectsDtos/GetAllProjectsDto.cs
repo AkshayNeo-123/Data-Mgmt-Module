@@ -4,26 +4,34 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataMgmtModule.Domain.Enum.ProjectsEnums;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos.ProjectsDtos
 {
     public class GetAllProjectsDto
     {
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public string? ProjectNumber { get; set; }
         [Required]
-        public ProjectTypes ProjectType { get; set; }
+        public int ProjectTypeId { get; set; }
+        public ProjectTypes ProjectTypes { get; set; }
         [Required]
-        public Areas Area { get; set; }
+        public int AreaId { get; set; }
+        public Areas Areas { get; set; }
         [Required]
+        public int? StatusId { get; set; }
         public Status Status { get; set; }
+
+        public int? PriorityId { get; set; }
+        public Priorities Priorities { get; set; }
         public string? Project_Description { get; set; }
         [Required]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         [Required]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         [Required]
-        public byte IsDelete { get; set; }
+        //public byte IsDelete { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }

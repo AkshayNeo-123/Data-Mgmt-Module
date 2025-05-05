@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using DataMgmtModule.Application.Dtos.AdditiveDtos;
 using DataMgmtModule.Application.Dtos.Materials;
 using DataMgmtModule.Application.Interface.Persistence;
 using MediatR;
@@ -19,6 +20,11 @@ namespace DataMgmtModule.Application.Feactures.Materials.Query.GetAllMaterials
         public async Task<IEnumerable<GetAllMaterialsDto>> Handle(GetAllMaterialsQuery request, CancellationToken cancellationToken)
         {
             var materials = await _materialsRepository.GetAllMaterials();
+            //foreach(var material in materials)
+            //{
+            //var additive= _mapper.Map <DisplayAdditive>(materials.)
+
+            //}
             return _mapper.Map<IEnumerable<GetAllMaterialsDto>>(materials);
         }
     }

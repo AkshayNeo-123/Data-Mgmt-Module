@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Application.Dtos.RecipeDtos;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
@@ -19,10 +20,37 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-        public async Task<IEnumerable<Recipe>> GetAllRecipes()
+        public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
         {
-            return await _persistenceDbContext.Recipes.ToListAsync();
+            //return await _persistenceDbContext.Recipes.Include(x=>x.Additive).Include(x=>x.MainPolymer).ToListAsync();
+            return await _persistenceDbContext.Recipes.Select(r => new GetAllRecipeDtos
+            {
+                
+                ProductName = r.ProductName,
+                Comments=r.Comments,
+                
+                    ProjectName=r.Project.ProjectName,
+                
+                CreatedBy=r.CreatedBy,
+                ModifiedBy=r.ModifiedBy,
+                CreatedDate= (DateTime)r.CreatedDate,
+                ModifiedDate=r.ModifiedDate,
+
+                
+                    AdditiveName = r.Additive.AdditiveName,
+               
+                  PolymerName = r.MainPolymer.PolymerName,
+                
+            }).ToListAsync(); ;
         }
+        //public string Comments { get; set; }
+        //public int ProjectId { get; set; }
+        //public DateTime CreatedDate { get; set; }
+        //public int? CreatedBy { get; set; }
+        //public int? ModifiedBy { get; set; }
+        //public DateTime? ModifiedDate { get; set; }
+        //public int AdditiveId { get; set; }
+        //public int MainPolymerId { get; set; }
         public async Task<int> AddRecipe(Recipe recipe, int? userId)
         {
             recipe.CreatedDate = DateTime.Now;

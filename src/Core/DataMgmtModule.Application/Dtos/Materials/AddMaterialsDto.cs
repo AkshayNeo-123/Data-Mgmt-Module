@@ -1,15 +1,17 @@
 ﻿
-using DataMgmtModule.Domain.Enum.MaterialsEnum;
 
 namespace DataMgmtModule.Application.Dtos.Materials
 {
    public class AddMaterialsDto
     {
-        public MaterialType MaterialsType { get; set; }
+        //public MaterialType MaterialsType { get; set; }
+
+        public string? MaterialName { get; set; }
 
         public string? Designation { get; set; }
 
         public int? ManufacturerId { get; set; }
+        public int? SupplierId { get; set; }
 
         public decimal Quantity { get; set; }
 
@@ -21,10 +23,15 @@ namespace DataMgmtModule.Application.Dtos.Materials
 
         public string? MSDSFilePath { get; set; }
 
-        public StorageLocation StorageLocation { get; set; }
+        public int? MvrMfrId { get; set; }
+
+        public int? StorageLocationId { get; set; }
 
         public string? Description { get; set; }
 
-        public MvrMfrType MVR_MFR { get; set; }
+
+        public int AdditiveId { get; set; }
+
+        public int MainPolymerId { get; set; }
     }
 }

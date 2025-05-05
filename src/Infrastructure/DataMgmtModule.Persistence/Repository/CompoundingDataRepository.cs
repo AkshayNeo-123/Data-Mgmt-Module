@@ -18,6 +18,15 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
+        public async Task<IEnumerable<CompoundingDatum>> GetAllCompoundingDatumAsync()
+        {
+            var getAllData = await _persistenceDbContext.CompoundingData.ToListAsync();
+            if (getAllData == null)
+            {
+                throw new NotFoundException("Compounding Data Not Found");
+            }
+            return getAllData;
+        }
         public async Task<int>AddCompoundingData(CompoundingDatum compoundingData, int? userId)
         {
             var result = await _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();

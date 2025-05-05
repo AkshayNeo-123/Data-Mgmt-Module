@@ -5,6 +5,8 @@ using Serilog;
 using DataMgmtModule.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using DataMgmtModule.Api.Services;
+using Microsoft.Extensions.FileProviders;
 
 namespace DataMgmtModule.Api
 {
@@ -14,23 +16,38 @@ namespace DataMgmtModule.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
 
             // Add services to the container.
 
             builder.Services.AddControllers();
+                //.AddJsonOptions(options =>
+                //{
+                //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                //    options.JsonSerializerOptions.WriteIndented = true;
+                //});
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()  // Allows any origin
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                    //.AllowCredentials();
+                });
+            });
 
-            
 
 
-        builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddScoped<FileService>();
             builder.Services.AddApplicationServices();
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
             });
 
 
@@ -52,8 +69,14 @@ namespace DataMgmtModule.Api
             builder.Host.UseSerilog();
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/Uploads"
+            });
+            //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -63,7 +86,7 @@ namespace DataMgmtModule.Api
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
-
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
 

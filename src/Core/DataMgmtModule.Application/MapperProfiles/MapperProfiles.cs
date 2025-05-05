@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataMgmtModule.Application.Dtos;
+using DataMgmtModule.Application.Dtos.AdditiveDtos;
+using DataMgmtModule.Application.Dtos.ContactDTO;
 using DataMgmtModule.Application.Dtos.Dosage;
 using DataMgmtModule.Application.Dtos.InjectionMolding;
+using DataMgmtModule.Application.Dtos.MainPolymerDtos;
 using DataMgmtModule.Application.Dtos.Materials;
 using DataMgmtModule.Application.Dtos.ProjectsDtos;
 using DataMgmtModule.Application.Dtos.RecipeComponentDtos;
@@ -25,6 +28,11 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Projects, GetAllProjectsDto>();
             CreateMap<Projects, AddProjectDto>().ReverseMap();
             CreateMap<Projects, UpdateProjectDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
+
+            CreateMap<Additive, DisplayAdditive>().ReverseMap();
+            CreateMap<MainPolymer, DisplayMainPolymer>().ReverseMap();
 
 
 
@@ -49,6 +57,9 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<InjectionMolding, InjectionMoldingDto>().ReverseMap();
             CreateMap<InjectionMolding, UpdateInjectionMoldingDto>().ReverseMap();
             CreateMap<InjectionMolding, AddInjectionMoldingDto>().ReverseMap();
+
+            CreateMap<Contact, AddContactDTO>().ReverseMap();
+            CreateMap<Contact, GetAllContacts>().ReverseMap();
 
         }
     }
