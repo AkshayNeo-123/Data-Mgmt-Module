@@ -20,6 +20,7 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<Contact> AddContactAsync(Contact contact, int? userId)
         {
+            contact.IsDelete = false;
             contact.CreatedBy = userId;
             contact.CreatedDate = DateTime.Now;
             var addContact =await _persistenceDbContext.Contacts.AddAsync(contact);
@@ -38,9 +39,9 @@ namespace DataMgmtModule.Persistence.Repository
             //{
             //    throw new NotFoundException($"Contact data with id {id} not found");
             //}
-            if (getData.isDelete == false)
+            if (getData.IsDelete == false)
             {
-                getData.isDelete = true;
+                getData.IsDelete = true;
                 await _persistenceDbContext.SaveChangesAsync();
 
             }
@@ -50,7 +51,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.isDelete==false).ToListAsync();
+            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.IsDelete==false).ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");

@@ -21,15 +21,15 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         public Areas Areas { get; set; }
         [Required]
         public int? StatusId { get; set; }
-        public Status Status { get; set; }
+        public Status Status { get; set; }            
 
         public int? PriorityId { get; set; }
         public Priorities Priorities { get; set; }
         public string? Project_Description { get; set; }
         [Required]
-        public DateTime? StartDate { get; set; }
+        public DateOnly? StartDate { get; set; }
         [Required]
-        public DateTime? EndDate { get; set; }
+        public DateOnly? EndDate { get; set; }
         [Required]
         //public byte IsDelete { get; set; }
         public int? CreatedBy { get; set; }
