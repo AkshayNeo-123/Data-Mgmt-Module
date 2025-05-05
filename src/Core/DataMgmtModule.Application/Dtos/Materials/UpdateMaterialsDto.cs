@@ -28,5 +28,9 @@ namespace DataMgmtModule.Application.Dtos.Materials
         public int AdditiveId { get; set; }
 
         public int MainPolymerId { get; set; }
+
+        public int? StorageLocationId { get; set; }
+
+        public int? MvrMfrId { get; set; }
     }
 }
