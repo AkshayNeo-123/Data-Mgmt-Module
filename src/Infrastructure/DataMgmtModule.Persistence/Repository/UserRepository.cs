@@ -52,7 +52,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var user = await _context.Users.FindAsync(id);
             if(user == null) return false;
-
+            user.Status = "InActive";
             user.isDelete = true;
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
