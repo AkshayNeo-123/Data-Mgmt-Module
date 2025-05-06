@@ -17,15 +17,18 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-        //public async Task<IEnumerable<Cities>> GetAllCities()
-        //{
-        //    return await _persistenceDbContext.Cities.ToListAsync();
-        //}
+       
 
         public async Task<IEnumerable<States>> GetAllStates()
         {
             var getAllStates = await _persistenceDbContext.States.ToListAsync();
             return getAllStates;
+        }
+
+        public async Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId)
+        {
+            var getCityById = await _persistenceDbContext.Cities.Where(x => x.StateId == stateId).ToListAsync();
+            return getCityById;
         }
     }
 

@@ -12,7 +12,7 @@ namespace DataMgmtModule.Application.Dtos.ContactDTO
         public int ContactId { get; set; }
         public string ContactName { get; set; } = null!;
 
-        public int ContactType { get; set; }
+        public int? ContactType { get; set; }
 
         public string AddressLine1 { get; set; } = null!;
 
@@ -21,7 +21,9 @@ namespace DataMgmtModule.Application.Dtos.ContactDTO
         public string City { get; set; } = null!;
 
         public int? StateId { get; set; }
-        public States States { get; set; }
+        public States? States { get; set; }
+         public int? CityId { get; set; }
+        public Cities? Cities { get; set; }
         public int Zip { get; set; }
 
         public string Email { get; set; } = null!;

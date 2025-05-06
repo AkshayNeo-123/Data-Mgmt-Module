@@ -63,7 +63,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
         {
             var getAllData = await _persistenceDbContext.Contacts
-                .Where(x => x.ContactType == ContactTypes.Manufacturer || x.ContactType == ContactTypes.Both)
+                //.Where(x => x.ContactType == ContactTypes.Manufacturer)
                 .ToListAsync();
 
             if (getAllData == null || !getAllData.Any()) 

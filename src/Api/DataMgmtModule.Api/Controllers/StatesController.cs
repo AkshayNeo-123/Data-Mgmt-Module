@@ -25,5 +25,13 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(getStates);
         }
 
+
+        //[HttpGet("cities")]
+        //public async Task<ActionResult<List<Cities>>> GetAllCitiesAsync()
+        //{
+        //    var getCities = await _mediator.Send(new GetAllCityQuery());
+        //    return Ok(getCities);
+        //}
+
     }
 }
