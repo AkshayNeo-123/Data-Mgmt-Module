@@ -49,9 +49,9 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id,int deletedBy)
         {
-            var success = await _mediator.Send(new DeleteUserCommand(id));
+            var success = await _mediator.Send(new DeleteUserCommand(id,deletedBy));
             return success ? NoContent() : NotFound();
         }
     }

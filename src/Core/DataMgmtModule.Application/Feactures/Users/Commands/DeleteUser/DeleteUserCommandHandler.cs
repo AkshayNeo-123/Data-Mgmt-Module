@@ -18,7 +18,7 @@ namespace DataMgmtModule.Application.Feactures.Users.Commands.DeleteUser
         }
         public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var deleted = await _userRepository.DeleteUserAsync(request.id);
+            var deleted = await _userRepository.DeleteUserAsync(request.id,request.deletedBy);
             return deleted;
         }
     }

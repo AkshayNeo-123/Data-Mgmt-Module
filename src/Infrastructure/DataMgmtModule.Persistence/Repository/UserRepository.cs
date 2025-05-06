@@ -35,25 +35,30 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<User?> GetUserByIdAsync(int id) => await _context.Users.FindAsync(id);
         public async Task<User> AddUserAsync(User user)
         {
+            user.CreatedDate = DateTime.Now;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user;
         }
         public async Task<bool> UpdateUserAsync(int id, UpdateUserDto user)
         {
+
             var existing = await _context.Users.FirstOrDefaultAsync(u=>u.UserId==id);
             if (existing == null) return false;
 
             _context.Entry(existing).CurrentValues.SetValues(user);
+            existing.ModifiedDate = DateTime.Now;
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> DeleteUserAsync(int id)
+        public async Task<bool> DeleteUserAsync(int id, int? deletedBy)
         {
             var user = await _context.Users.FindAsync(id);
             if(user == null) return false;
             user.Status = "InActive";
             user.isDelete = true;
+            user.DeletedDate = DateTime.Now;
+            user.DeletedBy = deletedBy;
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;

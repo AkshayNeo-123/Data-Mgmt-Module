@@ -7,5 +7,5 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.Users.Commands.DeleteUser
 {
-    public record DeleteUserCommand(int id):IRequest<bool>;
+    public record DeleteUserCommand(int id,int? deletedBy):IRequest<bool>;
 }
