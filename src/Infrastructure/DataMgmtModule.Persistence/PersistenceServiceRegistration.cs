@@ -37,6 +37,7 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
             services.AddScoped<IStatusRepository, StatusRepository>();
             services.AddScoped<IMaterialMasterRepository, MaterialMasterRepository>();
+            services.AddScoped<IStateRepository, StateRepository>();
             
 
             

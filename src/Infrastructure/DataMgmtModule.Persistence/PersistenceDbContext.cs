@@ -69,11 +69,12 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<Areas> Areas { get; set; }
         public virtual DbSet<Priorities> Priorities { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<States> States { get; set; }
 
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
+        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        //        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -178,9 +179,17 @@ namespace DataMgmtModule.Persistence
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-                entity.Property(e => e.State)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+
+                entity.Property(e => e.StateId)
+                    .HasColumnName("StateId");
+
+                entity.Property(e => e.StateId).IsRequired(); // must exist
+
+                entity.HasOne(d => d.States)
+                      .WithMany() // or .WithMany(p => p.Contacts) if reverse nav is present
+                      .HasForeignKey(d => d.StateId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Contacts_States");
             });
 
             modelBuilder.Entity<Dosage>(entity =>

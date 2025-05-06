@@ -20,7 +20,7 @@ namespace DataMgmtModule.Application.Dtos.ContactDTO
 
         public string City { get; set; } = null!;
 
-        public string State { get; set; } = null!;
+        public int StateId { get; set; } 
 
         public int Zip { get; set; }
 

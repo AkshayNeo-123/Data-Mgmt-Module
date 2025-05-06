@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos.ContactDTO
 {
@@ -19,8 +20,8 @@ namespace DataMgmtModule.Application.Dtos.ContactDTO
 
         public string City { get; set; } = null!;
 
-        public string State { get; set; } = null!;
-
+        public int? StateId { get; set; }
+        public States States { get; set; }
         public int Zip { get; set; }
 
         public string Email { get; set; } = null!;

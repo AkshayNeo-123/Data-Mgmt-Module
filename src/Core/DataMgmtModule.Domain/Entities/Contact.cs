@@ -18,8 +18,8 @@ public partial class Contact
 
     public string City { get; set; } = null!;
 
-    public string State { get; set; } = null!;
-
+    public int StateId { get; set; }
+    public States States { get; set; } = null!;
     public int Zip { get; set; }
 
     public string Email { get; set; } = null!;
