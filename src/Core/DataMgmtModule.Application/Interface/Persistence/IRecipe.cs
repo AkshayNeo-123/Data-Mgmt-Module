@@ -11,7 +11,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> UpdateRecipe(int id,Recipe recipe, int? userId); 
         Task<int> UpdateRecipeComponent(int id, RecipeComponent[] recipeComponent,int? userId);
         Task<Recipe> RecipeFindById(int id);
-        Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes();
+        Task<IEnumerable<Recipe>> GetAllRecipes();
         
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Persistence.Repository;
+using DataMgmtModule.Application.Interfaces.Persistence;
 
 namespace DataMgmtModule.Persistence
 {
@@ -37,11 +38,12 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IProjectTypeRepository, ProjectTypeRepository>();
             services.AddScoped<IStatusRepository, StatusRepository>();
             services.AddScoped<IMaterialMasterRepository, MaterialMasterRepository>();
-            
+            services.AddScoped<IRecipeComponentTypeRepository, RecipeComponentTypeRepository>();
 
-            
 
-           
+
+
+
 
 
 

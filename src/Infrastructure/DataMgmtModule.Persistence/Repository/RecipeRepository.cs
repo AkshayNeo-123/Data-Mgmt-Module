@@ -20,28 +20,29 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-        public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
+        public async Task<IEnumerable<Recipe>> GetAllRecipes()
         {
+            return await _persistenceDbContext.Recipes.Include(x=>x.Project).Include(x => x.Additive).Include(x => x.MainPolymer).ToListAsync();
             //return await _persistenceDbContext.Recipes.Include(x=>x.Additive).Include(x=>x.MainPolymer).ToListAsync();
-            return await _persistenceDbContext.Recipes.Select(r => new GetAllRecipeDtos
-            {
+            //return await _persistenceDbContext.Recipes.Select(r => new GetAllRecipeDtos
+            //{
                 
-                ProductName = r.ProductName,
-                Comments=r.Comments,
-                
-                    ProjectName=r.Project.ProjectName,
-                
-                CreatedBy=r.CreatedBy,
-                ModifiedBy=r.ModifiedBy,
-                CreatedDate= (DateTime)r.CreatedDate,
-                ModifiedDate=r.ModifiedDate,
+            //    RecipeId=r.ReceipeId,
+            //    ProductName = r.ProductName,
+            //    Comments=r.Comments,
+
+            //        ProjectName=r.Project.ProjectNumber,
+            //    CreatedBy =r.CreatedBy,
+            //    ModifiedBy=r.ModifiedBy,
+            //    CreatedDate= (DateTime)r.CreatedDate,
+            //    ModifiedDate=r.ModifiedDate,
 
                 
-                    AdditiveName = r.Additive.AdditiveName,
+            //        AdditiveName = r.Additive.AdditiveName,
                
-                  PolymerName = r.MainPolymer.PolymerName,
+            //      PolymerName = r.MainPolymer.PolymerName,
                 
-            }).ToListAsync(); ;
+            //}).ToListAsync(); ;
         }
         //public string Comments { get; set; }
         //public int ProjectId { get; set; }

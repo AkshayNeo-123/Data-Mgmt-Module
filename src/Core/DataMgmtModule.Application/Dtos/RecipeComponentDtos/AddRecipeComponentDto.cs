@@ -16,5 +16,7 @@ namespace DataMgmtModule.Application.Dtos.RecipeComponentDtos
         public decimal Density { get; set; }
         public bool MP { get; set; }
         public bool MF { get; set; }
+        public int? TypeId { get; set; }
+
     }
 }
