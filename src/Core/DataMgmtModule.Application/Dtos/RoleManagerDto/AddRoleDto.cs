@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Application.Dtos.RoleManagerDto
 {
-    public class UpdateRoleDto
+    public class AddRoleDto
     {
         public string RoleName { get; set; }
         public string Description { get; set; }

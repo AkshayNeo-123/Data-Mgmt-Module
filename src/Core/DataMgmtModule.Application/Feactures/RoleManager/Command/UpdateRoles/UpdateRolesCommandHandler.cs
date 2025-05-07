@@ -19,8 +19,16 @@ namespace DataMgmtModule.Application.Feactures.RoleManager.Command.UpdateRoles
         public async Task<Roles> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
             var data =await _roleRepository.GetRolesByIdAsync(request.id);
-           data.RoleName = request.UpdateRole.RoleName;
+            data.RoleName = request.UpdateRole.RoleName;
             data.Description= request.UpdateRole.Description;
+            data.RoleManagement = request.UpdateRole.RoleManagement;
+            data.UserManagement = request.UpdateRole.UserManagement;
+            data.Materials = request.UpdateRole.Materials;
+            data.Project = request.UpdateRole.Project;
+            data.Recipe = request.UpdateRole.Recipe;
+            data.Testing = request.UpdateRole.Testing;
+            data.Dashboard = request.UpdateRole.Dashboard;
+            data.MasterTables = request.UpdateRole.MasterTables;
             return await _roleRepository.UpdateRolesAsync(request.id, data);
         }
     }

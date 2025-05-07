@@ -21,17 +21,18 @@ namespace DataMgmtModule.Api.Controllers
         {
             _mediator = mediator;
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAllRolesAsync()
+        {
+            return Ok(await _mediator.Send(new GetAllRolesQuery()));
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddRoleAsync(AddRole addRole)
         {
             var addData = await _mediator.Send(new AddRoleCommand(addRole));
             return Ok(addData);
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetAllRolesAsync()
-        {
-            return Ok(await _mediator.Send(new GetAllRolesQuery()));
         }
 
         [HttpGet("{id}")]
@@ -40,16 +41,17 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(await _mediator.Send(new GetRolesbyIdQuery(id)));
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRoleAsync(int id, UpdateRoleDto updateRole)
+        {
+            return Ok(await _mediator.Send(new UpdateRoleCommand(id, updateRole)));
+        }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult>DeleteRolesAsync(int id)
+        public async Task<IActionResult> DeleteRolesAsync(int id)
         {
             return Ok(await _mediator.Send(new DeleteRolesByIdCommand(id)));
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRoleAsync(int id, UpdateRoleDto updateRole) {
-            return Ok(await _mediator.Send(new UpdateRoleCommand(id,updateRole)));
-
-                }
 
     }
 }

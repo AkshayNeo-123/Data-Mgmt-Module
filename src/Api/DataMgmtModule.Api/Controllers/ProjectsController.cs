@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Feactures.ProjectsFeactures.Query.GetProjectByI
 using DataMgmtModule.Domain.Entities;
 using DataMgmtModule.Persistence;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace DataMgmtModule.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProjectsController : ControllerBase
     {
         readonly IMediator _mediator;
