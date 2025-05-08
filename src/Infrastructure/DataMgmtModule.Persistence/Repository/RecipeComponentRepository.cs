@@ -28,8 +28,11 @@ namespace DataMgmtModule.Persistence.Repository
 
 
 
-        public async Task<List<RecipeComponent>> GetAllAsync() => await _persistenceDbContext.RecipeComponents
-            .Include(x => x.Component).ToListAsync();
+        public async Task<List<RecipeComponent>> GetAllAsync() =>
+     await _persistenceDbContext.RecipeComponents
+         .Include(x => x.Component)
+         .Include(t => t.RecipeComponentType)
+         .ToListAsync();
 
         public async Task<RecipeComponent?> GetByIdAsync(int id) =>
             await _persistenceDbContext.RecipeComponents.FindAsync(id);

@@ -5,6 +5,7 @@ namespace DataMgmtModule.Domain.Entities;
 
 public partial class Recipe:Common
 {
+    
     public int ReceipeId { get; set; }
 
     public string? ProductName { get; set; }
