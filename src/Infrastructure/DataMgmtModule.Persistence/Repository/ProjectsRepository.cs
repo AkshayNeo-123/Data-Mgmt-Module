@@ -57,12 +57,15 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<int> DeleteProject(int id)
+        public async Task<int> DeleteProject(int id, int? deletedBy)
         {
             var project =await GetProjectById(id);
             if (project.IsDelete == false)
             {
                 project.IsDelete = true;
+                project.DeletedBy = deletedBy;
+
+                project.DeletedDate = DateTime.Now;
                 return await _persistenceDbContext.SaveChangesAsync();
             }
             return 0;
