@@ -39,6 +39,6 @@ public partial class Projects:Common
     public Priorities Priorities { get; set; }
 
     public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
-    [JsonIgnore]
+    //[JsonIgnore]
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

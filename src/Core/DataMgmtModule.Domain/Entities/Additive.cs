@@ -10,6 +10,6 @@ public partial class Additive:Common
 
     public string AdditiveName { get; set; } = null!;
     public bool isDelete { get; set; }
-    [JsonIgnore]
+    //[JsonIgnore]
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

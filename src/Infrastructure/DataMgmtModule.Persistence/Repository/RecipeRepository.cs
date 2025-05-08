@@ -20,29 +20,23 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-        public async Task<IEnumerable<Recipe>> GetAllRecipes()
+        public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
         {
-            return await _persistenceDbContext.Recipes.Include(x=>x.Project).Include(x => x.Additive).Include(x => x.MainPolymer).ToListAsync();
+            //return await _persistenceDbContext.Recipes.Include(x=>x.Project).Include(x => x.Additive).Include(x => x.MainPolymer).ToListAsync();
             //return await _persistenceDbContext.Recipes.Include(x=>x.Additive).Include(x=>x.MainPolymer).ToListAsync();
-            //return await _persistenceDbContext.Recipes.Select(r => new GetAllRecipeDtos
-            //{
-                
-            //    RecipeId=r.ReceipeId,
-            //    ProductName = r.ProductName,
-            //    Comments=r.Comments,
-
-            //        ProjectName=r.Project.ProjectNumber,
-            //    CreatedBy =r.CreatedBy,
-            //    ModifiedBy=r.ModifiedBy,
-            //    CreatedDate= (DateTime)r.CreatedDate,
-            //    ModifiedDate=r.ModifiedDate,
-
-                
-            //        AdditiveName = r.Additive.AdditiveName,
-               
-            //      PolymerName = r.MainPolymer.PolymerName,
-                
-            //}).ToListAsync(); ;
+            return await _persistenceDbContext.Recipes
+        .Include(r => r.Project)
+        .Include(r => r.Additive)
+        .Include(r => r.MainPolymer)
+        .Select(r => new GetAllRecipeDtos
+        {
+            ReceipeId = r.ReceipeId,
+            ProductName = r.ProductName,
+            ProjectNumber = r.Project != null ? r.Project.ProjectNumber : string.Empty,
+            AdditiveName = r.Additive.AdditiveName,
+            PolymerName = r.MainPolymer.PolymerName != null ? r.Project.ProjectNumber : string.Empty
+        })
+        .ToListAsync();
         }
         //public string Comments { get; set; }
         //public int ProjectId { get; set; }
