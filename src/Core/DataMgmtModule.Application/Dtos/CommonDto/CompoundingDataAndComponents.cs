@@ -10,7 +10,7 @@ namespace DataMgmtModule.Application.Dtos.CommonDtos
     public class CompoundingDataAndComponents
     {
         public CompoundingDataDTO CompoundingDataDTO { get; set; }
-        public CompoundingComponentsDTO[] Components{get;set;}
-        public DosageDTO DosageDTO { get; set; }
+        public CompoundingComponentsDTO[]? Components{get;set;}
+        public DosageDTO? DosageDTO { get; set; }
     }
 }

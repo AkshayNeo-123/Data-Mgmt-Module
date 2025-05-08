@@ -47,8 +47,16 @@ namespace DataMgmtModule.Api.Controllers
                 return BadRequest("Invalid Components data.");
             }
             var data = await _mediator.Send(new AddCompoundingCommand(compoundingDataDTO,userId));
+            if(compoundingDataDTO.Components != null)
+            {
+
             var finalData = await _mediator.Send(new AddCompoundingComponentsCommand(data, compoundingDataDTO,userId));
+            }
+            if(compoundingDataDTO.DosageDTO != null)
+            {
+
             var result = await _mediator.Send(new AddDosagesCommand(data, compoundingDataDTO,userId));
+            }
             return Ok(new { Message = "Compoundings added successfully!" });
         }
 

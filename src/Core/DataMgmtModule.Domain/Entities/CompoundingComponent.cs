@@ -31,9 +31,9 @@ public partial class CompoundingComponent:Common
 
     public bool? F { get; set; }
 
-    public int ComponentId { get; set; }
+    public int? ComponentId { get; set; }
 
-    public virtual Component Component { get; set; } = null!;
+    public virtual Component? Component { get; set; }
 
     public virtual CompoundingDatum? Compounding { get; set; }
 
