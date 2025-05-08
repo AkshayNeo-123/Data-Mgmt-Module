@@ -26,8 +26,9 @@ namespace DataMgmtModule.Application.Dtos.ProjectsDtos
         [Required]
         public string? Project_Description { get; set; }
 
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateOnly? StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
+        public int? ModifiedBy { get; set; }
         //[Required]
         //public string ProjectName { get; set; }
 

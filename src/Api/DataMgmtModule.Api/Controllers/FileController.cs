@@ -50,5 +50,24 @@ namespace DataMgmtModule.Api.Controllers
                 });
             }
         }
+
+        [HttpPost("FileUpdate")]
+        public async Task<IActionResult> UpdateFile(IFormFile file, [FromForm] string oldFilePath)
+        {
+            try
+            {
+                var newFilePath = await _fileService.UpdateFileAsync(file, oldFilePath);
+                return Ok(new
+                {
+                    message = "Updated",
+                    fileName = newFilePath
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
     }
 }

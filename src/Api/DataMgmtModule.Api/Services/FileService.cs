@@ -91,5 +91,21 @@
 
             return await File.ReadAllBytesAsync(matchedFile);
         }
+
+        public async Task<string> UpdateFileAsync(IFormFile newFile, string? oldFilePath = null, string? customPath = null)
+        {
+            if (!string.IsNullOrWhiteSpace(oldFilePath))
+            {
+                var fullOldPath = Path.Combine(Directory.GetCurrentDirectory(), oldFilePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+
+                if (File.Exists(fullOldPath))
+                {
+                    File.Delete(fullOldPath);
+                }
+            }
+            var newFilePath = await UploadAsync(newFile, customPath);
+            return newFilePath;
+        }
+
     }
 }

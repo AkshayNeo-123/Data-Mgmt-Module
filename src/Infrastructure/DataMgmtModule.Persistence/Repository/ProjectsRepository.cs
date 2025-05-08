@@ -17,13 +17,13 @@ namespace DataMgmtModule.Persistence.Repository
         {
             _persistenceDbContext = persistenceDbContext;
         }
-
+              
         public async Task<int> AddProject(Projects project, int? userId)
         {
             
             project.IsDelete = false;
             project.CreatedDate = DateTime.Now;
-            project.CreatedBy = 1;
+            
 
             _persistenceDbContext.Add(project);
             return await _persistenceDbContext.SaveChangesAsync();
@@ -57,12 +57,15 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<int> DeleteProject(int id)
+        public async Task<int> DeleteProject(int id, int? deletedBy)
         {
             var project =await GetProjectById(id);
             if (project.IsDelete == false)
             {
                 project.IsDelete = true;
+                project.DeletedBy = deletedBy;
+
+                project.DeletedDate = DateTime.Now;
                 return await _persistenceDbContext.SaveChangesAsync();
             }
             return 0;
@@ -86,7 +89,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var project = await GetProjectById(id);
             project.ModifiedDate = DateTime.Now;
-            project.ModifiedBy = userId;
+            project.ModifiedBy = updatedProject.ModifiedBy;
             project.StatusId = updatedProject.StatusId;
 
             project.PriorityId = updatedProject.PriorityId;
