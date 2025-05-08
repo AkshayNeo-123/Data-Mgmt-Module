@@ -14,7 +14,5 @@ namespace DataMgmtModule.Domain.Entities
         public DateTime? ModifiedDate { get; set; }
         public int? DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
-
-        
     }
 }

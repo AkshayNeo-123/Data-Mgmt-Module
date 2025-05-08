@@ -8,9 +8,6 @@ using System.Linq;
 
 namespace DataMgmtModule.Application.Features.RecipeComponentTypes.Queries
 {
-    //public class GetAllRecipeComponentTypesQuery : IRequest<List<RecipeComponentTypeDto>>
-    //{
-    //}
 
     public class GetAllRecipeComponentTypesHandler : IRequestHandler<GetAllRecipeComponentTypesQuery, List<RecipeComponentTypeDto>>
     {

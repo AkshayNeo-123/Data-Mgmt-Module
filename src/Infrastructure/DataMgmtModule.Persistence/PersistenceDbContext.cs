@@ -134,9 +134,7 @@ namespace DataMgmtModule.Persistence
                     .HasForeignKey(d => d.CompoundingId)
                     .HasConstraintName("FK__Compoundi__Compo__6A30C649");
 
-                entity.HasOne(d => d.Recipe).WithMany(p => p.CompoundingComponents)
-                    .HasForeignKey(d => d.RecipeId)
-                    .HasConstraintName("FK__Compoundi__Recip__693CA210");
+               
             });
 
             modelBuilder.Entity<CompoundingDatum>(entity =>
@@ -212,31 +210,31 @@ namespace DataMgmtModule.Persistence
 
                 entity.ToTable("InjectionMolding");
 
-                entity.Property(e => e.BackPressure).HasColumnType("decimal(5, 2)");
+                //entity.Property(e => e.BackPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DecompressionVolume).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DryingTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DryingTime).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.ExtraFeedSection).HasColumnType("decimal(5, 2)");
+                //entity.Property(e => e.ExtraFeedSection).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.HoldingPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.InjectionPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.InjectionSpeed).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.MeltTemperature).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.MoldTemperature).HasColumnType("decimal(5, 2)");
+                entity.Property(e => e.MouldTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.NozzleTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.PlasticizingVolume).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ProcessingMoisture).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.ReferenceAdditive)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.ReferenceAdditive)
+                    //.HasMaxLength(255)
+                    //.IsUnicode(false);
                 entity.Property(e => e.ResidualMoisture).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ScrewSpeed).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.SwitchingPoint).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.TemperatureZone).HasColumnType("decimal(5, 2)");
 
-                entity.HasOne(d => d.Project).WithMany(p => p.InjectionMoldings)
-                    .HasForeignKey(d => d.ProjectId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Projects_InjectionMolding");
+                //entity.HasOne(d => d.Project).WithMany(p => p.InjectionMoldings)
+                //    .HasForeignKey(d => d.ProjectId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Projects_InjectionMolding");
 
                 entity.HasOne(d => d.Recipe).WithMany(p => p.InjectionMoldings)
                     .HasForeignKey(d => d.RecipeId)

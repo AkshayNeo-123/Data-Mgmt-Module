@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Persistence.Repository;
 using DataMgmtModule.Application.Interfaces.Persistence;
+using DataMgmtModule.Application.Interfaces.Repositories;
+using DataMgmtModule.Infrastructure.Repository;
 
 namespace DataMgmtModule.Persistence
 {
@@ -39,7 +41,7 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IStatusRepository, StatusRepository>();
             services.AddScoped<IMaterialMasterRepository, MaterialMasterRepository>();
             services.AddScoped<IRecipeComponentTypeRepository, RecipeComponentTypeRepository>();
-
+            services.AddScoped<IComponentRepository, ComponentRepository>();
 
 
 

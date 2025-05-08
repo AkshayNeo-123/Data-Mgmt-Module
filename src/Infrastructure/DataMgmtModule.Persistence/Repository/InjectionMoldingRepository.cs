@@ -121,39 +121,39 @@ namespace DataMgmtModule.Persistence.Repository
             foreach (var injectionMolding in injectionMolding1)
             {
 
-                var log = new MouldingLog
-                {
-                    Id=injectionMolding.Id,
-                    ProjectId = injectionMolding.ProjectId,
-                    RecipeId = injectionMolding.RecipeId,
-                    ParameterSet = injectionMolding.ParameterSet,
-                    Repetition = injectionMolding.Repetition,
-                    ReferenceAdditive = injectionMolding.ReferenceAdditive,
-                    PreTreatment = injectionMolding.PreTreatment,
-                    DryingTemperature = injectionMolding.DryingTemperature,
-                    DryingTime = injectionMolding.DryingTime,
-                    ResidualMoisture = injectionMolding.ResidualMoisture,
-                    NotMeasured = injectionMolding.NotMeasured,
-                    ProcessingMoisture = injectionMolding.ProcessingMoisture,
-                    PlasticizingVolume = injectionMolding.PlasticizingVolume,
-                    DecompressionVolume = injectionMolding.DecompressionVolume,
-                    SwitchingPoint = injectionMolding.SwitchingPoint,
-                    HoldingPressure = injectionMolding.HoldingPressure,
-                    BackPressure = injectionMolding.BackPressure,
-                    ScrewSpeed = injectionMolding.ScrewSpeed,
-                    InjectionSpeed = injectionMolding.InjectionSpeed,
-                    InjectionPressure = injectionMolding.InjectionPressure,
-                    TemperatureZone = injectionMolding.TemperatureZone,
-                    ExtraFeedSection = injectionMolding.ExtraFeedSection,
-                    MeltTemperature = injectionMolding.MeltTemperature,
-                    NozzleTemperature = injectionMolding.NozzleTemperature,
-                    MoldTemperature = injectionMolding.MoldTemperature,
-                    DeletedBy = userId,
-                    DeletedDate = DateTime.UtcNow
-                };
+                //var log = new MouldingLog
+                //{
+                //    Id=injectionMolding.Id,
+                //    ProjectId = injectionMolding.ProjectId,
+                //    RecipeId = injectionMolding.RecipeId,
+                //    ParameterSet = injectionMolding.ParameterSet,
+                //    Repetition = injectionMolding.Repetition,
+                //    //ReferenceAdditive = injectionMolding.ReferenceAdditive,
+                //    PreTreatment = injectionMolding.PreTreatment,
+                //    DryingTemperature = injectionMolding.DryingTemperature,
+                //    DryingTime = injectionMolding.DryingTime,
+                //    ResidualMoisture = injectionMolding.ResidualMoisture,
+                //    NotMeasured = injectionMolding.NotMeasured,
+                //    ProcessingMoisture = injectionMolding.ProcessingMoisture,
+                //    PlasticizingVolume = injectionMolding.PlasticizingVolume,
+                //    DecompressionVolume = injectionMolding.DecompressionVolume,
+                //    SwitchingPoint = injectionMolding.SwitchingPoint,
+                //    HoldingPressure = injectionMolding.HoldingPressure,
+                //    BackPressure = injectionMolding.BackPressure,
+                //    ScrewSpeed = injectionMolding.ScrewSpeed,
+                //    InjectionSpeed = injectionMolding.InjectionSpeed,
+                //    InjectionPressure = injectionMolding.InjectionPressure,
+                //    TemperatureZone = injectionMolding.TemperatureZone,
+                //    ExtraFeedSection = injectionMolding.ExtraFeedSection,
+                //    MeltTemperature = injectionMolding.MeltTemperature,
+                //    NozzleTemperature = injectionMolding.NozzleTemperature,
+                //    MoldTemperature = injectionMolding.MoldTemperature,
+                //    DeletedBy = userId,
+                //    DeletedDate = DateTime.UtcNow
+                //};
 
-                await _dbContext.MouldingLogs.AddAsync(log);
-                await _dbContext.SaveChangesAsync();
+                //await _dbContext.MouldingLogs.AddAsync(log);
+                //await _dbContext.SaveChangesAsync();
 
             }
             _dbContext.InjectionMoldings.RemoveRange(injectionMolding1);
