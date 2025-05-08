@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using DataMgmtModule.Application.Dtos.CityDTO;
 using MediatR;
 
-namespace DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.GetCityById
+namespace DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.AddCityData
 {
-    public record GetCityByStateQuery(int Id):IRequest<IEnumerable<CitiesDTO>>
+    public record AddCityQuery(AddCityDTO addCityDTO):IRequest<AddCityDTO>
     {
     }
 }

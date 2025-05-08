@@ -167,6 +167,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("Address_Line2");
+
                 entity.HasOne(e => e.Cities)
               .WithMany()
               .HasForeignKey(e => e.CityId);

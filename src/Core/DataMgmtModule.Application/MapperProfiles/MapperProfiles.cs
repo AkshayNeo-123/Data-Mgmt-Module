@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataMgmtModule.Application.Dtos;
 using DataMgmtModule.Application.Dtos.AdditiveDtos;
+using DataMgmtModule.Application.Dtos.CityDTO;
 using DataMgmtModule.Application.Dtos.ContactDTO;
 using DataMgmtModule.Application.Dtos.Dosage;
 using DataMgmtModule.Application.Dtos.InjectionMolding;
@@ -32,6 +33,8 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<User, UserDto>().ReverseMap();
 
             CreateMap<Additive, DisplayAdditive>().ReverseMap();
+            CreateMap<Additive, UpdateAdditiveDto>().ReverseMap();
+            CreateMap<Additive, CreateAdditiveDto>().ReverseMap();
             CreateMap<MainPolymer, DisplayMainPolymer>().ReverseMap();
 
 
@@ -59,7 +62,11 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<InjectionMolding, AddInjectionMoldingDto>().ReverseMap();
 
             CreateMap<Contact, AddContactDTO>().ReverseMap();
+
+            CreateMap<Contact, UpdateContactDTO>().ReverseMap();
             CreateMap<Contact, GetAllContacts>().ReverseMap();
+            CreateMap<Cities, CitiesDTO>().ReverseMap();
+            CreateMap<Cities, AddCityDTO>().ReverseMap();
 
         }
     }

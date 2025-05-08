@@ -65,7 +65,7 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(getDataById);
         }
         [HttpPut]
-        public async Task<IActionResult>UpdateContactAsync(int id,AddContactDTO addContactDTO)
+        public async Task<IActionResult>UpdateContactAsync(int id,UpdateContactDTO addContactDTO)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             var updateData=await _mediator.Send(new UpdateContactQuery(id, addContactDTO,userId));

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataMgmtModule.Application.Dtos.AdditiveDtos;
+using DataMgmtModule.Application.Dtos.ContactDTO;
 using DataMgmtModule.Application.Dtos.MainPolymerDtos;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
@@ -12,7 +13,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.AddAdditive
 {
-    public class AddAdditiveCommandHandler : IRequestHandler<AddAdditiveCommand, DisplayAdditive>
+    public class AddAdditiveCommandHandler : IRequestHandler<AddAdditiveCommand, CreateAdditiveDto>
     {
         private readonly IAdditiveRepository _repo;
         readonly IMapper _mapper;
@@ -23,10 +24,13 @@ namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.AddAddit
             _mapper = mapper;
         }
 
-        public async Task<DisplayAdditive> Handle(AddAdditiveCommand request, CancellationToken cancellationToken)
+        public async Task<CreateAdditiveDto> Handle(AddAdditiveCommand request, CancellationToken cancellationToken)
         {
-            var result= await _repo.AddAsync(request.Additive,request.userId);
-            return _mapper.Map<DisplayAdditive>(result);
+         var mapdata=   _mapper.Map<Additive>(request.Additive);
+            var result= await _repo.AddAsync(mapdata,request.userId);
+            var resultDto = _mapper.Map<CreateAdditiveDto>(result);
+
+            return resultDto;
         }
     }
 }

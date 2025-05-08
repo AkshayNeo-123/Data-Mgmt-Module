@@ -23,27 +23,28 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<Additive?> GetByIdAsync(int id) => await _context.Additives.FindAsync(id);
 
-        public async Task<Additive> AddAsync(CreateAdditiveDto dto, int? userId)
+        public async Task<Additive> AddAsync(Additive dto, int? userId)
         {
-            var additive = new Additive
-            {
-                IsDelete = false,
-                AdditiveName = dto.AdditiveName,
-                CreatedBy = userId,
-                CreatedDate = DateTime.Now
-            };
-            _context.Additives.Add(additive);
+
+            dto.IsDelete = false;
+            //dto.AdditiveName = dto.AdditiveName,
+            //CreatedBy = userId,
+            dto.CreatedDate = DateTime.Now;
+            
+            _context.Additives.Add(dto);
             await _context.SaveChangesAsync();
-            return additive;
+            return dto;
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateAdditiveDto dto,int? userId)
-        {
+        public async Task<bool> UpdateAsync(int id, Additive dto,int? userId)
+       {
             var existing = await _context.Additives.FindAsync(id);
             if (existing == null) return false;
+            //existing.CreatedDate=DateTime.Now;
+            //existing.CreatedBy = dto.CreatedBy;
 
             existing.AdditiveName = dto.AdditiveName;
-            existing.ModifiedBy = userId;
+            existing.ModifiedBy = dto.ModifiedBy;
             existing.ModifiedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();

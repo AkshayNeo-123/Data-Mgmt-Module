@@ -9,5 +9,5 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.AddAdditive
 {
-    public record AddAdditiveCommand(CreateAdditiveDto Additive,int? userId) : IRequest<DisplayAdditive>;
+    public record AddAdditiveCommand(CreateAdditiveDto Additive,int? userId) : IRequest<CreateAdditiveDto>;
 }

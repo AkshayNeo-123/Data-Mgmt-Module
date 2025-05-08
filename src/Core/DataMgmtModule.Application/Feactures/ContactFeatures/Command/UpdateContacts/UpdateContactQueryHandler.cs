@@ -27,7 +27,7 @@ namespace DataMgmtModule.Application.Feactures.ContactFeatures.Command.UpdateCon
 
         }
                var mapData=_mapper.Map(request.addContactDTO,getData);
-            var updateData = _contactRepository.UpdateContactAsync( request.id,mapData,request.userId);
+            var updateData =await _contactRepository.UpdateContactAsync( request.id,mapData,request.userId);
 
             return true;
             }

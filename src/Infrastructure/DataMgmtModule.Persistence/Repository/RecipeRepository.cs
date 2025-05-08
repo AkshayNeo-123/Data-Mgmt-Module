@@ -148,5 +148,21 @@ namespace DataMgmtModule.Persistence.Repository
             return 1;
 
         }
+
+        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndPrjectAsync()
+        {
+            var getRecipeProjectData = await _persistenceDbContext.Recipes
+                .Include(x => x.Project)
+                .Where(x=>x.Project.IsDelete==false)
+                .Select(x => new RecipeProjectDTO
+                {
+                    RecipeId = x.ReceipeId,
+                    ProjectNumber = x.Project.ProjectNumber,
+                    Description = x.Project.Project_Description
+
+                }).ToListAsync();
+            return getRecipeProjectData;
+
+        }
     }
 }

@@ -17,7 +17,14 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-       
+        public async Task<Cities> AddCityAsync(Cities city)
+        {
+            var addCity=await _persistenceDbContext.AddAsync
+                (city);
+            await _persistenceDbContext.SaveChangesAsync();
+            return addCity.Entity
+                ;
+        }
 
         public async Task<IEnumerable<States>> GetAllStates()
         {

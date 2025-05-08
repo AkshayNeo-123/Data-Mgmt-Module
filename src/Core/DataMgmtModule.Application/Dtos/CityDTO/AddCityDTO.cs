@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Application.Dtos.CityDTO
 {
-    public class CitiesDTO
+    public class AddCityDTO
     {
         public string? CityName { get; set; }
         public int? StateId { get; set; }
-        public int CityId { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.RecipeCompone
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.UpdateRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipes;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecipe;
+using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject;
 using DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInjectionModling;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
@@ -79,6 +80,11 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(recipes);
         }
 
+        [HttpGet("GetREcipeAndProject")]
+        public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync()
+        {
+            return Ok( await _mediator.Send(new GetRecipeAndProject()));
+        }
 
     }
 }

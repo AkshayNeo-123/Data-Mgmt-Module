@@ -1,4 +1,7 @@
-﻿using DataMgmtModule.Application.Feactures.StatesMaster.StateFeatures.GetAllStates;
+﻿using DataMgmtModule.Application.Dtos.CityDTO;
+using DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.AddCityData;
+using DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.GetCityById;
+using DataMgmtModule.Application.Feactures.StatesMaster.StateFeatures.GetAllStates;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -26,12 +29,19 @@ namespace DataMgmtModule.Api.Controllers
         }
 
 
-        //[HttpGet("cities")]
-        //public async Task<ActionResult<List<Cities>>> GetAllCitiesAsync()
-        //{
-        //    var getCities = await _mediator.Send(new GetAllCityQuery());
-        //    return Ok(getCities);
-        //}
+        [HttpGet("cities")]
+        public async Task<ActionResult<List<Cities>>> GetAllCitiesAsync(int id)
+        {
+            var getCities = await _mediator.Send(new GetCityByStateQuery(id));
+            return Ok(getCities);
+        }
+
+        [HttpPost("addCities")]
+        public async Task<ActionResult>AddCitiesAsync(AddCityDTO addCityDTO)
+        {
+            var addCities=await _mediator.Send(new AddCityQuery(addCityDTO));
+            return Ok(addCities);
+        }
 
     }
 }
