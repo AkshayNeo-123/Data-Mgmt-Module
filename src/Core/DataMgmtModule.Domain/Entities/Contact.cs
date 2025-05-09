@@ -16,10 +16,10 @@ public partial class Contact
 
     public string? AddressLine2 { get; set; }
 
-    public string City { get; set; } = null!;
-
-    public string State { get; set; } = null!;
-
+    public int? CityId { get; set; }
+    public Cities? Cities { get; set; }
+    public int StateId { get; set; }
+    public States States { get; set; } = null!;
     public int Zip { get; set; }
 
     public string Email { get; set; } = null!;

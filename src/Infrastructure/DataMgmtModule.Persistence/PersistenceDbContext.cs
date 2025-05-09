@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence
 {
-    public partial class PersistenceDbContext:DbContext
+    public partial class PersistenceDbContext : DbContext
     {
-        public PersistenceDbContext(DbContextOptions<PersistenceDbContext> options):base(options)
+        public PersistenceDbContext(DbContextOptions<PersistenceDbContext> options) : base(options)
         {
-            
+
         }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
@@ -50,7 +50,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<MouldingLog> MouldingLogs { get; set; }
 
         public virtual DbSet<Projects> Projects { get; set; }
-          
+
         public virtual DbSet<Recipe> Recipes { get; set; }
 
         public virtual DbSet<RecipeComponent> RecipeComponents { get; set; }
@@ -69,7 +69,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<Areas> Areas { get; set; }
         public virtual DbSet<Priorities> Priorities { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        //public RecipeComponentTypes RecipeComponentTypes { get; set; }
+        public virtual DbSet<States> States { get; set; }
 
         public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -165,8 +165,11 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("Address_Line2");
-                entity.Property(e => e.City)
-                    .HasMaxLength(100)
+                entity.HasOne(e => e.Cities)
+                     .WithMany()
+                     .HasForeignKey(e => e.CityId);
+                entity.Property(e => e.ContactName)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
                 entity.Property(e => e.ContactName)
                     .HasMaxLength(200)
@@ -177,9 +180,17 @@ namespace DataMgmtModule.Persistence
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-                entity.Property(e => e.State)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+
+                entity.Property(e => e.StateId)
+                    .HasColumnName("StateId");
+
+                entity.Property(e => e.StateId).IsRequired(); // must exist
+
+                entity.HasOne(d => d.States)
+                      .WithMany() // or .WithMany(p => p.Contacts) if reverse nav is present
+                      .HasForeignKey(d => d.StateId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Contacts_States");
             });
 
             modelBuilder.Entity<Dosage>(entity =>
@@ -192,7 +203,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(234)
                     .IsUnicode(false);
                 entity.Property(e => e.ScrewSpeed).HasColumnName("screwSpeed");
-                entity.Property(e => e.TemperatureWaterBath).HasColumnType("decimal(18, 0)");
+                //entity.Property(e => e.TemperatureWaterBath).HasColumnType("decimal(18, 0)");
                 entity.Property(e => e.UploadScrewconfig)
                     .HasMaxLength(213)
                     .IsUnicode(false)

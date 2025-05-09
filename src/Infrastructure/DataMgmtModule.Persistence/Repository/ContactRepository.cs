@@ -51,7 +51,9 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.IsDelete==false).ToListAsync();
+            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.IsDelete == false)
+                .Include(x => x.States).
+                ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");
@@ -61,7 +63,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
         {
             var getAllData = await _persistenceDbContext.Contacts
-                .Where(x => x.ContactType == ContactTypes.Manufacturer || x.ContactType == ContactTypes.Both)
+                //.Where(x => x.ContactType == ContactTypes.Manufacturer)
                 .ToListAsync();
 
             if (getAllData == null || !getAllData.Any()) 

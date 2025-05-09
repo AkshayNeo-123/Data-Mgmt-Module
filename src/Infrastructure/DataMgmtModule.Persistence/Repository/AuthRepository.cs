@@ -22,6 +22,10 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
         {
+            if (loginRequest.Email == null || loginRequest.Password == null)
+            {
+                throw new NotFoundException("Email and Password is required!!");
+            }
             var email = await _persistenceDbContext.Users.Where(x => x.Email == loginRequest.Email).FirstOrDefaultAsync();
             if (email == null)
             {

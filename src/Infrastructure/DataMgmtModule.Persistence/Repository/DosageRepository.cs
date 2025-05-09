@@ -72,8 +72,28 @@ namespace DataMgmtModule.Persistence.Repository
             compoundingData.SpeedSideFeeder1 = dosage.SpeedSideFeeder1;
             compoundingData.SpeedSideFeeder2 = dosage.SpeedSideFeeder2;
             compoundingData.UploadScrewconfig = dosage.UploadScrewconfig;
-            compoundingData.TemperatureProfile = dosage.TemperatureProfile;
-            compoundingData.ScrewConfig = dosage.ScrewConfig;
+            compoundingData.Temp1 = dosage.Temp1;
+            compoundingData.Temp2 = dosage.Temp2;
+            compoundingData.Temp3 = dosage.Temp3;
+            compoundingData.Temp4 = dosage.Temp4;
+            compoundingData.Temp5 = dosage.Temp5;
+            compoundingData.Temp6 = dosage.Temp6;
+            compoundingData.Temp7 = dosage.Temp7;
+            compoundingData.Temp8 = dosage.Temp8;
+            compoundingData.Temp9 = dosage.Temp9;
+            compoundingData.Temp10 = dosage.Temp10;
+            compoundingData.Temp11 = dosage.Temp11;
+            compoundingData.Temp12 = dosage.Temp12;
+            compoundingData.ScrewConfigStadard = dosage.ScrewConfigStadard;
+            compoundingData.ScrewConfigModified = dosage.ScrewConfigModified;
+            compoundingData.DeggassingStadard = dosage.DeggassingStadard;
+            compoundingData.DeggassingVaccuum = dosage.DeggassingVaccuum;
+            compoundingData.DeggassingNone = dosage.DeggassingNone;
+            compoundingData.DeggassingFET = dosage.DeggassingFET;
+            compoundingData.PremixNote = dosage.PremixNote;
+            compoundingData.TemperatureWaterBath1 = dosage.TemperatureWaterBath1;
+            compoundingData.TemperatureWaterBath2 = dosage.TemperatureWaterBath2;
+            compoundingData.TemperatureWaterBath3 = dosage.TemperatureWaterBath3;
             compoundingData.ScrewSpeed = dosage.ScrewSpeed;
             compoundingData.Torque = dosage.Torque;
             compoundingData.Pressure = dosage.Pressure;
@@ -81,7 +101,6 @@ namespace DataMgmtModule.Persistence.Repository
             compoundingData.Granulator = dosage.Granulator;
             compoundingData.BulkDensity = dosage.BulkDensity;
             compoundingData.CoolingSection = dosage.CoolingSection;
-            compoundingData.TemperatureWaterBath = dosage.TemperatureWaterBath;
             compoundingData.Notes = dosage.Notes;
             compoundingData.MeltPump = dosage.MeltPump;
             compoundingData.NozzlePlate = dosage.NozzlePlate;
@@ -89,8 +108,6 @@ namespace DataMgmtModule.Persistence.Repository
             compoundingData.UnderwaterPelletizer = dosage.UnderwaterPelletizer;
             compoundingData.ModifiedBy = userId;
             compoundingData.ModifiedDate = DateTime.Now;
-
-            //_persistenceDbContext.Dosage.Update(dosage);
             var saved = await _persistenceDbContext.SaveChangesAsync();
 
             if (saved <= 0)

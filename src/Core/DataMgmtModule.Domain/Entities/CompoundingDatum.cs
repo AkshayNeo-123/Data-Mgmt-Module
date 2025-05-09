@@ -17,15 +17,16 @@ public partial class CompoundingDatum:Common
 
     public int? Repetation { get; set; }
 
-    public int Pretreatment { get; set; }
+    public bool? PretreatmentNone { get; set; }  
+    public bool? PretreatmentDrying { get; set; }
 
     public decimal Temperature { get; set; }
 
-    public TimeSpan? Duration { get; set; }
+    public decimal? Duration { get; set; }
 
     public decimal? ResidualM { get; set; }
 
-    public int? NotMeasured { get; set; }
+    public bool? NotMeasured { get; set; }
 
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();
 

@@ -33,7 +33,7 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsAsync()
+        public async Task<IActionResult> GetAllContactsAsync()
         {
             var getAllData =await _mediator.Send(new GetAllContactsQuery());
             return Ok(getAllData);

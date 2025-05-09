@@ -29,9 +29,9 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<int>AddCompoundingData(CompoundingDatum compoundingData, int? userId)
         {
-            var result = await _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
+            //var result = await _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
 
-            compoundingData.RecipeId = result.ReceipeId;
+            //compoundingData.RecipeId = result.ReceipeId;
 
             compoundingData.CreatedBy = userId;
             compoundingData.CreatedDate = DateTime.Now;
@@ -63,9 +63,10 @@ namespace DataMgmtModule.Persistence.Repository
                 Date = searchCompounding.Date,
                 Notes = "Deleted old compounding data",
                 Repetation = searchCompounding.Repetation,
-                Pretreatment = searchCompounding.Pretreatment,
+                PretreatmentNone = searchCompounding.PretreatmentNone,
+                PretreatmentDrying = searchCompounding.PretreatmentDrying,
                 Temperature = searchCompounding.Temperature,
-                Duration = searchCompounding.Duration,
+                //Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM, 
                 NotMeasured = searchCompounding.NotMeasured,  
                 DeletedBy = userId, 
@@ -123,10 +124,10 @@ namespace DataMgmtModule.Persistence.Repository
                 throw new Exception($"Compounding Data with ReceipeId {id} not found!");
             }
 
-
-
             //compoundingData.ReceipeId = ReceipeId;
-            existingData.Pretreatment = compoundingData.Pretreatment;
+            //existingData.Pretreatment = compoundingData.Pretreatment;
+            existingData.PretreatmentNone = compoundingData.PretreatmentNone;
+            existingData.PretreatmentDrying = compoundingData.PretreatmentDrying;
             existingData.Duration = compoundingData.Duration;
             existingData.Temperature = compoundingData.Temperature;
             existingData.Notes = compoundingData.Notes;
