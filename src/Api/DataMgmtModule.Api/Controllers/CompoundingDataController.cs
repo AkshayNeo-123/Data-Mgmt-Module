@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.UpdateCompou
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetAllCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundDataByIdQuery;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundingDataByRecipe;
+using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByIdcompoundingQuery;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.AddDosages;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.DeleteDosage;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.UpdateDosageData;
@@ -111,6 +112,13 @@ namespace DataMgmtModule.Api.Controllers
         {
             var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId));
             return Ok(getCompoundingData);
+        }
+
+
+        [HttpGet("GetDataByCompoundingId")]
+        public async Task<IActionResult> GetDataByCompoundingId(int id)
+        {
+            return Ok(await _mediator.Send(new GetDataByIdcompoundingQuery(id)));
         }
 
 

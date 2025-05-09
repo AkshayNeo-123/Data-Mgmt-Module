@@ -23,10 +23,10 @@ public partial class Dosage : Common
 
     public string? Notes { get; set; }
 
-    public int? MeltPump { get; set; }
-    public int? NozzlePlate { get; set; }
+    public bool? MeltPump { get; set; }
+    public bool? NozzlePlate { get; set; }
     public bool? Premix { get; set; }
-    public int? UnderwaterPelletizer { get; set; }
+    public bool? UnderwaterPelletizer { get; set; }
 
     // Newly added temperature columns
     public decimal? Temp1 { get; set; }

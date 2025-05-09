@@ -60,6 +60,7 @@ namespace DataMgmtModule.Application.MapperProfiles
 
             CreateMap<Contact, AddContactDTO>().ReverseMap();
             CreateMap<Contact, GetAllContacts>().ReverseMap();
+            //CreateMap<CompoundingDatum>
 
         }
     }

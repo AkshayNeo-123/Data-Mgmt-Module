@@ -23,6 +23,7 @@ namespace DataMgmtModule.Application.Feactures.DosagesFeatures.Command.AddDosage
         public async Task<int> Handle(AddDosagesCommand request, CancellationToken cancellationToken)
         {
             var Data = _mapper.Map<Dosage>(request.compoundingDataAndComponents.DosageDTO);
+            Data.UploadScrewconfig = request.compoundingDataAndComponents.DosageDTO.Upload_Screwconfig;
             var addData = await _dosageRepository.AddDosageAsync(request.id, Data,request.userId);
             return addData;
         }

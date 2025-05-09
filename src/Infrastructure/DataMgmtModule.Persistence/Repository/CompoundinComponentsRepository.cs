@@ -114,6 +114,11 @@ namespace DataMgmtModule.Persistence.Repository
             var getData =await _persistenceDbContext.CompoundingComponents.FirstOrDefaultAsync(x => x.Id == id);
             return getData;
         }
+        public async Task<IEnumerable<CompoundingComponent>> GetCompoundingComponentsBycompoundingId(int id)
+        {
+            var getData = await _persistenceDbContext.CompoundingComponents.Where(x => x.ComponentId == id).ToListAsync();
+            return getData;
+        }
 
         public async Task<int> UpdateCompoundingComponents(int compoundId, CompoundingComponent[] compoundingComponents, int? userId)
         {

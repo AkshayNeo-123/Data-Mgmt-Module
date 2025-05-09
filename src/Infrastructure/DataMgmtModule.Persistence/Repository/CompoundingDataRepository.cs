@@ -89,17 +89,21 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public Task<CompoundingDatum> GetCompoundingDataAsync(int id)
+        public async Task<CompoundingDatum> GetCompoundingDataAsync(int id)
         {
-            var getData = _persistenceDbContext.CompoundingData.FirstOrDefaultAsync(x=>x.CompoundingId==id);
+            var getData = await _persistenceDbContext.CompoundingData
+                .Include(x => x.CompoundingComponents)
+                .Include(x => x.Dosages)
+                .FirstOrDefaultAsync(x => x.CompoundingId == id);
 
             if (getData == null)
             {
-                throw new NotFoundException($"Compounding Data with Id{id} Not Found");
+                throw new NotFoundException($"Compounding Data with Id {id} Not Found");
             }
-            return getData;
 
+            return getData;
         }
+
 
         public async Task<IEnumerable<CompoundingDatum>> GetCompoundingDataByRecipeAsync(int Id)
         {

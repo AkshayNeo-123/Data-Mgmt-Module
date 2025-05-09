@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Application.Dtos.Dosage;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
@@ -52,13 +53,27 @@ namespace DataMgmtModule.Persistence.Repository
 
         public Task<Dosage> GetDosageAsync(int id)
         {
-            var getDosage = _persistenceDbContext.Dosages.FirstOrDefaultAsync();
+            var getDosage = _persistenceDbContext.Dosages.FirstOrDefaultAsync(x=>x.DosageId==id);
             if (getDosage == null)
             {
                 throw new Exception("Dosage data Not Found!!");
             }
             return getDosage;
         }
+        public async Task<Dosage> getDosagebyCompoundingId(int id)
+        {
+            var getDosage = await _persistenceDbContext.Dosages
+                .Where(x => x.CompoundingId == id)
+                .FirstOrDefaultAsync();
+
+            if (getDosage == null)
+            {
+                throw new Exception("Dosage data Not Found!!");
+            }
+
+            return getDosage;
+        }
+
 
         public async Task<int> UpdateDosageAsync(int compoundId, Dosage dosage, int? userId)
         {

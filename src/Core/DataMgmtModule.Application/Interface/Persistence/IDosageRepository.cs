@@ -13,5 +13,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         //Task<Dosage> DeleteDosageAsync(int id);
         Task<Dosage> GetDosageAsync(int id);
         Task<int> UpdateDosageAsync(int id,Dosage dosage, int? userId);
+        Task<Dosage> getDosagebyCompoundingId(int id);
     }
 }
