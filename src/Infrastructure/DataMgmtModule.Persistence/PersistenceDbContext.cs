@@ -376,6 +376,12 @@ namespace DataMgmtModule.Persistence
                 entity.HasOne(d => d.Recipe).WithMany(p => p.RecipeComponents)
                     .HasForeignKey(d => d.RecipeId)
                     .HasConstraintName("FK_Recipes_RecipeComponents");
+
+
+                entity.HasOne(d => d.RecipeComponentType)
+                    .WithMany() // If RecipeComponentType does not have a collection of RecipeComponents
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK_RecipeComponentType_RecipeComponents");
             });
 
             modelBuilder.Entity<RecipesLog>(entity =>

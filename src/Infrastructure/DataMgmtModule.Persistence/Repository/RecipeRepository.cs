@@ -34,7 +34,7 @@ namespace DataMgmtModule.Persistence.Repository
             ProductName = r.ProductName,
             ProjectNumber = r.Project != null ? r.Project.ProjectNumber : string.Empty,
             AdditiveName = r.Additive.AdditiveName,
-            PolymerName = r.MainPolymer.PolymerName != null ? r.Project.ProjectNumber : string.Empty
+            PolymerName = r.MainPolymer.PolymerName != null ? r.MainPolymer.PolymerName : string.Empty
         })
         .ToListAsync();
         }

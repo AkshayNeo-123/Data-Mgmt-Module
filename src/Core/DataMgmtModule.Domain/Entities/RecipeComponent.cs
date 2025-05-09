@@ -1,10 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.ComponentModel.DataAnnotations.Schema;
+
+//namespace DataMgmtModule.Domain.Entities;
+
+//public partial class RecipeComponent:Common
+//{
+//    public int RecipeComponentId { get; set; }
+
+//    public int? RecipeId { get; set; }
+
+//    public decimal? WtPercent { get; set; }
+
+//    public decimal? ValPercent { get; set; }
+
+//    public decimal? Density { get; set; }
+
+//    public bool? Mp { get; set; }
+
+//    public bool? Mf { get; set; }
+
+//    public int ComponentId { get; set; }
+
+//    public virtual Component Component { get; set; } = null!;
+
+//    public virtual Recipe? Recipe { get; set; }
+
+//    public int? TypeId { get; set; }
+//    [ForeignKey("TypeId")]
+
+//    public RecipeComponentType RecipeComponentType { get; set; }
+//}
+
+
+
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
-public partial class RecipeComponent:Common
+public partial class RecipeComponent : Common
 {
     public int RecipeComponentId { get; set; }
 
@@ -27,7 +61,7 @@ public partial class RecipeComponent:Common
     public virtual Recipe? Recipe { get; set; }
 
     public int? TypeId { get; set; }
-    [ForeignKey("TypeId")]
 
-    public RecipeComponentType RecipeComponentType { get; set; }
+    // ✅ Navigation property for foreign key to RecipeComponentType
+    public virtual RecipeComponentType? RecipeComponentType { get; set; }
 }
