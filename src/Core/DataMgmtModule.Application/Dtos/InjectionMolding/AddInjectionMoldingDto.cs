@@ -1,14 +1,17 @@
-﻿using DataMgmtModule.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding
 {
     public class AddInjectionMoldingDto
     {
         //public int Id { get; set; }
-
+        [Required]
         public string ProjectId { get; set; }
+        [Required]
 
         public int ParameterSet { get; set; }
+        [Required]
 
         public int RecipeId { get; set; }
 
@@ -58,10 +61,8 @@ namespace DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding
         public decimal? NozzleTemperature { get; set; }
 
         public decimal? MouldTemperature { get; set; }
+        public int? CreatedBy { get; set; }
 
-        //public virtual Projects Project { get; set; } = null!;
-
-        //public virtual Recipe Recipe { get; set; } = null!;
 
 
     }

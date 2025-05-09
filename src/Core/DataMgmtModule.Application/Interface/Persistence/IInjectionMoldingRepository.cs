@@ -16,6 +16,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         //Task<InjectionMolding?> GetByIdInjectionMolding(int id);
         Task<int> DeleteInjectionMoldingByRecipeId(int RecipeId,int?userId);
         Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id);
+        Task<InjectionMolding?> GetInjectionMoldingbyId(int id);
 
 
     } 

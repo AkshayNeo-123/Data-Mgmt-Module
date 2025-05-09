@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
@@ -12,6 +13,8 @@ public partial class InjectionMolding : Common
     public int ParameterSet { get; set; }
 
     public int RecipeId { get; set; }
+    [ForeignKey("RecipeId")]
+    public virtual Recipe Recipe { get; set; } = null!;
 
     public int? Repetition { get; set; }
     public string? Additive { get; set; }
@@ -62,7 +65,8 @@ public partial class InjectionMolding : Common
 
     //public virtual Projects Project { get; set; } = null!;
 
-    public virtual Recipe Recipe { get; set; } = null!;
+    
+    public bool IsDelete { get; set; }
 
 
 

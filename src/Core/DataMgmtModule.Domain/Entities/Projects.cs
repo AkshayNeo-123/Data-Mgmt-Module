@@ -37,7 +37,7 @@ public partial class Projects:Common
     [ForeignKey("PriorityId")]
     public Priorities Priorities { get; set; }
 
-    public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
+    //public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }
