@@ -234,9 +234,9 @@ namespace DataMgmtModule.Persistence
                 entity.Property(e => e.NozzleTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.PlasticizingVolume).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ProcessingMoisture).HasColumnType("decimal(5, 2)");
-                //entity.Property(e => e.ReferenceAdditive)
-                    //.HasMaxLength(255)
-                    //.IsUnicode(false);
+                entity.Property(e => e.ProjectId)
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
                 entity.Property(e => e.ResidualMoisture).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ScrewSpeed).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.SwitchingPoint).HasColumnType("decimal(5, 2)");

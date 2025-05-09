@@ -1,4 +1,6 @@
-﻿using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInjectionMolding;
+﻿using System.Runtime.CompilerServices;
+using DataMgmtModule.Application.Exceptions;
+using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInjectionMolding;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +19,32 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<InjectionMolding> AddAsync(InjectionMolding entity, int? userId)
         {
             //var recipe = await _dbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
-            //entity.RecipeId = recipe.ReceipeId;
-            entity.CreatedBy = userId;
+            //entity.RecipeId = recipe.Rece;
+            //entity.CreatedBy = userId;
             entity.CreatedDate = DateTime.Now;
+            entity.IsDelete = false;
             await _dbContext.InjectionMoldings.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }
+        //public async Task<int> getparameterSet()
+        //{
+        //    var data = _dbContext.InjectionMoldings.OrderByDescending(x => x.Id).Select(p=>p.ParameterSet).FirstOrDefaultAsync();
+        //    return data != null ? data : 0;
+        //}
 
+        public async Task<int> InjectionmoldigSoftDelete(int moldingId)
+        {
+            var injectionMolding = await _dbContext.InjectionMoldings
+                .Where(b => b.Id == moldingId).FirstOrDefaultAsync();
+            if (injectionMolding == null)
+            {
+                throw new NotFoundException($"injection MOlding id {moldingId} not found!!");
+            }
+            injectionMolding.IsDelete= true;
+           return  await _dbContext.SaveChangesAsync();
 
-
+        }
         
 
 
@@ -51,17 +69,17 @@ namespace DataMgmtModule.Persistence.Repository
 
 
 
-
+        public async Task<InjectionMolding?> GetInjectionMoldingbyId(int id)
         //GetById with Id
-        //public async Task<InjectionMolding?> GetByIdInjectionMolding(int id)
-        //{
-        //    var Injectionmolding = await _dbContext.InjectionMolding.FirstOrDefaultAsync(b => b.Id == id);
+         
+        {
+            var Injectionmolding = await _dbContext.InjectionMoldings.FirstOrDefaultAsync(b => b.Id == id);
 
-        //    if (Injectionmolding == null)
-        //        throw new Exception($"Injection Molding with ID {id} not found.");
+            if (Injectionmolding == null)
+                throw new Exception($"Injection Molding with ID {id} not found.");
 
-        //    return Injectionmolding;
-        //}
+            return Injectionmolding;
+        }
 
         public async Task<int> UpdateInjectionMolding(int id, InjectionMolding injectionmolding, int? userId)
         {
@@ -72,9 +90,9 @@ namespace DataMgmtModule.Persistence.Repository
 
 
 
-            
 
 
+            existingMaterial.ProjectId = injectionmolding.ProjectId;
             existingMaterial.Repetition = injectionmolding.Repetition;
             existingMaterial.Reference = injectionmolding.Reference;
             existingMaterial.ParameterSet = injectionmolding.ParameterSet;
@@ -99,7 +117,8 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.NozzleTemperature = injectionmolding.NozzleTemperature;
             existingMaterial.MouldTemperature = injectionmolding.MouldTemperature;
             existingMaterial.ModifiedDate= DateTime.Now;
-            existingMaterial.ModifiedBy = userId;
+            existingMaterial.ModifiedBy = injectionmolding.ModifiedBy;
+            existingMaterial.Additive = injectionmolding.Additive;
 
 
 
@@ -153,7 +172,7 @@ namespace DataMgmtModule.Persistence.Repository
                 //};
 
                 //await _dbContext.MouldingLogs.AddAsync(log);
-                //await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
 
             }
             _dbContext.InjectionMoldings.RemoveRange(injectionMolding1);
