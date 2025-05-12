@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.UpdateCompou
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetAllCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundDataByIdQuery;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundingDataByRecipe;
+using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByIdcompoundingQuery;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.AddDosages;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.DeleteDosage;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.UpdateDosageData;
@@ -47,8 +48,16 @@ namespace DataMgmtModule.Api.Controllers
                 return BadRequest("Invalid Components data.");
             }
             var data = await _mediator.Send(new AddCompoundingCommand(compoundingDataDTO,userId));
+            if(compoundingDataDTO.Components != null)
+            {
+
             var finalData = await _mediator.Send(new AddCompoundingComponentsCommand(data, compoundingDataDTO,userId));
+            }
+            if(compoundingDataDTO.DosageDTO != null)
+            {
+
             var result = await _mediator.Send(new AddDosagesCommand(data, compoundingDataDTO,userId));
+            }
             return Ok(new { Message = "Compoundings added successfully!" });
         }
 
@@ -103,6 +112,13 @@ namespace DataMgmtModule.Api.Controllers
         {
             var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId));
             return Ok(getCompoundingData);
+        }
+
+
+        [HttpGet("GetDataByCompoundingId")]
+        public async Task<IActionResult> GetDataByCompoundingId(int id)
+        {
+            return Ok(await _mediator.Send(new GetDataByIdcompoundingQuery(id)));
         }
 
 

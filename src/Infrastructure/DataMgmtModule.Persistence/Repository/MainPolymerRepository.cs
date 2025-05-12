@@ -23,7 +23,7 @@ namespace DataMgmtModule.Persistence.Repository
             try
             {
 
-               return await _context.MainPolymers.Where(x=>x.IsDelete==false).ToListAsync();
+               return await _context.MainPolymers.ToListAsync();
             }
             catch (Exception Ex)
             {

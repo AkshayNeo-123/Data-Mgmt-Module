@@ -13,7 +13,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> AddProject(Projects project,int? userId);
         Task<Projects> GetProjectById(int id);
 
-        Task<int> DeleteProject(int id);
+        Task<int> DeleteProject(int id, int? deletedBy);
         Task<int> UpdateProject(int id, Projects project,int? userId);
     }
 }

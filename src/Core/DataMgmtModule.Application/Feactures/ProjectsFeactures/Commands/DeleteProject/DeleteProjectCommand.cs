@@ -7,6 +7,6 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.ProjectsFeactures.Commands.DeleteProject
 {
-    public record DeleteProjectCommand(int id): IRequest<int>;
+    public record DeleteProjectCommand(int id, int? deletedBy) : IRequest<int>;
     
 }

@@ -17,7 +17,7 @@ namespace DataMgmtModule.Application.Feactures.ProjectsFeactures.Commands.Delete
         }
         public async Task<int> Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
         {
-            return await _projectsRepository.DeleteProject(request.id);
+            return await _projectsRepository.DeleteProject(request.id,request.deletedBy);
         }
     }
     

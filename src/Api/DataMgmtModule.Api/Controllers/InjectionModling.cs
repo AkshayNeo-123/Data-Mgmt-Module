@@ -3,12 +3,15 @@ using DataMgmtModule.Application.Dtos.RecipeDtos;
 using DataMgmtModule.Application.Feactures.InjectionMolding.Command.UpdateInjectionModling;
 using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetAllInjectionMolding;
 using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInjectionMolding;
+using DataMgmtModule.Application.Feactures.InjectionMolding.Query.InjectionMoldingById;
 using DataMgmtModule.Application.Feactures.Materials.Query.GetMaterialById;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipes;
 using DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInjectionModling;
 using DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding;
+using DataMgmtModule.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -17,10 +20,12 @@ namespace DataMgmtModule.Api.Controllers
     public class InjectionModling : ControllerBase
     {
         private readonly IMediator _mediator;
+        readonly PersistenceDbContext _persistenceDbContext;
 
-        public InjectionModling(IMediator mediator)
+        public InjectionModling(IMediator mediator, PersistenceDbContext persistenceDbContext)
         {
             _mediator = mediator;
+            _persistenceDbContext = persistenceDbContext;
         }
 
         [HttpGet("GetAll")]
@@ -28,6 +33,12 @@ namespace DataMgmtModule.Api.Controllers
         {
             var injectionmodling = await _mediator.Send(new GetAllInjectionMoldingQuery());
             return Ok(injectionmodling);
+        }
+        [HttpGet("GetLastParameterSet")]
+        public async Task<IActionResult> GetLastParameterSet()
+        {
+            var lastParameterSet = await _persistenceDbContext.InjectionMoldings.OrderByDescending(x => x.Id).Select(p => p.ParameterSet).FirstOrDefaultAsync();
+            return Ok(lastParameterSet);
         }
 
         [HttpDelete]
@@ -56,14 +67,20 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { message = "Injection Molding updated successfully", affectedRows = command });
         }
 
-        [HttpGet]
+        [HttpGet("GetByRecipeId")]
         public async Task<IActionResult> GetInjectionMoldingById(int recipeId)
         {
             var material = await _mediator.Send(new GetByIdInjectionMoldingQuery(recipeId));
             return Ok(material);
         }
+        [HttpGet("GetById")]
+        public async Task<IActionResult> InjectionMoldingGetById(int Id)
+        {
+            var material = await _mediator.Send(new InjectionMoldingByIdQuery(Id));
+            return Ok(material);
+        }
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<IActionResult> Create([FromBody] AddInjectionMoldingDto dto)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");

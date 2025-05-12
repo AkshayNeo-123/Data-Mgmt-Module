@@ -38,9 +38,13 @@ namespace DataMgmtModule.Persistence.Repository
 
             compoundingComponents.CompoundingId = compoundingId;
             //compoundingComponents.ComponentId = componentData.Id;
-            var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
+            //var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
 
-            compoundingComponents.RecipeId = result.ReceipeId;
+            //compoundingComponents.RecipeId = result.ReceipeId;
+
+            compoundingComponents.RecipeId = compoundingData.RecipeId; //added for test 
+
+
             compoundingComponents.CreatedBy= userId;
             compoundingComponents.CreatedDate = DateTime.Now;
 
@@ -82,9 +86,10 @@ namespace DataMgmtModule.Persistence.Repository
                 Date = searchCompounding.Date,
                 Notes = "Deleted old compounding data",
                 Repetation = searchCompounding.Repetation,
-                Pretreatment = searchCompounding.Pretreatment,
-                Temperature = searchCompounding.Temperature,
-                Duration = searchCompounding.Duration,
+                    PretreatmentDrying = searchCompounding.PretreatmentDrying,
+                    PretreatmentNone = searchCompounding.PretreatmentNone,
+                    Temperature = searchCompounding.Temperature,
+                //Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM,
                 NotMeasured = searchCompounding.NotMeasured,
                 DeletedBy = userId,
@@ -111,6 +116,11 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<CompoundingComponent>GetCompoundingComponentsAsync(int id)
         {
             var getData =await _persistenceDbContext.CompoundingComponents.FirstOrDefaultAsync(x => x.Id == id);
+            return getData;
+        }
+        public async Task<IEnumerable<CompoundingComponent>> GetCompoundingComponentsBycompoundingId(int id)
+        {
+            var getData = await _persistenceDbContext.CompoundingComponents.Where(x => x.CompoundingId == id).ToListAsync();
             return getData;
         }
 
