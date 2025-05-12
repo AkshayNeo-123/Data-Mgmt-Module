@@ -7,7 +7,7 @@ using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos
 {
-    public class CompoundingComponentsDTO
+    public class CompoundingComponentsDTO:Common
     {
         //public int CompoundingId { get; set; }
         public int? ComponentId { get; set; }

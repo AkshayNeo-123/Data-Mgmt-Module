@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos
 {
-    public class CompoundingDataDTO
+    public class CompoundingDataDTO:Common
     {
         public int ReceipeId { get; set; }
         public int ParameterSet { get; set; }

@@ -70,6 +70,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<Priorities> Priorities { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<States> States { get; set; }
+        public virtual DbSet<Cities> Cities { get; set; }
 
         public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

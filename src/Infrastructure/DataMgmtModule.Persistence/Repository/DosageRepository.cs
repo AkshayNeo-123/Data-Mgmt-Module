@@ -31,8 +31,8 @@ namespace DataMgmtModule.Persistence.Repository
             }
 
             dosage.CompoundingId = compoundingId;   //1
-            dosage.CreatedBy = userId;
-            dosage.CreatedDate= DateTime.Now;
+            //dosage.CreatedBy = userId;
+            dosage.CreatedDate = DateTime.Now;
 
             await _persistenceDbContext.Dosages.AddAsync(dosage);
             var saved = await _persistenceDbContext.SaveChangesAsync();

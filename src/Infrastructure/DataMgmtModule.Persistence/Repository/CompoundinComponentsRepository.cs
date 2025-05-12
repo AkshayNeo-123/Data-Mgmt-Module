@@ -45,7 +45,7 @@ namespace DataMgmtModule.Persistence.Repository
             compoundingComponents.RecipeId = compoundingData.RecipeId; //added for test 
 
 
-            compoundingComponents.CreatedBy= userId;
+            //compoundingComponents.CreatedBy= userId;
             compoundingComponents.CreatedDate = DateTime.Now;
 
             await _persistenceDbContext.CompoundingComponents.AddAsync(compoundingComponents);

@@ -32,16 +32,11 @@ namespace DataMgmtModule.Persistence.Repository
             return getAllStates;
         }
 
-        public Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId)
+        public async Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId)
         {
-            throw new NotImplementedException();
+            var getCityById = await _persistenceDbContext.Cities.Where(x => x.StateId == stateId).ToListAsync();
+            return getCityById;
         }
-
-        //public async Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId)
-        //{
-        //    var getCityById = await _persistenceDbContext.Cities.Where(x => x.StateId == stateId).ToListAsync();
-        //    return getCityById;
-        //}
     }
 
 }

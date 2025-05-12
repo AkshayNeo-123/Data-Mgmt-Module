@@ -33,7 +33,7 @@ namespace DataMgmtModule.Persistence.Repository
 
             //compoundingData.RecipeId = result.ReceipeId;
 
-            compoundingData.CreatedBy = userId;
+            //compoundingData.CreatedBy = userId;
             compoundingData.CreatedDate = DateTime.Now;
 
             var data =await _persistenceDbContext.CompoundingData.AddAsync(compoundingData);
@@ -138,7 +138,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingData.ResidualM = compoundingData.ResidualM;
             existingData.NotMeasured = compoundingData.NotMeasured;
             existingData.Date = compoundingData.Date;
-            existingData.ModifiedBy = userId;
+            existingData.ModifiedBy = compoundingData.ModifiedBy;
             existingData.ModifiedDate = DateTime.Now;
 
 
