@@ -8,7 +8,13 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject
 {
-    public record GetRecipeAndProject:IRequest<IEnumerable<RecipeProjectDTO>>
-    {
-    }
+    public record GetRecipeAndProject(string search) : IRequest<IEnumerable<RecipeProjectDTO>>
+    { }
+        //public string ProjectNumber { get; set; }
+
+        //public GetRecipeAndProject(string projectNumber)
+        //{
+        //    ProjectNumber = projectNumber;
+        //}
+    
 }

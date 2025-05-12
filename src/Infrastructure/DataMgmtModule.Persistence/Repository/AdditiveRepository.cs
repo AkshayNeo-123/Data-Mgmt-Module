@@ -51,7 +51,7 @@ namespace DataMgmtModule.Persistence.Repository
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id,int deletedBy)
         {
             var additive = await _context.Additives.FindAsync(id);
             //if (additive == null) return false;
@@ -59,6 +59,8 @@ namespace DataMgmtModule.Persistence.Repository
             //_context.Additives.Remove(additive);
             if (additive.IsDelete == false)
             {
+                additive.DeletedBy = deletedBy;
+                additive.DeletedDate = DateTime.Now;
                 additive.IsDelete = true;
                 await _context.SaveChangesAsync();
 

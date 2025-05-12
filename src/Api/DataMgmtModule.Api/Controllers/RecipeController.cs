@@ -10,6 +10,7 @@ using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.UpdateRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipes;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject;
+using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetRecipeAndProjectbyId;
 using DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInjectionModling;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
@@ -36,8 +37,8 @@ namespace DataMgmtModule.Api.Controllers
             {
                 return BadRequest("Invalid recipe data.");
             }
-            var result = await _mediator.Send(new AddRecipeCommand(recipeandComponent,userId));
-            var component = await _mediator.Send(new AddRecipeComponentCommand(result, recipeandComponent,userId));
+            var result = await _mediator.Send(new AddRecipeCommand(recipeandComponent, userId));
+            var component = await _mediator.Send(new AddRecipeComponentCommand(result, recipeandComponent, userId));
 
             return Ok(new { Message = "Recipe added successfully!", RecipeId = result });
         }
@@ -46,9 +47,9 @@ namespace DataMgmtModule.Api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            await _mediator.Send(new DeleteRecipeCommand(id,userId));
-            await _mediator.Send(new DeleteCompoundingComponentCommand(id,userId));
-            var result = await _mediator.Send(new DeleteInjectionModlingCommand(id,userId));
+            await _mediator.Send(new DeleteRecipeCommand(id, userId));
+            await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
+            var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
             return Ok();
         }
@@ -61,8 +62,8 @@ namespace DataMgmtModule.Api.Controllers
             {
                 return BadRequest("Invalid recipe data.");
             }
-            var result = await _mediator.Send(new UpdateRecipeCommand(id,updateRecipeDto.Recipe,userId));
-            var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto,userId));
+            var result = await _mediator.Send(new UpdateRecipeCommand(id, updateRecipeDto.Recipe, userId));
+            var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto, userId));
 
             return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
         }
@@ -81,10 +82,17 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpGet("GetREcipeAndProject")]
-        public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync()
+        public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync([FromQuery] string? search)
         {
-            return Ok( await _mediator.Send(new GetRecipeAndProject()));
-        }
+            var getData = await _mediator.Send(new GetRecipeAndProject (search));
+            return Ok( getData);
 
+        }
+        [HttpGet("GetRecipeAndProjectById")]
+        public async Task<IActionResult>GetREcipeAndProjectById(int id)
+        {
+            return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
+        }
+        
     }
 }

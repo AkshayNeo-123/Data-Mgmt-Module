@@ -35,6 +35,9 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Additive, DisplayAdditive>().ReverseMap();
             CreateMap<Additive, UpdateAdditiveDto>().ReverseMap();
             CreateMap<Additive, CreateAdditiveDto>().ReverseMap();
+            CreateMap<MainPolymer, UpdateMainPolymerDto>().ReverseMap();
+            CreateMap<MainPolymer, CreateMainPolymerDto>().ReverseMap();
+            //CretaMap<
             CreateMap<MainPolymer, DisplayMainPolymer>().ReverseMap();
 
 

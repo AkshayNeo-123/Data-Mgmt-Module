@@ -10,6 +10,8 @@ public partial class MainPolymer:Common
     public string PolymerName { get; set; } = null!;
     public bool IsDelete { get; set; }
 
+    public DateTime? DeletedDate { get; set; }
+    public int? DeletedBy { get; set; }
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

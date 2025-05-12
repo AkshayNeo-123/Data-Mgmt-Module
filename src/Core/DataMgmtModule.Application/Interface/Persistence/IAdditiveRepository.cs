@@ -14,6 +14,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<Additive?> GetByIdAsync(int id);
         Task<Additive> AddAsync(Additive dto,int? userId);
         Task<bool> UpdateAsync(int id, Additive dto, int? userId);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id,int deletedBy);
     }
 }

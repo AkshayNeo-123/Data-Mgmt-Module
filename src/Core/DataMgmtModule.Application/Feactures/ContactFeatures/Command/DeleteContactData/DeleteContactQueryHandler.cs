@@ -27,7 +27,7 @@ namespace DataMgmtModule.Application.Feactures.ContactFeatures.Command.DeleteCon
             {
                 throw new NotFoundException("Data not found");
             }
-            var data = await _contactRepository.DeleteContactAsync(deleteData.ContactId);
+            var data = await _contactRepository.DeleteContactAsync(deleteData.ContactId,request.deletedBy);
             return true;
         }
     }

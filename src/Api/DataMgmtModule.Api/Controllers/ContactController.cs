@@ -72,9 +72,9 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(updateData);
         }
         [HttpDelete]
-        public async Task<IActionResult>DeleteContactAsync(int id)
+        public async Task<IActionResult>DeleteContactAsync(int id, int deletedBy)
         {
-            var deleteData=await _mediator.Send(new DeleteContactQuery(id));
+            var deleteData=await _mediator.Send(new DeleteContactQuery(id,deletedBy));
             return Ok(deleteData);
         }
 

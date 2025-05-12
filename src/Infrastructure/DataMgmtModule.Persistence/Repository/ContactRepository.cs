@@ -33,7 +33,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<bool> DeleteContactAsync(int id)
+        public async Task<bool> DeleteContactAsync(int id,int deletedBy)
         {
             var getData = await _persistenceDbContext.Contacts.FindAsync(id);
             //if (getData == null)
@@ -42,6 +42,8 @@ namespace DataMgmtModule.Persistence.Repository
             //}
             if (getData.IsDelete == false)
             {
+                getData.DeletedBy = deletedBy;
+                getData.DeletedDate = DateTime.Now;
                 getData.IsDelete = true;
                 //getData.DeletedDate = DateTime.Now;
                 await _persistenceDbContext.SaveChangesAsync();

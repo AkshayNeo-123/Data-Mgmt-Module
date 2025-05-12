@@ -11,7 +11,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.MainPolymerFeatures.Command.AddMainPolymer
 {
-    public class AddMainPolymerCommandHandler : IRequestHandler<AddMainPolymerCommand, DisplayMainPolymer>
+    public class AddMainPolymerCommandHandler : IRequestHandler<AddMainPolymerCommand, MainPolymer>
     {
         private readonly IMainPolymerRepository _repo;
         readonly IMapper _mapper;
@@ -23,10 +23,13 @@ namespace DataMgmtModule.Application.Feactures.MainPolymerFeatures.Command.AddMa
             _mapper = mapper;
         }
 
-        public async Task<DisplayMainPolymer> Handle(AddMainPolymerCommand request, CancellationToken cancellationToken)
+        public async Task<MainPolymer> Handle(AddMainPolymerCommand request, CancellationToken cancellationToken)
         {
-            var result= await _repo.AddAsync(request.Polymer,request.userId);
-            return _mapper.Map<DisplayMainPolymer>(result);
+            var mapData= _mapper.Map<MainPolymer>(request.Polymer);
+            var result = await _repo.AddAsync(mapData, request.userId);
+            var mapexistingdata = _mapper.Map<CreateMainPolymerDto>(result);
+            return result;
+
         }
     }
 }
