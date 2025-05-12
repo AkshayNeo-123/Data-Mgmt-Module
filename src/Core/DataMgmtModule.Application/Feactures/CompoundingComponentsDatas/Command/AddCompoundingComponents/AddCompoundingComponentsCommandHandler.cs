@@ -26,6 +26,7 @@ namespace DataMgmtModule.Application.Feactures.CompoundingComponent.Command.AddC
             foreach(var item in request.compoundingDataAndComponents.Components)
             {
                var data= _mapper.Map<Domain.Entities.CompoundingComponent>(item);
+
                 result = await _repository.AddCompoundingComponents(request.Id, data,request.userId);
             }
             return result;

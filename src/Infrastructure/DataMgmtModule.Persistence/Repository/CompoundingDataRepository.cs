@@ -92,8 +92,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<CompoundingDatum> GetCompoundingDataAsync(int id)
         {
             var getData = await _persistenceDbContext.CompoundingData
-                .Include(x => x.CompoundingComponents)
-                .Include(x => x.Dosages)
+                
                 .FirstOrDefaultAsync(x => x.CompoundingId == id);
 
             if (getData == null)
@@ -132,6 +131,7 @@ namespace DataMgmtModule.Persistence.Repository
             //existingData.Pretreatment = compoundingData.Pretreatment;
             existingData.PretreatmentNone = compoundingData.PretreatmentNone;
             existingData.PretreatmentDrying = compoundingData.PretreatmentDrying;
+            existingData.Repetation = compoundingData.Repetation;
             existingData.Duration = compoundingData.Duration;
             existingData.Temperature = compoundingData.Temperature;
             existingData.Notes = compoundingData.Notes;

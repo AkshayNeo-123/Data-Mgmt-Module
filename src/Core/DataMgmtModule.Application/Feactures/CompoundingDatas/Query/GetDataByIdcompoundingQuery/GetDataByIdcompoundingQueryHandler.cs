@@ -10,6 +10,7 @@ using DataMgmtModule.Application.Dtos.Dosage;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByIdcompoundingQuery
 {
@@ -37,6 +38,7 @@ namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByI
             var dosagedrto = _mapper.Map<DosageDTO>(dosagedata);
             var compoentArray = _mapper.Map<CompoundingComponentsDTO[]>(componentdata);
             alldata.CompoundingDataDTO = compoundingdata;
+            alldata.CompoundingDataDTO.ReceipeId = getData.RecipeId.Value;
             alldata.Components = compoentArray;
             alldata.DosageDTO = dosagedrto;
             return alldata;
