@@ -1,14 +1,17 @@
-﻿using DataMgmtModule.Application.Dtos.RoleManagerDto;
+﻿using System.Data;
+using DataMgmtModule.Application.Dtos.RoleManagerDto;
 using DataMgmtModule.Application.Feactures.RoleManager.Command.CreateRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Command.DeleteRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Command.UpdateRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Query.GetAllRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Query.GetRolesById;
 using DataMgmtModule.Domain.Entities;
+using DataMgmtModule.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -17,9 +20,11 @@ namespace DataMgmtModule.Api.Controllers
     public class RoleController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public RoleController(IMediator mediator)
+        private readonly PersistenceDbContext _context;
+        public RoleController(IMediator mediator, PersistenceDbContext context)
         {
             _mediator = mediator;
+            _context = context;
         }
         
         [HttpGet]
@@ -28,11 +33,41 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(await _mediator.Send(new GetAllRolesQuery()));
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> AddRoleAsync(AddRole addRole)
+        //{
+        //    var addData = await _mediator.Send(new AddRoleCommand(addRole));
+        //    return Ok(addData);
+        //}
+
         [HttpPost]
         public async Task<IActionResult> AddRoleAsync(AddRole addRole)
         {
-            var addData = await _mediator.Send(new AddRoleCommand(addRole));
-            return Ok(addData);
+            var role = new Roles { RoleName = addRole.RoleName };
+            _context.Roles.Add(role);
+            await _context.SaveChangesAsync();
+
+            foreach (var entry in addRole.Permissions)
+            {
+                var menuId = entry.Key;
+                var perm = entry.Value;
+
+                var rolePermission = new RolePermission
+                {
+                    RoleId = role.RoleId,
+                    MenuId = menuId,
+                    CanView = perm.View,
+                    CanCreate = perm.Create,
+                    CanEdit = perm.Update,
+                    CanDelete = perm.Delete
+                };
+
+                _context.RolePermissions.Add(rolePermission);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet("{id}")]
@@ -42,10 +77,69 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRoleAsync(int id, UpdateRoleDto updateRole)
+        public async Task<IActionResult> UpdateRoleAsync(int id, AddRole updateRole)
         {
-            return Ok(await _mediator.Send(new UpdateRoleCommand(id, updateRole)));
+            var findRole = await _context.Roles.FirstOrDefaultAsync(r=>r.RoleId==id);
+            findRole.RoleName = updateRole.RoleName;
+            //var role = new Roles { RoleName = updateRole.RoleName };
+            _context.Roles.Update(findRole);
+            await _context.SaveChangesAsync();
+
+            foreach (var entry in updateRole.Permissions)
+            {
+                var menuId = entry.Key;
+                var perm = entry.Value;
+
+                var rolePermission = new RolePermission
+                {
+                    RoleId = findRole.RoleId,
+                    MenuId = menuId,
+                    CanView = perm.View,
+                    CanCreate = perm.Create,
+                    CanEdit = perm.Update,
+                    CanDelete = perm.Delete
+                };
+
+                _context.RolePermissions.Update(rolePermission);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+            //return Ok(await _mediator.Send(new UpdateRoleCommand(id, updateRole)));
         }
+
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateRoleAsync(int id, [FromBody] UpdateRoleDto dto)
+        //{
+        //    var role = await _context.Roles
+        //        .Include(r => r.RolePermissions)
+        //        .FirstOrDefaultAsync(r => r.RoleId == id);
+
+        //    if (role == null)
+        //        return NotFound();
+
+        //    role.RoleName = dto.RoleName;
+
+        //    // Remove existing permissions
+        //    _context.RolePermissions.RemoveRange(role.RolePermissions);
+
+        //    // Add updated permissions
+        //    var newPermissions = dto.Permissions.Select(p => new RolePermission
+        //    {
+        //        RoleId = id,
+        //        MenuId = p.MenuId,
+        //        CanView = p.CanView,
+        //        CanCreate = p.CanCreate,
+        //        CanEdit = p.CanEdit,
+        //        CanDelete = p.CanDelete
+        //    });
+
+        //    await _context.RolePermissions.AddRangeAsync(newPermissions);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRolesAsync(int id)

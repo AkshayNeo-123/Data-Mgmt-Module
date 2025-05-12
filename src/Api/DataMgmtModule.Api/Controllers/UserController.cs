@@ -1,4 +1,5 @@
-﻿using DataMgmtModule.Application.Dtos;
+﻿using System.Net.Mail;
+using DataMgmtModule.Application.Dtos;
 using DataMgmtModule.Application.Feactures.Users.Commands.AddUser;
 using DataMgmtModule.Application.Feactures.Users.Commands.DeleteUser;
 using DataMgmtModule.Application.Feactures.Users.Commands.UpdateUser;
@@ -7,10 +8,13 @@ using DataMgmtModule.Application.Feactures.Users.Queries.GetUserById;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Application.Models;
 using DataMgmtModule.Domain.Entities;
+using DataMgmtModule.Persistence;
 using DataMgmtModule.Persistence.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -20,10 +24,12 @@ namespace DataMgmtModule.Api.Controllers
     {
 
         private readonly IMediator _mediator;
+        private readonly PersistenceDbContext _context;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, PersistenceDbContext context)
         {
             _mediator = mediator;
+            _context = context;
         }
 
         [HttpGet]
