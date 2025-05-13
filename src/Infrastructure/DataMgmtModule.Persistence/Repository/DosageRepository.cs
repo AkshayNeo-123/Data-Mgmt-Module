@@ -121,7 +121,7 @@ namespace DataMgmtModule.Persistence.Repository
             compoundingData.NozzlePlate = dosage.NozzlePlate;
             compoundingData.Premix = dosage.Premix;
             compoundingData.UnderwaterPelletizer = dosage.UnderwaterPelletizer;
-            compoundingData.ModifiedBy = userId;
+            compoundingData.ModifiedBy = dosage.ModifiedBy;
             compoundingData.ModifiedDate = DateTime.Now;
             var saved = await _persistenceDbContext.SaveChangesAsync();
 

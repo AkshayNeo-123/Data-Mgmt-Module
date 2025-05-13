@@ -144,7 +144,7 @@ namespace DataMgmtModule.Persistence.Repository
                 item.CreatedBy = userId;
                 item.CreatedDate = DateTime.Now;
                 item.ModifiedDate = DateTime.Now;
-                item.ModifiedBy = userId;
+                item.ModifiedBy = compoundingdata.ModifiedBy;
                  await _persistenceDbContext.CompoundingComponents.AddAsync(item);
                  await _persistenceDbContext.SaveChangesAsync();
             }
