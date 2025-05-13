@@ -17,12 +17,24 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext;
         }
 
-        public async Task<Cities> AddCityAsync(Cities city)
+        public async Task<Cities> AddCityAsync(string cityName,int stateId)
         {
+            var existingCity = await _persistenceDbContext.Cities.Where(x => x.StateId == stateId &&  x.CityName==cityName).FirstOrDefaultAsync();
+
+            if (existingCity != null)
+            {
+                return existingCity;
+            }
+            
+                var newCity = new Cities
+                {
+                    StateId = stateId,
+                    CityName = cityName 
+                };
             var addCity=await _persistenceDbContext.AddAsync
-                (city);
+                (newCity);
             await _persistenceDbContext.SaveChangesAsync();
-            return addCity.Entity
+            return newCity;
                 ;
         }
 

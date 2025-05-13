@@ -11,6 +11,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
     {
         Task<IEnumerable<States>> GetAllStates();
         Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId);
-        Task<Cities>AddCityAsync(Cities city);
+        Task<Cities>AddCityAsync(string  cityName,int stateId);
     }
 }
