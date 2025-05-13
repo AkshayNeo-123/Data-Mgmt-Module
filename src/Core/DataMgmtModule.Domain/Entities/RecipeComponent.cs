@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
-public partial class RecipeComponent:Common
+public partial class RecipeComponent : Common
 {
     public int RecipeComponentId { get; set; }
 
@@ -27,7 +26,7 @@ public partial class RecipeComponent:Common
     public virtual Recipe? Recipe { get; set; }
 
     public int? TypeId { get; set; }
-    [ForeignKey("TypeId")]
 
-    public RecipeComponentType RecipeComponentType { get; set; }
+ 
+    public virtual RecipeComponentType? RecipeComponentType { get; set; }
 }

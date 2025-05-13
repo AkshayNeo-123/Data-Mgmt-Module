@@ -33,6 +33,6 @@ public partial class Recipe:Common
     public virtual Projects? Project { get; set; }
 
     public virtual ICollection<RecipeComponent> RecipeComponents { get; set; } = new List<RecipeComponent>();
-
+    
 
 }

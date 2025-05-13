@@ -26,7 +26,8 @@ namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipe
         public async Task<IEnumerable<GetAllRecipeDtos>> Handle(GetAllRecipesQuery request, CancellationToken cancellationToken)
         {
             var recipes = await _recipeRepository.GetAllRecipes();
-            return _mapper.Map<IEnumerable<GetAllRecipeDtos>>(recipes);
+            return recipes;
+          //  return _mapper.Map<IEnumerable<GetAllRecipeDtos>>(recipes);
         }
     }
 
