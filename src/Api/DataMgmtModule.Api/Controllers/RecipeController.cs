@@ -52,19 +52,36 @@ namespace DataMgmtModule.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("UpdateRecipeandComponent")]
-        public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //[HttpPut("UpdateRecipeandComponent")]
+        //public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //{
+        //    int? userId = HttpContext.Session.GetInt32("UserId");
+        //    if (updateRecipeDto == null)
+        //    {
+        //        return BadRequest("Invalid recipe data.");
+        //    }
+        //    var result = await _mediator.Send(new UpdateRecipeCommand(id,updateRecipeDto.Recipe,userId));
+        //    var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto,userId));
+
+        //    return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
+        //}
+
+        [HttpPut("UpdateRecipeandComponent/{id}")]
+        public async Task<IActionResult> UpdateRecipe(int id, [FromBody] RecipeandComponent updateRecipeDto)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (updateRecipeDto == null)
             {
                 return BadRequest("Invalid recipe data.");
             }
-            var result = await _mediator.Send(new UpdateRecipeCommand(id,updateRecipeDto.Recipe,userId));
-            var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto,userId));
+
+            var result = await _mediator.Send(new UpdateRecipeCommand(id, updateRecipeDto.Recipe, userId));
+            var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto, userId));
 
             return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
         }
+
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GetAllRecipeDtos>>> GetAllRecipes()
         {
