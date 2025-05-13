@@ -90,17 +90,24 @@ namespace DataMgmtModule.Api.Controllers
                 var menuId = entry.Key;
                 var perm = entry.Value;
 
-                var rolePermission = new RolePermission
-                {
-                    RoleId = findRole.RoleId,
-                    MenuId = menuId,
-                    CanView = perm.View,
-                    CanCreate = perm.Create,
-                    CanEdit = perm.Update,
-                    CanDelete = perm.Delete
-                };
+                var editPermission = _context.RolePermissions.FirstOrDefault(r => r.MenuId == menuId && r.RoleId == findRole.RoleId);
+                //editPermission.RoleId=findRole.RoleId; editPermission.MenuId=menuId;
+                editPermission.CanView = perm.View;
+                editPermission.CanDelete = perm.Delete;
+                editPermission.CanCreate = perm.Create;
+                editPermission.CanEdit = perm.Update;
 
-                _context.RolePermissions.Update(rolePermission);
+                //var rolePermission = new RolePermission
+                //{
+                //    RoleId = findRole.RoleId,
+                //    MenuId = menuId,
+                //    CanView = perm.View,
+                //    CanCreate = perm.Create,
+                //    CanEdit = perm.Update,
+                //    CanDelete = perm.Delete
+                //};
+
+                _context.RolePermissions.Update(editPermission);
             }
 
             await _context.SaveChangesAsync();

@@ -419,9 +419,9 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions)
-                    .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK_Roles_RolePermissions");
+                //entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions)
+                //    .HasForeignKey(d => d.RoleId)
+                //    .HasConstraintName("FK_Roles_RolePermissions");
             });
 
             modelBuilder.Entity<User>(entity =>
