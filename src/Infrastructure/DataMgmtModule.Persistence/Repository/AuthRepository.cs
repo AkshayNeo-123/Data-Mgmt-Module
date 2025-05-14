@@ -44,7 +44,7 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 UserId = email.UserId,
                 Email = email.Email,
-
+                RoleId = email.RoleId.Value,
             };
             return response;
 

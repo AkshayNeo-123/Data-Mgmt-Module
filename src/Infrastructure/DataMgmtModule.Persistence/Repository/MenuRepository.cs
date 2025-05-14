@@ -18,7 +18,9 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<IEnumerable<Menus>> GetMenu()
         {
-            return await _context.Menu.ToListAsync();
+            return await _context.Menu
+                .OrderBy(m=> m.Order)
+                .ToListAsync();
         }
     }
 }
