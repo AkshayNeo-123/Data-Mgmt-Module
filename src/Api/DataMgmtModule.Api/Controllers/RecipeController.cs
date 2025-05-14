@@ -43,11 +43,21 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { Message = "Recipe added successfully!", RecipeId = result });
         }
 
+
+        [HttpDelete("deleteRecipesData")]
+
+        public async Task<IActionResult>DeleteRecipeAsync(int id)
+        {
+            await _mediator.Send(new DeleteRecipeCommand(id));
+            return Ok();
+
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            await _mediator.Send(new DeleteRecipeCommand(id, userId));
+            await _mediator.Send(new DeleteRecipeCommand(id));
             await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
             var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
