@@ -25,12 +25,13 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 return existingCity;
             }
-            
-                var newCity = new Cities
-                {
+
+            var newCity = new Cities
+            {
+                
                     StateId = stateId,
-                    CityName = cityName 
-                };
+                CityName = cityName
+            };
             var addCity=await _persistenceDbContext.AddAsync
                 (newCity);
             await _persistenceDbContext.SaveChangesAsync();

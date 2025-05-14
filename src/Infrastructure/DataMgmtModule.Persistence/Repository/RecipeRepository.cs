@@ -35,7 +35,7 @@ namespace DataMgmtModule.Persistence.Repository
             ProjectId = r.ProjectId,
             AdditiveId = r.AdditiveId,
             ProductName = r.ProductName,
-            Comments = r.Comments,
+            //Comments = r.Comments,
             ProjectNumber = r.Project != null ? r.Project.ProjectNumber : string.Empty,
             AdditiveName = r.Additive.AdditiveName,
             PolymerName = r.MainPolymer.PolymerName != null ? r.MainPolymer.PolymerName : string.Empty
@@ -47,14 +47,14 @@ namespace DataMgmtModule.Persistence.Repository
         {
             recipe.CreatedDate = DateTime.Now;
             recipe.CreatedBy = userId;
-
+            recipe.IsDelete = false;
             await _persistenceDbContext.Recipes.AddAsync(recipe);
             await _persistenceDbContext.SaveChangesAsync();
             var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
             return result.ReceipeId;
         }
 
-        public async Task<int> DeleteRecipe(int id, int? userId)
+        public async Task<int> DeleteRecipe(int id)
         {
             var components = await _persistenceDbContext.RecipeComponents
                 .Where(x => x.RecipeId == id)
@@ -67,7 +67,7 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 return 0;
             }
-           
+
             var log = new RecipesLog
             {
                 RecipeId = recipe.ReceipeId,
@@ -77,19 +77,40 @@ namespace DataMgmtModule.Persistence.Repository
                 CreatedDate = recipe.CreatedDate,
                 AdditiveId = recipe.AdditiveId,
                 MainPolymerId = recipe.MainPolymerId,
-                DeletedBy = userId,
+                //DeletedBy = userId,
                 DeletedDate = DateTime.UtcNow
             };
 
             await _persistenceDbContext.RecipesLogs.AddAsync(log);
 
             _persistenceDbContext.RecipeComponents.RemoveRange(components);
-           
 
-            return await _persistenceDbContext.SaveChangesAsync();
+            if (recipe.IsDelete == false)
+            {
+                recipe.IsDelete = true;
+
+               await _persistenceDbContext.SaveChangesAsync();
+
+            }
+            return 1;
+
+        }
 
 
-
+        public async Task<int>DeleteRecipeSoft(int id)
+        {
+            
+            var recipes = await _persistenceDbContext.Recipes.FindAsync(id);
+            if (recipes.IsDelete == false)
+            {
+                recipes.IsDelete = true;
+                await _persistenceDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new NotFoundException("This Data not found");
+            }
+            return 1;
         }
 
 
@@ -145,7 +166,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var query = _persistenceDbContext.Recipes
         .Include(x => x.Project)
-        .Where(x => x.Project.IsDelete == false);
+        .Where(x => x.Project.IsDelete == false && x.IsDelete==false);
 
             if (!string.IsNullOrWhiteSpace(search))
             {

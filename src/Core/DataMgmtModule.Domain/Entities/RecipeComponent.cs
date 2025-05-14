@@ -21,6 +21,8 @@ public partial class RecipeComponent : Common
 
     public int ComponentId { get; set; }
 
+    //public bool IsDelete { get; set; }
+
     public virtual Component Component { get; set; } = null!;
 
     public virtual Recipe? Recipe { get; set; }

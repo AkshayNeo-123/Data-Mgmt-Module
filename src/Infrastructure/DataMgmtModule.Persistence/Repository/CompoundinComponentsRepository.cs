@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -72,8 +73,21 @@ namespace DataMgmtModule.Persistence.Repository
                 
                 var findCompoundingComponentId = await _persistenceDbContext.CompoundingComponents.Where(x => x.CompoundingId == searchCompounding.CompoundingId).ToListAsync();
                 var dosagedata=  await _persistenceDbContext.Dosages.Where(x => x.CompoundingId == searchCompounding.CompoundingId).FirstOrDefaultAsync();
-                _persistenceDbContext.Remove(dosagedata);
-                _persistenceDbContext.RemoveRange(findCompoundingComponentId);
+
+                if (dosagedata != null)
+                {
+                    //dosagedata.IsDelete = true;
+                    _persistenceDbContext.Remove(dosagedata);
+                }
+                //_persistenceDbContext.Remove(dosagedata);
+
+                if (findCompoundingComponentId != null && findCompoundingComponentId.Any())
+                {
+
+                    //findCompoundingComponentId. = true;
+                    //_persistenceDbContext.RemoveRange(findCompoundingComponentId);
+                }
+                //_persistenceDbContext.RemoveRange(findCompoundingComponentId);
             }
             foreach (var searchCompounding in searchCompoundings)
             {
@@ -86,8 +100,8 @@ namespace DataMgmtModule.Persistence.Repository
                 Date = searchCompounding.Date,
                 Notes = "Deleted old compounding data",
                 Repetation = searchCompounding.Repetation,
-                    PretreatmentDrying = searchCompounding.PretreatmentDrying,
-                    PretreatmentNone = searchCompounding.PretreatmentNone,
+                    //PretreatmentDrying = searchCompounding.,
+                    Pretreatment = searchCompounding.PretreatmentNone,
                     Temperature = searchCompounding.Temperature,
                 //Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM,
@@ -100,7 +114,7 @@ namespace DataMgmtModule.Persistence.Repository
             }
 
 
-
+               
             _persistenceDbContext.RemoveRange(searchCompoundings);
             _persistenceDbContext.Recipes.Remove(recipe);
 

@@ -20,6 +20,8 @@ public partial class Recipe:Common
 
     public int MainPolymerId { get; set; }
 
+    public bool? IsDelete { get; set; }
+
     public virtual Additive Additive { get; set; } = null!;
 
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();
