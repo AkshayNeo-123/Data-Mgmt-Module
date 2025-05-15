@@ -15,5 +15,6 @@ namespace DataMgmtModule.Application.Dtos
         public int RoleId { get; set; }
         public string Phone { get; set; }
         public string Status { get; set; }
+        public int? ModifiedBy{ get; set; }
     }
 }

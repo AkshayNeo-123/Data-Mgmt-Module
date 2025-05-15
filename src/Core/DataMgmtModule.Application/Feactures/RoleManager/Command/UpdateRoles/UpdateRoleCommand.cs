@@ -9,6 +9,6 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.RoleManager.Command.UpdateRoles
 {
-    public record UpdateRoleCommand(int id,UpdateRoleDto UpdateRole):IRequest<Roles>;
+    public record UpdateRoleCommand(int id,UpdateRoleDto UpdateRole):IRequest<GetRoleDto>;
     
 }

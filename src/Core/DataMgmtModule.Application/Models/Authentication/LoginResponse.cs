@@ -10,6 +10,6 @@ namespace DataMgmtModule.Application.Models.Authentication
     {
         public int UserId { get; set; }
         public string Email { get; set; }
-
+        public int RoleId { get; set; }
     }
 }

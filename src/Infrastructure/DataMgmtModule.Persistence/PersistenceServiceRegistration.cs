@@ -26,6 +26,7 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IMaterialsRepository, MaterialsRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
             services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
             services.AddScoped<ICompoundingData, CompoundingDataRepository>();
             services.AddScoped<ICompoundingComponentsRepository, CompoundingComponentsRepository>();
