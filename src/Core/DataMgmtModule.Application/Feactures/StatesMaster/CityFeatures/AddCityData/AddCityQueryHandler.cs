@@ -22,8 +22,8 @@ namespace DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.AddCity
         }
         public async Task<AddCityDTO> Handle(AddCityQuery request, CancellationToken cancellationToken)
         {
-            var mapCity = _mapper.Map<Cities>(request.addCityDTO);
-            var addCity = await _stateRepository.AddCityAsync(mapCity);
+            //var mapCity = _mapper.Map<Cities>(request);
+            var addCity = await _stateRepository.AddCityAsync(request.cityName,request.stateId);
             var resultDto = _mapper.Map<AddCityDTO>(addCity);
             return resultDto;
         }

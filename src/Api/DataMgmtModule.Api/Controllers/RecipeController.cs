@@ -8,6 +8,7 @@ using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.RecipeAdd;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.RecipeComponentUpdate;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.UpdateRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipes;
+using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetById;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetRecipeAndProjectbyId;
@@ -29,6 +30,15 @@ namespace DataMgmtModule.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("getForUpdate")]
+
+        public async Task<IActionResult> getForUpdate(int recipeId)
+        {
+            return Ok(await _mediator.Send(new GetBIdForUpdateQuery(recipeId)));
+            
+
+        }
+
         [HttpPost("AddRecipe")]
         public async Task<IActionResult> AddRecipe([FromBody] RecipeandComponent recipeandComponent)
         {
@@ -43,19 +53,49 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { Message = "Recipe added successfully!", RecipeId = result });
         }
 
+
+        [HttpDelete("deleteRecipesData")]
+
+        public async Task<IActionResult>DeleteRecipeAsync(int id, int deletedBy)
+        {
+            await _mediator.Send(new DeleteRecipeCommand(id,deletedBy));
+            return Ok();
+
+        }
+
+
+
+
+
+
+
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, int deletedBy)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            await _mediator.Send(new DeleteRecipeCommand(id, userId));
+            await _mediator.Send(new DeleteRecipeCommand(id, deletedBy));
             await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
             var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
             return Ok();
         }
 
-        [HttpPut("UpdateRecipeandComponent")]
-        public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //[HttpPut("UpdateRecipeandComponent")]
+        //public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //{
+        //    int? userId = HttpContext.Session.GetInt32("UserId");
+        //    if (updateRecipeDto == null)
+        //    {
+        //        return BadRequest("Invalid recipe data.");
+        //    }
+        //    var result = await _mediator.Send(new UpdateRecipeCommand(id,updateRecipeDto.Recipe,userId));
+        //    var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto,userId));
+
+        //    return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
+        //}
+
+        [HttpPut("UpdateRecipeandComponent/{id}")]
+        public async Task<IActionResult> UpdateRecipe(int id, [FromBody] RecipeandComponent updateRecipeDto)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (updateRecipeDto == null)
@@ -67,6 +107,8 @@ namespace DataMgmtModule.Api.Controllers
 
             return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
         }
+
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GetAllRecipeDtos>>> GetAllRecipes()
         {
@@ -89,10 +131,12 @@ namespace DataMgmtModule.Api.Controllers
 
         }
         [HttpGet("GetRecipeAndProjectById")]
-        public async Task<IActionResult>GetREcipeAndProjectById(int id)
+        public async Task<IActionResult>GetRecipeAndProjectById(int id)
         {
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
         }
+
+
         
     }
 }

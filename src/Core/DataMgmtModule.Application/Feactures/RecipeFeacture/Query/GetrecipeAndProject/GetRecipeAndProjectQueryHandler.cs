@@ -22,7 +22,7 @@ namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAnd
         }
         public async Task<IEnumerable<RecipeProjectDTO>> Handle(GetRecipeAndProject request, CancellationToken cancellationToken)
         {
-            var recipeProjectData = await _recipeRepository.GetRecipeAndPrjectAsync(request.search);
+            var recipeProjectData = await _recipeRepository.GetRecipeAndProjectAsync(request.search);
             return recipeProjectData;
         }
     }

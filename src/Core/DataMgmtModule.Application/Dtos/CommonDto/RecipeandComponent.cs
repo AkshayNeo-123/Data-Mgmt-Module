@@ -11,7 +11,7 @@ namespace DataMgmtModule.Application.Dtos.CommonDto
     public class RecipeandComponent
     {
         public AddRecipe Recipe { get; set; }
-        public AddRecipeComponentDto[] Component { get; set; }
+        public AddRecipeComponentDto[]? Component { get; set; }
         
     }
 }

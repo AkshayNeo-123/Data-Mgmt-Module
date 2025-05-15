@@ -17,8 +17,8 @@ public partial class CompoundLog
 
     public int? Repetation { get; set; }
 
-    public bool? PretreatmentNone { get; set; }
-    public bool? PretreatmentDrying { get; set; }
+    //public bool? PretreatmentNone { get; set; }
+    public bool? Pretreatment { get; set; }
     public decimal Temperature { get; set; }
 
     public TimeSpan? Duration { get; set; }

@@ -7,13 +7,16 @@ namespace DataMgmtModule.Application.Interface.Persistence
     public interface IRecipe
     {
         Task<int> AddRecipe(Recipe recipe,int? userId);
-        Task<int> DeleteRecipe(int id,int? userId);
+        Task<int> DeleteRecipe(int id,int deletedBy);
+        Task<int> RecipeSoftDelete(int id,int deletedBy);
         Task<int> UpdateRecipe(int id,Recipe recipe, int? userId); 
         Task<int> UpdateRecipeComponent(int id, RecipeComponent[] recipeComponent,int? userId);
         Task<Recipe> RecipeFindById(int id);
         Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes();
-        Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndPrjectAsync(string projectNumber);
-        Task<RecipeProjectDTO> GetRecipeProjectById(int id);
-        
+        Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string projectNumber);
+        Task<RecipeProjectDTO> GetRecipeAndProjectById(int id);
+        Task<IEnumerable<RecipeComponent>> FindRecipeComponents(int recipeId);
+
+
     }
 }
