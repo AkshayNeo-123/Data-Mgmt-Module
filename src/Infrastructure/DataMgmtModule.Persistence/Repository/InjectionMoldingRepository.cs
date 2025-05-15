@@ -62,7 +62,7 @@ namespace DataMgmtModule.Persistence.Repository
                 .ToListAsync();
 
             if (injectionMoldingList == null || !injectionMoldingList.Any())
-                throw new Exception($"No Injection Molding records found for Recipe ID {id}.");
+                throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
 
             return injectionMoldingList;
         }
