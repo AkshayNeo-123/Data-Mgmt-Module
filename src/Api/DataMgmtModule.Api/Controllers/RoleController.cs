@@ -5,6 +5,7 @@ using DataMgmtModule.Application.Feactures.RoleManager.Command.DeleteRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Command.UpdateRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Query.GetAllRoles;
 using DataMgmtModule.Application.Feactures.RoleManager.Query.GetRolesById;
+using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using DataMgmtModule.Persistence;
 using MediatR;
@@ -21,10 +22,12 @@ namespace DataMgmtModule.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly PersistenceDbContext _context;
-        public RoleController(IMediator mediator, PersistenceDbContext context)
+        private readonly IRoleRepository _roleRepo;
+        public RoleController(IMediator mediator, PersistenceDbContext context, IRoleRepository roleRepo)
         {
             _mediator = mediator;
             _context = context;
+            _roleRepo = roleRepo;
         }
         
         [HttpGet]
@@ -40,34 +43,75 @@ namespace DataMgmtModule.Api.Controllers
         //    return Ok(addData);
         //}
 
+        //[HttpPost]
+        //public async Task<IActionResult> AddRoleAsync(AddRole addRole)
+        //{
+        //    var role = new Roles { RoleName = addRole.RoleName };
+        //    _context.Roles.Add(role);
+        //    await _context.SaveChangesAsync();
+
+        //    foreach (var entry in addRole.Permissions)
+        //    {
+        //        var menuId = entry.Key;
+        //        var perm = entry.Value;
+
+        //        var rolePermission = new RolePermission
+        //        {
+        //            RoleId = role.RoleId,
+        //            MenuId = menuId,
+        //            CanView = perm.View,
+        //            CanCreate = perm.Create,
+        //            CanEdit = perm.Update,
+        //            CanDelete = perm.Delete
+        //        };
+
+        //        _context.RolePermissions.Add(rolePermission);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok();
+        //}
+
         [HttpPost]
         public async Task<IActionResult> AddRoleAsync(AddRole addRole)
         {
-            var role = new Roles { RoleName = addRole.RoleName };
-            _context.Roles.Add(role);
-            await _context.SaveChangesAsync();
-
-            foreach (var entry in addRole.Permissions)
+            try
             {
-                var menuId = entry.Key;
-                var perm = entry.Value;
+                var existingRole = await _context.Roles
+                .FirstOrDefaultAsync(r => r.RoleName == addRole.RoleName);
 
-                var rolePermission = new RolePermission
+                if (existingRole != null)
                 {
-                    RoleId = role.RoleId,
-                    MenuId = menuId,
-                    CanView = perm.View,
-                    CanCreate = perm.Create,
-                    CanEdit = perm.Update,
-                    CanDelete = perm.Delete
-                };
+                    return BadRequest(new { message = "Role name already exists." });
+                }
+                var role = await _roleRepo.AddRolesAsync(new Roles { RoleName = addRole.RoleName });
 
-                _context.RolePermissions.Add(rolePermission);
+                foreach (var entry in addRole.Permissions)
+                {
+                    var menuId = entry.Key;
+                    var perm = entry.Value;
+
+                    var rolePermission = new RolePermission
+                    {
+                        RoleId = role.RoleId,
+                        MenuId = menuId,
+                        CanView = perm.View,
+                        CanCreate = perm.Create,
+                        CanEdit = perm.Update,
+                        CanDelete = perm.Delete
+                    };
+
+                    _context.RolePermissions.Add(rolePermission);
+                }
+
+                await _context.SaveChangesAsync();
+                return Ok();
             }
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]

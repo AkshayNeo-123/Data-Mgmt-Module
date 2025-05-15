@@ -12,5 +12,6 @@ namespace DataMgmtModule.Domain.Entities
         public string MenuName { get; set; }
         public int ParentId { get; set; }
         public int Order { get; set; }
+        public string Route { get; set; }
     }
 }

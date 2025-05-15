@@ -59,7 +59,6 @@ namespace DataMgmtModule.Persistence
 
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Menus> Menu { get; set; }
-
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
         public virtual DbSet<MvrMfr> MvrMfr { get; set; }
