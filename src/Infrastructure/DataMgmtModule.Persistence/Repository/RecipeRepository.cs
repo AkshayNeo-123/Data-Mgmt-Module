@@ -24,7 +24,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
         {
 
-            return await _persistenceDbContext.Recipes
+            return await _persistenceDbContext.Recipes.Where(x=>x.IsDelete==false)
         .Include(r => r.Project)
         .Include(r => r.Additive)
         .Include(r => r.MainPolymer)
@@ -39,8 +39,8 @@ namespace DataMgmtModule.Persistence.Repository
             ProjectNumber = r.Project != null ? r.Project.ProjectNumber : string.Empty,
             AdditiveName = r.Additive.AdditiveName,
             PolymerName = r.MainPolymer.PolymerName != null ? r.MainPolymer.PolymerName : string.Empty
-        })
-        .ToListAsync();
+        }).
+             ToListAsync();
         }
        
         public async Task<int> AddRecipe(Recipe recipe, int? userId)
@@ -54,7 +54,7 @@ namespace DataMgmtModule.Persistence.Repository
             return result.ReceipeId;
         }
 
-        public async Task<int> DeleteRecipe(int id)
+        public async Task<int> DeleteRecipe(int id, int deletedBy)
         {
             var components = await _persistenceDbContext.RecipeComponents
                 .Where(x => x.RecipeId == id)
@@ -97,13 +97,15 @@ namespace DataMgmtModule.Persistence.Repository
         }
 
 
-        public async Task<int>DeleteRecipeSoft(int id)
+        public async Task<int> RecipeSoftDelete(int id,int deletedBy)
         {
             
             var recipes = await _persistenceDbContext.Recipes.FindAsync(id);
             if (recipes.IsDelete == false)
             {
                 recipes.IsDelete = true;
+                recipes.DeletedBy = deletedBy;
+                recipes.DeletedDate = DateTime.Now;
                 await _persistenceDbContext.SaveChangesAsync();
             }
             else
@@ -162,7 +164,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndPrjectAsync(string search)
+        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search)
         {
             var query = _persistenceDbContext.Recipes
         .Include(x => x.Project)
@@ -187,7 +189,7 @@ namespace DataMgmtModule.Persistence.Repository
                 }).ToListAsync();
         }
 
-        public async Task<RecipeProjectDTO> GetRecipeProjectById(int id)
+        public async Task<RecipeProjectDTO> GetRecipeAndProjectById(int id)
         {
             var getById = await _persistenceDbContext.Recipes.Include(x => x.Project)
                 .Where(x => x.ReceipeId == id)

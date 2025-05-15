@@ -46,18 +46,18 @@ namespace DataMgmtModule.Api.Controllers
 
         [HttpDelete("deleteRecipesData")]
 
-        public async Task<IActionResult>DeleteRecipeAsync(int id)
+        public async Task<IActionResult>DeleteRecipeAsync(int id, int deletedBy)
         {
-            await _mediator.Send(new DeleteRecipeCommand(id));
+            await _mediator.Send(new DeleteRecipeCommand(id,deletedBy));
             return Ok();
 
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, int deletedBy)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            await _mediator.Send(new DeleteRecipeCommand(id));
+            await _mediator.Send(new DeleteRecipeCommand(id, deletedBy));
             await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
             var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
@@ -115,7 +115,7 @@ namespace DataMgmtModule.Api.Controllers
 
         }
         [HttpGet("GetRecipeAndProjectById")]
-        public async Task<IActionResult>GetREcipeAndProjectById(int id)
+        public async Task<IActionResult>GetRecipeAndProjectById(int id)
         {
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
         }

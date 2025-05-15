@@ -23,7 +23,7 @@ namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetRecipeAnd
         }
         public async Task<RecipeProjectDTO> Handle(GetRecipeAndProjectByIdCommand request, CancellationToken cancellationToken)
         {
-            var getData = await _recipeRepository.GetRecipeProjectById(request.id);
+            var getData = await _recipeRepository.GetRecipeAndProjectById(request.id);
             if (getData == null)
             {
                 throw new NotFoundException("RecipeProject Data not found");

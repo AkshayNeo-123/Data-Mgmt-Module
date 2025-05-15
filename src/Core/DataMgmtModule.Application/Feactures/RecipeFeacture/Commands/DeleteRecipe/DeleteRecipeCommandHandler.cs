@@ -18,8 +18,8 @@ namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Command.DeleteReci
         }
         public async Task<int> Handle(DeleteRecipeCommand request, CancellationToken cancellationToken)
         {
-            var deleterecipes = await _recipeRepository.RecipeFindById(request.recipeId);
-           return await _recipeRepository.DeleteRecipeSoft(deleterecipes.ReceipeId);
+            var getRecipeDataById = await _recipeRepository.RecipeFindById(request.recipeId);
+           return await _recipeRepository.RecipeSoftDelete(getRecipeDataById.ReceipeId, request.deletedBy);
             
         }
     }
