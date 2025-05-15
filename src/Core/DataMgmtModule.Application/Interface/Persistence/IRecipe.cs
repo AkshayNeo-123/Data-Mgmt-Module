@@ -15,6 +15,8 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes();
         Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string projectNumber);
         Task<RecipeProjectDTO> GetRecipeAndProjectById(int id);
-        
+        Task<IEnumerable<RecipeComponent>> FindRecipeComponents(int recipeId);
+
+
     }
 }

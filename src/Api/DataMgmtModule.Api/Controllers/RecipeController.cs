@@ -8,6 +8,7 @@ using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.RecipeAdd;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.RecipeComponentUpdate;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Commands.UpdateRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetAllRecipes;
+using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetById;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetRecipeAndProjectbyId;
@@ -27,6 +28,15 @@ namespace DataMgmtModule.Api.Controllers
         public RecipeController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("getForUpdate")]
+
+        public async Task<IActionResult> getForUpdate(int recipeId)
+        {
+            return Ok(await _mediator.Send(new GetBIdForUpdateQuery(recipeId)));
+            
+
         }
 
         [HttpPost("AddRecipe")]
@@ -52,6 +62,12 @@ namespace DataMgmtModule.Api.Controllers
             return Ok();
 
         }
+
+
+
+
+
+
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id, int deletedBy)
@@ -119,6 +135,8 @@ namespace DataMgmtModule.Api.Controllers
         {
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
         }
+
+
         
     }
 }

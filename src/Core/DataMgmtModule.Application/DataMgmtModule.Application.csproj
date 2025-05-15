@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Feactures\RecipeComponentFeactures\Query\" />
-    <Folder Include="Feactures\RecipeFeacture\Query\GetById\" />
     <Folder Include="Interface\Identity\" />
   </ItemGroup>
 

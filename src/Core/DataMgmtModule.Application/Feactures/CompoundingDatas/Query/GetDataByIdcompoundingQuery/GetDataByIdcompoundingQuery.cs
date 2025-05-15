@@ -9,6 +9,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByIdcompoundingQuery
 {
+
     public record GetDataByIdcompoundingQuery(int Id):IRequest<CompoundingDataAndComponents>
     {
     }

@@ -118,7 +118,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<Recipe> RecipeFindById(int id)
         {
-            var recipe = await _persistenceDbContext.Recipes.Include(z=>z.MainPolymer).Include(z=>z.Project).Include( z=> z.Additive).Where(x => x.ReceipeId == id).FirstOrDefaultAsync();
+            var recipe = await _persistenceDbContext.Recipes.Where(x => x.ReceipeId == id).FirstOrDefaultAsync();
             if (recipe == null)
             {
                 throw new NotFoundException($" Recipe ID={id} is not Found!!");
@@ -132,12 +132,22 @@ namespace DataMgmtModule.Persistence.Repository
             var result = await RecipeFindById(id);
             result.ProductName = recipe.ProductName;
             result.Comments = recipe.Comments;
+            result.AdditiveId = recipe.AdditiveId;
+            result.MainPolymerId = recipe.MainPolymerId;
+            result.ProjectId = recipe.ProjectId;
             result.ModifiedBy = userId;
             result.ModifiedDate = DateTime.Now;
             return await _persistenceDbContext.SaveChangesAsync();
 
 
         }
+
+        public async Task<IEnumerable<RecipeComponent>> FindRecipeComponents(int recipeId)
+        {
+            var componets = await _persistenceDbContext.RecipeComponents.Where(c => c.RecipeId == recipeId).ToListAsync();
+            return componets;
+        }
+
 
         public async Task<int> UpdateRecipeComponent(int id, RecipeComponent[] recipeComponent, int? userId)
         {
