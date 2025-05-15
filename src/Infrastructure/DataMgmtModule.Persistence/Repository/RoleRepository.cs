@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataMgmtModule.Application.Dtos.RoleManagerDto;
+using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Features.RolePermissions.DTOs;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
@@ -41,9 +42,13 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<Roles> DeleteAccountByIdAsync(int id)
         {
-            //var getPermissionData = await _context.RolePermissions.Where(r => r.RoleId == roleId).ToListAsync();
-            //_context.RolePermissions.RemoveRange(getPermissionData);
             var getdata = await _context.Roles.FindAsync(id);
+            if(getdata == null)
+            {
+                throw new NotFoundException($"Id not found{id}");
+            }
+            var getPermissionData = await _context.RolePermissions.Where(r => r.RoleId == id).ToListAsync();
+            _context.RolePermissions.RemoveRange(getPermissionData);
             _context.Remove(getdata);
             await _context.SaveChangesAsync();
             return getdata;
