@@ -34,6 +34,8 @@ public partial class CompoundingComponent:Common
 
     public int? ComponentId { get; set; }
 
+    //public bool IsDelete { get; set; }
+
     public virtual Component? Component { get; set; }
 
     [JsonIgnore]

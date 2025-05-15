@@ -37,9 +37,9 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpPost("addCities")]
-        public async Task<ActionResult>AddCitiesAsync(AddCityDTO addCityDTO)
+        public async Task<ActionResult>AddCitiesAsync(string cityName,int stateId)
         {
-            var addCities=await _mediator.Send(new AddCityQuery(addCityDTO));
+            var addCities=await _mediator.Send(new AddCityQuery(cityName,stateId));
             return Ok(addCities);
         }
 

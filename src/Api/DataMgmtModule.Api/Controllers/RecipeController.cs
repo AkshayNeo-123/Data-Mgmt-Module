@@ -43,19 +43,43 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { Message = "Recipe added successfully!", RecipeId = result });
         }
 
+
+        [HttpDelete("deleteRecipesData")]
+
+        public async Task<IActionResult>DeleteRecipeAsync(int id)
+        {
+            await _mediator.Send(new DeleteRecipeCommand(id));
+            return Ok();
+
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            await _mediator.Send(new DeleteRecipeCommand(id, userId));
+            await _mediator.Send(new DeleteRecipeCommand(id));
             await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
             var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
             return Ok();
         }
 
-        [HttpPut("UpdateRecipeandComponent")]
-        public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //[HttpPut("UpdateRecipeandComponent")]
+        //public async Task<IActionResult> UpdateRecipe(int id, RecipeandComponent updateRecipeDto)
+        //{
+        //    int? userId = HttpContext.Session.GetInt32("UserId");
+        //    if (updateRecipeDto == null)
+        //    {
+        //        return BadRequest("Invalid recipe data.");
+        //    }
+        //    var result = await _mediator.Send(new UpdateRecipeCommand(id,updateRecipeDto.Recipe,userId));
+        //    var updateComponent = await _mediator.Send(new RecipeComponentUpdateCommand(id, updateRecipeDto,userId));
+
+        //    return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
+        //}
+
+        [HttpPut("UpdateRecipeandComponent/{id}")]
+        public async Task<IActionResult> UpdateRecipe(int id, [FromBody] RecipeandComponent updateRecipeDto)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (updateRecipeDto == null)
@@ -67,6 +91,8 @@ namespace DataMgmtModule.Api.Controllers
 
             return Ok(new { Message = "Recipe updated successfully!", RecipeId = result });
         }
+
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GetAllRecipeDtos>>> GetAllRecipes()
         {

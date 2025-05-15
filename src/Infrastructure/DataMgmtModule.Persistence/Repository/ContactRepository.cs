@@ -20,7 +20,13 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext; 
         }
         public async Task<Contact> AddContactAsync(Contact contact, int? userId)
-        {
+            {
+            var fetchLastContact = await _persistenceDbContext.Cities.OrderByDescending(x => x.CityId).FirstOrDefaultAsync();
+            if (contact.CityId == 0)
+            {
+                contact.CityId = fetchLastContact.CityId;
+            }
+
             contact.IsDelete = false;
             //contact.CreatedBy = userId;
             contact.CreatedDate = DateTime.Now;
@@ -115,6 +121,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> UpdateContactAsync(int id, Contact contact, int? userId)
         {
             var existingData = await _persistenceDbContext.Contacts.Where(x=>x.ContactId==id).FirstOrDefaultAsync();
+            var cityData = await _persistenceDbContext.Cities.OrderByDescending(x => x.CityId).FirstOrDefaultAsync();
             if (existingData == null)
             {
                 throw new NotFoundException("Data not found");
@@ -128,7 +135,14 @@ namespace DataMgmtModule.Persistence.Repository
             existingData.AddressLine2 = contact.AddressLine2;
             existingData.Phone = contact.Phone;
             existingData.Zip = contact.Zip;
-            existingData.CityId = contact.CityId;
+            if (contact.CityId == 0)
+            {
+                contact.CityId = cityData.CityId;
+            }
+            else
+            {
+                existingData.CityId = contact.CityId;
+            }
             existingData.StateId = contact.StateId;
             existingData.Email = contact.Email;
             existingData.ContactName = contact.ContactName;

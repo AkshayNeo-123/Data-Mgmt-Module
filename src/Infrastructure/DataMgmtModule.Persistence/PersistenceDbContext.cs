@@ -12,21 +12,7 @@ namespace DataMgmtModule.Persistence
         {
 
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
-        //public DbSet<User> Users { get; set; }
-        //public DbSet<Roles> roles { get; set; }
-        //public DbSet<Projects> Projects { get; set; }
-        //public DbSet<Recipe> Recipes { get; set; }
-        //public DbSet<Additive> Additives { get; set; }
-        //public DbSet<Component> Components { get; set; }
-        //public DbSet<MainPolymer> MainPolymers { get; set; }
-        //public DbSet<RecipeComponent> RecipeComponents { get; set; }
-        //public DbSet<Materials> Materials { get; set; }
-        //public DbSet<RecipesLog> Recipes_Log { get; set; }
-        //public DbSet<RolePermission> RolePermissions { get; set; }
+       
         public virtual DbSet<Additive> Additives { get; set; }
 
         public virtual DbSet<Component> Components { get; set; }
@@ -73,9 +59,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<Cities> Cities { get; set; }
 
         public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        //        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -389,6 +373,12 @@ namespace DataMgmtModule.Persistence
                 entity.HasOne(d => d.Recipe).WithMany(p => p.RecipeComponents)
                     .HasForeignKey(d => d.RecipeId)
                     .HasConstraintName("FK_Recipes_RecipeComponents");
+
+
+                entity.HasOne(d => d.RecipeComponentType)
+                    .WithMany() // If RecipeComponentType does not have a collection of RecipeComponents
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK_RecipeComponentType_RecipeComponents");
             });
 
             modelBuilder.Entity<RecipesLog>(entity =>
@@ -463,9 +453,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                //entity.HasOne(d => d.Role).WithMany(p => p.Users)
-                //    .HasForeignKey(d => d.RoleId)
-                //    .HasConstraintName("fk_Users_Role");
+             
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -8,7 +8,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.AddCityData
 {
-    public record AddCityQuery(AddCityDTO addCityDTO):IRequest<AddCityDTO>
+    public record AddCityQuery(string cityName,int stateId):IRequest<AddCityDTO>
     {
     }
 }

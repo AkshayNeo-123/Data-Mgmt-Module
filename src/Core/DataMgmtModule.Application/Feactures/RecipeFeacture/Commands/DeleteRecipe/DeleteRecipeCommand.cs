@@ -7,6 +7,6 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Command.DeleteRecipe
 {
-    public record DeleteRecipeCommand(int recipeId,int? userId) : IRequest<int>;
+    public record DeleteRecipeCommand(int recipeId) : IRequest<int>;
     
 }
