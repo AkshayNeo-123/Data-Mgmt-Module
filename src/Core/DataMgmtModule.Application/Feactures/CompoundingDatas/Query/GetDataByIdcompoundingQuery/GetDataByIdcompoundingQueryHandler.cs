@@ -36,11 +36,14 @@ namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByI
             var compoundingdata=_mapper.Map<CompoundingDataDTO >(getData);
             var dosagedata = await _dosageRepository.getDosagebyCompoundingId(request.Id);
             var dosagedrto = _mapper.Map<DosageDTO>(dosagedata);
+            dosagedrto.Upload_Screwconfig = dosagedata.UploadScrewconfig;
+
             var compoentArray = _mapper.Map<CompoundingComponentsDTO[]>(componentdata);
             alldata.CompoundingDataDTO = compoundingdata;
             alldata.CompoundingDataDTO.ReceipeId = getData.RecipeId.Value;
             alldata.Components = compoentArray;
             alldata.DosageDTO = dosagedrto;
+      
             return alldata;
 
 
