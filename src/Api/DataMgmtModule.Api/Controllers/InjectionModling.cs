@@ -67,7 +67,7 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { message = "Injection Molding updated successfully", affectedRows = command });
         }
 
-        [HttpGet("GetByRecipeId")]
+        [HttpGet("GetByRecipeId/{recipeId}")]
         public async Task<IActionResult> GetInjectionMoldingById(int recipeId)
         {
             var material = await _mediator.Send(new GetByIdInjectionMoldingQuery(recipeId));
