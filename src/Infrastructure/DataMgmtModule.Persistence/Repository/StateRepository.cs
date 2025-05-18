@@ -39,7 +39,14 @@ namespace DataMgmtModule.Persistence.Repository
                 ;
         }
 
-        public async Task<IEnumerable<States>> GetAllStates()
+        public async Task<States> AddStatesAsync(States states)
+        {
+            var addStates=await _persistenceDbContext.AddAsync(states);
+            await _persistenceDbContext.SaveChangesAsync();
+            return states;
+        }
+
+        public async Task<IEnumerable<States>> GetAllStatesAsync()
         {
             var getAllStates = await _persistenceDbContext.States.ToListAsync();
             return getAllStates;
@@ -50,6 +57,8 @@ namespace DataMgmtModule.Persistence.Repository
             var getCityById = await _persistenceDbContext.Cities.Where(x => x.StateId == stateId).ToListAsync();
             return getCityById;
         }
+
+        
     }
 
 }

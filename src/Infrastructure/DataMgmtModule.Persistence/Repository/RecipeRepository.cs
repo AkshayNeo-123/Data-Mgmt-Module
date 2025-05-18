@@ -184,6 +184,7 @@ namespace DataMgmtModule.Persistence.Repository
                 .Select(x => new RecipeProjectDTO
                 {
                     RecipeId = x.ReceipeId,
+                    ProductName=x.ProductName,
                     ProjectNumber = x.Project.ProjectNumber,
                     Description = x.Project.Project_Description
                 }).ToListAsync();
@@ -197,6 +198,7 @@ namespace DataMgmtModule.Persistence.Repository
                 {
 
                     RecipeId = x.ReceipeId,
+                    ProductName=x.ProductName,
                     ProjectNumber = x.Project.ProjectNumber,
                     Description = x.Project.Project_Description
                 }).FirstOrDefaultAsync();
