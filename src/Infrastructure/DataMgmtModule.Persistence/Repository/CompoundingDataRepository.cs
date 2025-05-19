@@ -46,48 +46,60 @@ namespace DataMgmtModule.Persistence.Repository
             else return lastCdata.CompoundingId;
         }
 
-        public async Task<int> DeleteCompoundingDataAsync(int id, int? userId)
-        {
-            
+public async Task<int> DeleteCompoundingDataAsync(int id, int? userId)
+{
+    // Fetch compounding data that is not already deleted (null or false)
+    var searchCompounding = await _persistenceDbContext.CompoundingData
+        .FirstOrDefaultAsync(x => x.CompoundingId == id && (x.IsDelete == false || x.IsDelete == null));
 
-            var searchCompounding = await _persistenceDbContext.CompoundingData.Where(x => x.CompoundingId == id).FirstOrDefaultAsync();
-            var findCompoundingComponentId = await _persistenceDbContext.CompoundingComponents.Where(x => x.CompoundingId == searchCompounding.CompoundingId).ToListAsync();
+    if (searchCompounding == null)
+        return 0; // Not found or already deleted
 
-            var dosagedata = await _persistenceDbContext.Dosages.Where(x => x.CompoundingId == searchCompounding.CompoundingId).FirstOrDefaultAsync();
+    // Fetch related components that are not already deleted
+    var findCompoundingComponentList = await _persistenceDbContext.CompoundingComponents
+        .Where(x => x.CompoundingId == id && (x.IsDelete == false || x.IsDelete == null))
+        .ToListAsync();
 
-            var logger = new CompoundLog
-            {
-                CompoundingId=searchCompounding.CompoundingId,
-                RecipeId = searchCompounding.RecipeId,
-                ParameterSet = searchCompounding.ParameterSet,
-                Date = searchCompounding.Date,
-                Notes = "Deleted old compounding data",
-                Repetation = searchCompounding.Repetation,
-                //PretreatmentNone = searchCompounding.PretreatmentNone,
-                Pretreatment = searchCompounding.PretreatmentDrying,
-                Temperature = searchCompounding.Temperature,
-                //Duration = searchCompounding.Duration,
-                ResidualIm = searchCompounding.ResidualM, 
-                NotMeasured = searchCompounding.NotMeasured,  
-                DeletedBy = userId, 
-                DeletedDate = DateTime.UtcNow
-            };
-            
+    // Fetch dosage that is not already deleted
+    var dosagedata = await _persistenceDbContext.Dosages
+        .FirstOrDefaultAsync(x => x.CompoundingId == id && (x.IsDelete == false || x.IsDelete == null));
 
+    // Log deletion
+    var logger = new CompoundLog
+    {
+        CompoundingId = searchCompounding.CompoundingId,
+        RecipeId = searchCompounding.RecipeId,
+        ParameterSet = searchCompounding.ParameterSet,
+        Date = searchCompounding.Date,
+        Notes = "Deleted old compounding data",
+        Repetation = searchCompounding.Repetation,
+        Pretreatment = searchCompounding.PretreatmentDrying,
+        Temperature = searchCompounding.Temperature,
+        ResidualIm = searchCompounding.ResidualM,
+        NotMeasured = searchCompounding.NotMeasured,
+        DeletedBy = userId,
+        DeletedDate = DateTime.UtcNow
+    };
 
-            await _persistenceDbContext.CompoundLogs.AddAsync(logger);
-            _persistenceDbContext.RemoveRange(findCompoundingComponentId);
+    await _persistenceDbContext.CompoundLogs.AddAsync(logger);
 
-            _persistenceDbContext.Remove(dosagedata);
-            _persistenceDbContext.Remove(searchCompounding);
+    // Soft delete components
+    foreach (var component in findCompoundingComponentList)
+    {
+        component.IsDelete = true;
+    }
 
+    // Soft delete dosage
+    if (dosagedata != null)
+    {
+        dosagedata.IsDelete = true;
+    }
 
-            var data = await _persistenceDbContext.SaveChangesAsync();
-            return 1;
+    // Soft delete main compounding record
+    searchCompounding.IsDelete = true;
 
-
-
-        }
+    return await _persistenceDbContext.SaveChangesAsync();
+}
 
         public async Task<CompoundingDatum> GetCompoundingDataAsync(int id)
         {

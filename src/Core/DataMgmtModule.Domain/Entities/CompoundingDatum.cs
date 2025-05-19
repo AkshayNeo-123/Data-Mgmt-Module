@@ -27,7 +27,7 @@ public partial class CompoundingDatum:Common
     public decimal? ResidualM { get; set; }
 
     public bool? NotMeasured { get; set; }
-    //public bool IsDelete { get; set; }
+    public bool? IsDelete { get; set; } = false;
 
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();
 
