@@ -9,8 +9,9 @@ namespace DataMgmtModule.Application.Interface.Persistence
 {
     public interface IStateRepository
     {
-        Task<IEnumerable<States>> GetAllStates();
+        Task<IEnumerable<States>> GetAllStatesAsync();
         Task<IEnumerable<Cities>> GetCitiesByStateAsync(int stateId);
         Task<Cities>AddCityAsync(string  cityName,int stateId);
+        Task<States> AddStatesAsync(States states);
     }
 }

@@ -41,7 +41,7 @@ public partial class Dosage : Common
     public decimal? Temp10 { get; set; }
     public decimal? Temp11 { get; set; }
     public decimal? Temp12 { get; set; }
-    //public bool IsDelete { get; set; }
+    public bool? IsDelete { get; set; } = false;
 
     // Boolean flags
     public bool? ScrewConfigStadard { get; set; }

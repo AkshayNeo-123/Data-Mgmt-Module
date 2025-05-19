@@ -1,6 +1,7 @@
 ﻿using DataMgmtModule.Application.Dtos.CityDTO;
 using DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.AddCityData;
 using DataMgmtModule.Application.Feactures.StatesMaster.CityFeatures.GetCityById;
+using DataMgmtModule.Application.Feactures.StatesMaster.StateFeatures.AddStateData;
 using DataMgmtModule.Application.Feactures.StatesMaster.StateFeatures.GetAllStates;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
@@ -41,6 +42,13 @@ namespace DataMgmtModule.Api.Controllers
         {
             var addCities=await _mediator.Send(new AddCityQuery(cityName,stateId));
             return Ok(addCities);
+        }
+        [HttpPost("addState")]
+
+        public async Task<ActionResult>AddStatesAsync(States states)
+        {
+            var addStates = await _mediator.Send(new AddStateQuery(states));
+            return Ok(addStates);
         }
 
     }

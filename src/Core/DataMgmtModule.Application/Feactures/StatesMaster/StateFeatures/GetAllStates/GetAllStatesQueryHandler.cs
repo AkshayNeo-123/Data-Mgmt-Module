@@ -20,7 +20,7 @@ namespace DataMgmtModule.Application.Feactures.StatesMaster.StateFeatures.GetAll
         }
         public async Task<IEnumerable<States>> Handle(GetALlStatesQuery request, CancellationToken cancellationToken)
         {
-            return await _stateRepository.GetAllStates();
+            return await _stateRepository.GetAllStatesAsync();
         }
     }
 }
