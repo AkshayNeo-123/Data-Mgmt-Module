@@ -17,6 +17,7 @@ namespace DataMgmtModule.Application.Dtos.RecipeComponentDtos
         public bool MP { get; set; }
         public bool MF { get; set; }
         public int? TypeId { get; set; }
+        public int? CreatedBy { get; set; }
 
     }
 }

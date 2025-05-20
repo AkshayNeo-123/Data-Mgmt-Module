@@ -162,9 +162,9 @@ namespace DataMgmtModule.Persistence.Repository
             foreach (var item in recipeComponent)
             {
                 item.RecipeId = id;
-                item.ModifiedDate = DateTime.Now;
-                item.ModifiedBy = userId;
-                item.CreatedBy = userId;
+                //item.ModifiedDate = DateTime.Now;
+                //item.ModifiedBy = userId;
+                //item.CreatedBy = userId;
                 item.CreatedDate = DateTime.Now;
                 await _persistenceDbContext.RecipeComponents.AddAsync(item);
                 await _persistenceDbContext.SaveChangesAsync();

@@ -27,7 +27,7 @@ namespace DataMgmtModule.Persistence.Repository
             try
             {
                 component.RecipeId = id;
-                component.CreatedBy = userId;
+                //component.CreatedBy = userId;
                 component.CreatedDate = DateTime.Now;
 
                 _persistenceDbContext.RecipeComponents.Add(component);
