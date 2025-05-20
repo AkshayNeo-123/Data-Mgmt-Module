@@ -7,9 +7,9 @@ public partial class RolePermission
 {
     public int PermissionId { get; set; }
 
-    public int? RoleId { get; set; }
+    public int RoleId { get; set; }
 
-    public string? ModuleName { get; set; }
+    public int MenuId { get; set; }
 
     public bool CanView { get; set; }
 

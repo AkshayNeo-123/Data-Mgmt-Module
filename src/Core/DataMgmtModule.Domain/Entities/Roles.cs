@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
@@ -8,10 +9,9 @@ public partial class Roles
     public int RoleId { get; set; }
 
     public string RoleName { get; set; } = null!;
-
-    public string? Description { get; set; }
-
-    public virtual ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
+    //[NotMapped]
+    //public  ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
 
     ////public virtual ICollection<User> Users { get; set; } = new List<User>();
 }
+

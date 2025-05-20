@@ -44,7 +44,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<RecipesLog> RecipesLogs { get; set; }
 
         public virtual DbSet<Roles> Roles { get; set; }
-
+        public virtual DbSet<Menus> Menu { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
         public virtual DbSet<MvrMfr> MvrMfr { get; set; }
@@ -404,9 +404,9 @@ namespace DataMgmtModule.Persistence
             {
                 entity.HasKey(e => e.RoleId).HasName("PK__Roles__8AFACE1A3440A4D9");
 
-                entity.Property(e => e.Description)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                //entity.Property(e => e.Description)
+                //    .HasMaxLength(250)
+                //    .IsUnicode(false);
                 entity.Property(e => e.RoleName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -416,13 +416,13 @@ namespace DataMgmtModule.Persistence
             {
                 entity.HasKey(e => e.PermissionId).HasName("PK__RolePerm__EFA6FB2F767127EB");
 
-                entity.Property(e => e.ModuleName)
+                entity.Property(e => e.MenuId)
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions)
-                    .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK_Roles_RolePermissions");
+                //entity.HasOne(d => d.Role).WithMany(p => p.RolePermissions)
+                //    .HasForeignKey(d => d.RoleId)
+                //    .HasConstraintName("FK_Roles_RolePermissions");
             });
 
             modelBuilder.Entity<User>(entity =>

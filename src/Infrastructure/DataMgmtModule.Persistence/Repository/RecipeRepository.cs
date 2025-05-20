@@ -46,7 +46,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<int> AddRecipe(Recipe recipe, int? userId)
         {
             recipe.CreatedDate = DateTime.Now;
-            recipe.CreatedBy = userId;
+            //recipe.CreatedBy = userId;
             recipe.IsDelete = false;
             await _persistenceDbContext.Recipes.AddAsync(recipe);
             await _persistenceDbContext.SaveChangesAsync();
@@ -135,7 +135,7 @@ namespace DataMgmtModule.Persistence.Repository
             result.AdditiveId = recipe.AdditiveId;
             result.MainPolymerId = recipe.MainPolymerId;
             result.ProjectId = recipe.ProjectId;
-            result.ModifiedBy = userId;
+            result.ModifiedBy = recipe.ModifiedBy;
             result.ModifiedDate = DateTime.Now;
             return await _persistenceDbContext.SaveChangesAsync();
 

@@ -33,7 +33,7 @@ namespace DataMgmtModule.Persistence.Repository
         //    return data != null ? data : 0;
         //}
 
-        public async Task<int> InjectionmoldigSoftDelete(int moldingId)
+        public async Task<int> InjectionmoldigSoftDelete(int moldingId, int deletedBy)
         {
             var injectionMolding = await _dbContext.InjectionMoldings
                 .Where(b => b.Id == moldingId).FirstOrDefaultAsync();
@@ -42,6 +42,8 @@ namespace DataMgmtModule.Persistence.Repository
                 throw new NotFoundException($"injection MOlding id {moldingId} not found!!");
             }
             injectionMolding.IsDelete= true;
+            injectionMolding.DeletedBy = deletedBy;
+            injectionMolding.DeletedDate = DateTime.Now;
            return  await _dbContext.SaveChangesAsync();
 
         }
@@ -58,7 +60,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id)
         {
             var injectionMoldingList = await _dbContext.InjectionMoldings
-                .Where(b => b.RecipeId == id)
+                .Where(b => b.RecipeId == id && b.IsDelete==false)
                 .ToListAsync();
 
             if (injectionMoldingList == null || !injectionMoldingList.Any())

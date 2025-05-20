@@ -42,15 +42,15 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteInjectionMolding(int recipeId)
+        public async Task<IActionResult> DeleteInjectionMolding(int moldingId,int deletedBy)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
-            var result = await _mediator.Send(new DeleteInjectionModlingCommand(recipeId,userId));
+            var result = await _mediator.Send(new DeleteInjectionModlingCommand(moldingId, deletedBy));
 
             if (result == 0)
-                return NotFound($"Injection Molding record with ID {recipeId} not found.");
+                return NotFound($"Injection Molding record with ID {moldingId} not found.");
 
-            return Ok($"Injection Molding record with ID {recipeId} deleted successfully.");
+            return Ok($"Injection Molding record with ID {moldingId} deleted successfully.");
         }
 
         [HttpPut("update")]
