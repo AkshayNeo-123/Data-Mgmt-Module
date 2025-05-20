@@ -75,7 +75,7 @@ namespace DataMgmtModule.Api.Controllers
             int? userId = HttpContext.Session.GetInt32("UserId");
             await _mediator.Send(new DeleteRecipeCommand(id, deletedBy));
             await _mediator.Send(new DeleteCompoundingComponentCommand(id, userId));
-            var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
+            //var result = await _mediator.Send(new DeleteInjectionModlingCommand(id, userId));
 
             return Ok();
         }

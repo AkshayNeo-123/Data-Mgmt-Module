@@ -5,12 +5,13 @@ namespace DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInj
     public class DeleteInjectionModlingCommand : IRequest<int>
     {
         public int Id { get; set; }
-        public int? UseId { get; set; }
+        public int DeletedBy { get; set; }
 
-        public DeleteInjectionModlingCommand(int id, int? useId)
+
+        public DeleteInjectionModlingCommand(int id,int deletedBy)
         {
             Id = id;
-            UseId = useId;
+            DeletedBy = deletedBy;
         }
     }
 }
