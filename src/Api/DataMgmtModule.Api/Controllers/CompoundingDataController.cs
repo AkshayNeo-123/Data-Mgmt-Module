@@ -15,10 +15,12 @@ using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.DeleteDosage;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.UpdateDosageData;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Query.GetDosage;
 using DataMgmtModule.Domain.Entities;
+using DataMgmtModule.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -27,10 +29,14 @@ namespace DataMgmtModule.Api.Controllers
     public class CompoundingDataController : ControllerBase
     {
         private readonly IMediator _mediator;
+        readonly PersistenceDbContext _persistenceDbContext;
 
-        public CompoundingDataController(IMediator mediator)
+
+        public CompoundingDataController(IMediator mediator, PersistenceDbContext persistenceDbContext)
         {
             _mediator = mediator;
+            _persistenceDbContext = persistenceDbContext;
+
         }
 
         [HttpGet]
@@ -73,10 +79,10 @@ namespace DataMgmtModule.Api.Controllers
 
 
         [HttpDelete]
-        public async Task<IActionResult> deleteCompoundingData(int CompoundingId)
+        public async Task<IActionResult> deleteCompoundingData(int CompoundingId, int DeletedBy)
         {
             var userId= HttpContext.Session.GetInt32("UserId");
-            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId, userId)));
+            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId, userId, DeletedBy)));
 
         }
 
@@ -119,6 +125,23 @@ namespace DataMgmtModule.Api.Controllers
         public async Task<IActionResult> GetDataByCompoundingId(int id)
         {
             return Ok(await _mediator.Send(new GetDataByIdcompoundingQuery(id)));
+        }
+
+
+
+        [HttpGet("GetCommonSet")]
+        public async Task<IActionResult> GetLastCommonSet()
+        {
+            var lastCommonSet = await _persistenceDbContext.CompoundingData
+                .OrderByDescending(x => x.CompoundingId)
+                .Select(p => new
+                {
+                    ParameterSet=p.ParameterSet+1,
+                    CompoundingId=p.CompoundingId+1
+                })
+                .FirstOrDefaultAsync();
+
+            return Ok(lastCommonSet);
         }
 
 

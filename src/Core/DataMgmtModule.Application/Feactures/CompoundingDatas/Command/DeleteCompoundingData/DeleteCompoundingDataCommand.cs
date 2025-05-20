@@ -7,7 +7,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Command.DeleteCompoundingData
 {
-    public record DeleteCompoundingDataCommand(int id,int? userId):IRequest<int>
+    public record DeleteCompoundingDataCommand(int id,int? userId,int DeletedBy) :IRequest<int>
     {
     }
 }
