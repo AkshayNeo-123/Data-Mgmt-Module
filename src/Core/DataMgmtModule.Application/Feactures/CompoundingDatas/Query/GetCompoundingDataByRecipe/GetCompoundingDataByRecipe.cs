@@ -9,7 +9,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundingDataByRecipe
 {
-    public record GetCompoundingDataByRecipe(int Id):IRequest<IEnumerable<CompoundingDatum>>
+    public record GetCompoundingDataByRecipe(int Id, DateOnly? searchdate) :IRequest<IEnumerable<CompoundingDatum>>
     {
     }
 }

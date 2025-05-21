@@ -117,18 +117,32 @@ namespace DataMgmtModule.Persistence.Repository
         }
 
 
-        public async Task<IEnumerable<CompoundingDatum>> GetCompoundingDataByRecipeAsync(int Id)
+        public async Task<IEnumerable<CompoundingDatum>> GetCompoundingDataByRecipeAsync(int Id,DateOnly? searchdate)
         {
-            var getData = await _persistenceDbContext.CompoundingData
-                .Where(x => x.RecipeId == Id && x.IsDelete == false)
-                .ToListAsync();
+            if (searchdate == null)
+            {
+                var getData = await _persistenceDbContext.CompoundingData
+               .Where(x => x.RecipeId == Id && x.IsDelete == false)
+               .ToListAsync();
+                if (getData == null || !getData.Any())
+                {
+                    throw new Exception($"No Compounding Data found for RecipeId {Id}");
+                }
+                return getData;
+            }
 
-            if (getData == null || !getData.Any())
+            var searchgetData = await _persistenceDbContext.CompoundingData
+              .Where(x => x.RecipeId == Id && x.IsDelete == false)
+              .Where(s=>s.Date==searchdate)
+              .ToListAsync();
+
+
+            if (searchgetData == null || !searchgetData.Any())
             {
                 throw new Exception($"No Compounding Data found for RecipeId {Id}");
             }
 
-            return getData;
+            return searchgetData;
         }
 
 
