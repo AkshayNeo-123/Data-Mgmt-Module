@@ -136,11 +136,11 @@ namespace DataMgmtModule.Api.Controllers
 
                 var editPermission = _context.RolePermissions.FirstOrDefault(r => r.MenuId == menuId && r.RoleId == findRole.RoleId);
                 //editPermission.RoleId=findRole.RoleId; editPermission.MenuId=menuId;
+                if (editPermission != null) { 
                 editPermission.CanView = perm.View;
                 editPermission.CanDelete = perm.Delete;
                 editPermission.CanCreate = perm.Create;
                 editPermission.CanEdit = perm.Update;
-
                 //var rolePermission = new RolePermission
                 //{
                 //    RoleId = findRole.RoleId,
@@ -152,6 +152,21 @@ namespace DataMgmtModule.Api.Controllers
                 //};
 
                 _context.RolePermissions.Update(editPermission);
+                }
+                else
+                {
+                    var rolePermission = new RolePermission
+                    {
+                        RoleId = findRole.RoleId,
+                        MenuId = menuId,
+                        CanView = perm.View,
+                        CanCreate = perm.Create,
+                        CanEdit = perm.Update,
+                        CanDelete = perm.Delete
+                    };
+
+                    _context.RolePermissions.Add(rolePermission);
+                }
             }
 
             await _context.SaveChangesAsync();
