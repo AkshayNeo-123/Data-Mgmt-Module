@@ -114,9 +114,9 @@ namespace DataMgmtModule.Api.Controllers
 
 
         [HttpGet("get-by-recipe-id/{recipeId}")]
-        public async Task<IActionResult>GetCompoundingDataByRecipe(int recipeId)
+        public async Task<IActionResult>GetCompoundingDataByRecipe(int recipeId, DateOnly? searchdate)
         {
-            var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId));
+            var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId,searchdate));
             return Ok(getCompoundingData);
         }
 
