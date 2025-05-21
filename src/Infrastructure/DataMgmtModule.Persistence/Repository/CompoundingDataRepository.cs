@@ -124,10 +124,10 @@ namespace DataMgmtModule.Persistence.Repository
                 var getData = await _persistenceDbContext.CompoundingData
                .Where(x => x.RecipeId == Id && x.IsDelete == false)
                .ToListAsync();
-                if (getData == null || !getData.Any())
-                {
-                    throw new Exception($"No Compounding Data found for RecipeId {Id}");
-                }
+                //if (getData == null || !getData.Any())
+                //{
+                //    throw new Exception($"No Compounding Data found for RecipeId {Id}");
+                //}
                 return getData;
             }
 
@@ -137,10 +137,10 @@ namespace DataMgmtModule.Persistence.Repository
               .ToListAsync();
 
 
-            if (searchgetData == null || !searchgetData.Any())
-            {
-                throw new Exception($"No Compounding Data found for RecipeId {Id}");
-            }
+            //if (searchgetData == null || !searchgetData.Any())
+            //{
+            //    throw new Exception($"No Compounding Data found for RecipeId {Id}");
+            //}
 
             return searchgetData;
         }

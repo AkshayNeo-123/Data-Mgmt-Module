@@ -65,8 +65,8 @@ namespace DataMgmtModule.Persistence.Repository
                 .Where(b => b.RecipeId == id && b.IsDelete == false)
                 .ToListAsync();
 
-                if (injectionMoldingList == null || !injectionMoldingList.Any())
-                    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
+                //if (injectionMoldingList == null || !injectionMoldingList.Any())
+                //    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
 
                 return injectionMoldingList;
             }
@@ -78,8 +78,8 @@ namespace DataMgmtModule.Persistence.Repository
                 .Where(e => e.CreatedDate >= startDate && e.CreatedDate <= endDate)
                 .ToListAsync();
 
-            if (records == null || !records.Any())
-                throw new NotFoundException($"No Injection Molding records found for Recipe ID {id} on the specified date.");
+            //if (records == null || !records.Any())
+            //    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id} on the specified date.");
 
             return records;
         }
