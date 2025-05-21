@@ -27,6 +27,21 @@ namespace DataMgmtModule.Api.Controllers
             _mediator = mediator;
             _persistenceDbContext = persistenceDbContext;
         }
+        //[HttpGet("search-by-date")]
+        //public async Task<IActionResult> SearchByDate(int recipeId,DateOnly searchDate)
+        //{
+        //    // Convert DateOnly to DateTime range (whole day)
+        //    DateTime startDate = searchDate.ToDateTime(TimeOnly.MinValue); // 00:00:00
+        //    DateTime endDate = searchDate.ToDateTime(TimeOnly.MaxValue);  // 23:59:59.999
+
+        //    var records = await _persistenceDbContext.InjectionMoldings
+        //        .Where(e => e.CreatedDate >= startDate && e.CreatedDate <= endDate)
+        //        .Where(d=>d.IsDelete==false)
+        //        .Where(r=>r.RecipeId==recipeId)
+        //        .ToListAsync();
+
+        //    return Ok(records);
+        //}
 
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<InjectionMoldingDto>>> GetAllInjectionModling()
@@ -68,9 +83,9 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpGet("GetByRecipeId/{recipeId}")]
-        public async Task<IActionResult> GetInjectionMoldingById(int recipeId)
+        public async Task<IActionResult> GetInjectionMoldingById(int recipeId,DateOnly? searchDate)
         {
-            var material = await _mediator.Send(new GetByIdInjectionMoldingQuery(recipeId));
+            var material = await _mediator.Send(new GetByIdInjectionMoldingQuery(recipeId,searchDate));
             return Ok(material);
         }
         [HttpGet("GetById")]

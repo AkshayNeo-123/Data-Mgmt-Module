@@ -10,7 +10,7 @@ namespace DataMgmtModule.Application.Dtos.RecipeComponentDtos
 {
     public class AddRecipeComponentDto
     {
-        public int ComponentId { get; set; }
+        public int? ComponentId { get; set; }
         public decimal? WtPercent { get; set; }
         public decimal? ValPercent { get; set; }
         public decimal? Density { get; set; }

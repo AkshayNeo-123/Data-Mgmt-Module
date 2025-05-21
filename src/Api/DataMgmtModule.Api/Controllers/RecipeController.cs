@@ -17,6 +17,7 @@ using DataMgmtModule.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -25,6 +26,7 @@ namespace DataMgmtModule.Api.Controllers
     public class RecipeController : ControllerBase
     {
         readonly IMediator _mediator;
+       
         public RecipeController(IMediator mediator)
         {
             _mediator = mediator;
@@ -52,7 +54,7 @@ namespace DataMgmtModule.Api.Controllers
 
             return Ok(new { Message = "Recipe added successfully!", RecipeId = result });
         }
-
+        
 
         [HttpDelete("deleteRecipesData")]
 

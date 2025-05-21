@@ -57,16 +57,31 @@ namespace DataMgmtModule.Persistence.Repository
              .ToListAsync();
         }
 
-        public async Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id)
+        public async Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id,DateOnly? searchDate)
         {
-            var injectionMoldingList = await _dbContext.InjectionMoldings
-                .Where(b => b.RecipeId == id && b.IsDelete==false)
+            if (searchDate==null)
+            {
+                var injectionMoldingList = await _dbContext.InjectionMoldings
+                .Where(b => b.RecipeId == id && b.IsDelete == false)
                 .ToListAsync();
 
-            if (injectionMoldingList == null || !injectionMoldingList.Any())
-                throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
+                if (injectionMoldingList == null || !injectionMoldingList.Any())
+                    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
 
-            return injectionMoldingList;
+                return injectionMoldingList;
+            }
+            DateTime startDate = searchDate.Value.ToDateTime(TimeOnly.MinValue); // 00:00:00
+            DateTime endDate = searchDate.Value.ToDateTime(TimeOnly.MaxValue);  // 23:59:59.999
+
+            var records = await _dbContext.InjectionMoldings
+                .Where(e => e.RecipeId == id && e.IsDelete == false)
+                .Where(e => e.CreatedDate >= startDate && e.CreatedDate <= endDate)
+                .ToListAsync();
+
+            if (records == null || !records.Any())
+                throw new NotFoundException($"No Injection Molding records found for Recipe ID {id} on the specified date.");
+
+            return records;
         }
 
 

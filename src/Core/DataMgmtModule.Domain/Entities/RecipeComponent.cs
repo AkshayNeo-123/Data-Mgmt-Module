@@ -19,7 +19,7 @@ public partial class RecipeComponent
 
     public bool? Mf { get; set; }
 
-    public int ComponentId { get; set; }
+    public int? ComponentId { get; set; }
 
     //public bool IsDelete { get; set; }
 
