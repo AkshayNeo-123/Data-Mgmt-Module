@@ -136,7 +136,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.ModifiedDate= DateTime.Now;
             existingMaterial.ModifiedBy = injectionmolding.ModifiedBy;
             existingMaterial.Additive = injectionmolding.Additive;
-
+            existingMaterial.Notes = injectionmolding.Notes;
 
 
             await _dbContext.SaveChangesAsync();
