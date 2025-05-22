@@ -6,27 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence
 {
-    public partial class PersistenceDbContext:DbContext
+    public partial class PersistenceDbContext : DbContext
     {
-        public PersistenceDbContext(DbContextOptions<PersistenceDbContext> options):base(options)
+        public PersistenceDbContext(DbContextOptions<PersistenceDbContext> options) : base(options)
         {
-            
+
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
-        //public DbSet<User> Users { get; set; }
-        //public DbSet<Roles> roles { get; set; }
-        //public DbSet<Projects> Projects { get; set; }
-        //public DbSet<Recipe> Recipes { get; set; }
-        //public DbSet<Additive> Additives { get; set; }
-        //public DbSet<Component> Components { get; set; }
-        //public DbSet<MainPolymer> MainPolymers { get; set; }
-        //public DbSet<RecipeComponent> RecipeComponents { get; set; }
-        //public DbSet<Materials> Materials { get; set; }
-        //public DbSet<RecipesLog> Recipes_Log { get; set; }
-        //public DbSet<RolePermission> RolePermissions { get; set; }
+       
         public virtual DbSet<Additive> Additives { get; set; }
 
         public virtual DbSet<Component> Components { get; set; }
@@ -50,7 +36,7 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<MouldingLog> MouldingLogs { get; set; }
 
         public virtual DbSet<Projects> Projects { get; set; }
-          
+
         public virtual DbSet<Recipe> Recipes { get; set; }
 
         public virtual DbSet<RecipeComponent> RecipeComponents { get; set; }
@@ -69,11 +55,11 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<Areas> Areas { get; set; }
         public virtual DbSet<Priorities> Priorities { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<States> States { get; set; }
+        public virtual DbSet<Cities> Cities { get; set; }
 
-
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        //        => optionsBuilder.UseSqlServer("Server=DESKTOP-KLVE00N;Database=DMM;Trusted_Connection=True;TrustServerCertificate=True;");
+        public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -133,9 +119,7 @@ namespace DataMgmtModule.Persistence
                     .HasForeignKey(d => d.CompoundingId)
                     .HasConstraintName("FK__Compoundi__Compo__6A30C649");
 
-                entity.HasOne(d => d.Recipe).WithMany(p => p.CompoundingComponents)
-                    .HasForeignKey(d => d.RecipeId)
-                    .HasConstraintName("FK__Compoundi__Recip__693CA210");
+               
             });
 
             modelBuilder.Entity<CompoundingDatum>(entity =>
@@ -166,8 +150,12 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("Address_Line2");
-                entity.Property(e => e.City)
-                    .HasMaxLength(100)
+
+                entity.HasOne(e => e.Cities)
+                     .WithMany()
+                     .HasForeignKey(e => e.CityId);
+                entity.Property(e => e.ContactName)
+                    .HasMaxLength(200)
                     .IsUnicode(false);
                 entity.Property(e => e.ContactName)
                     .HasMaxLength(200)
@@ -178,9 +166,17 @@ namespace DataMgmtModule.Persistence
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-                entity.Property(e => e.State)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+
+                entity.Property(e => e.StateId)
+                    .HasColumnName("StateId");
+
+                entity.Property(e => e.StateId).IsRequired(); // must exist
+
+                entity.HasOne(d => d.States)
+                      .WithMany() // or .WithMany(p => p.Contacts) if reverse nav is present
+                      .HasForeignKey(d => d.StateId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .HasConstraintName("FK_Contacts_States");
             });
 
             modelBuilder.Entity<Dosage>(entity =>
@@ -193,7 +189,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(234)
                     .IsUnicode(false);
                 entity.Property(e => e.ScrewSpeed).HasColumnName("screwSpeed");
-                entity.Property(e => e.TemperatureWaterBath).HasColumnType("decimal(18, 0)");
+                //entity.Property(e => e.TemperatureWaterBath).HasColumnType("decimal(18, 0)");
                 entity.Property(e => e.UploadScrewconfig)
                     .HasMaxLength(213)
                     .IsUnicode(false)
@@ -211,31 +207,31 @@ namespace DataMgmtModule.Persistence
 
                 entity.ToTable("InjectionMolding");
 
-                entity.Property(e => e.BackPressure).HasColumnType("decimal(5, 2)");
+                //entity.Property(e => e.BackPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DecompressionVolume).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DryingTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.DryingTime).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.ExtraFeedSection).HasColumnType("decimal(5, 2)");
+                //entity.Property(e => e.ExtraFeedSection).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.HoldingPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.InjectionPressure).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.InjectionSpeed).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.MeltTemperature).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.MoldTemperature).HasColumnType("decimal(5, 2)");
+                entity.Property(e => e.MouldTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.NozzleTemperature).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.PlasticizingVolume).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ProcessingMoisture).HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.ReferenceAdditive)
-                    .HasMaxLength(255)
+                entity.Property(e => e.ProjectId)
+                    .HasMaxLength(8000)
                     .IsUnicode(false);
                 entity.Property(e => e.ResidualMoisture).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.ScrewSpeed).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.SwitchingPoint).HasColumnType("decimal(5, 2)");
                 entity.Property(e => e.TemperatureZone).HasColumnType("decimal(5, 2)");
 
-                entity.HasOne(d => d.Project).WithMany(p => p.InjectionMoldings)
-                    .HasForeignKey(d => d.ProjectId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Projects_InjectionMolding");
+                //entity.HasOne(d => d.Project).WithMany(p => p.InjectionMoldings)
+                //    .HasForeignKey(d => d.ProjectId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Projects_InjectionMolding");
 
                 entity.HasOne(d => d.Recipe).WithMany(p => p.InjectionMoldings)
                     .HasForeignKey(d => d.RecipeId)
@@ -377,6 +373,12 @@ namespace DataMgmtModule.Persistence
                 entity.HasOne(d => d.Recipe).WithMany(p => p.RecipeComponents)
                     .HasForeignKey(d => d.RecipeId)
                     .HasConstraintName("FK_Recipes_RecipeComponents");
+
+
+                entity.HasOne(d => d.RecipeComponentType)
+                    .WithMany() // If RecipeComponentType does not have a collection of RecipeComponents
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK_RecipeComponentType_RecipeComponents");
             });
 
             modelBuilder.Entity<RecipesLog>(entity =>
@@ -451,9 +453,7 @@ namespace DataMgmtModule.Persistence
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                //entity.HasOne(d => d.Role).WithMany(p => p.Users)
-                //    .HasForeignKey(d => d.RoleId)
-                //    .HasConstraintName("fk_Users_Role");
+             
             });
 
             OnModelCreatingPartial(modelBuilder);

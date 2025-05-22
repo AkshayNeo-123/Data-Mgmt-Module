@@ -9,6 +9,7 @@ using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -38,10 +39,14 @@ namespace DataMgmtModule.Persistence.Repository
 
             compoundingComponents.CompoundingId = compoundingId;
             //compoundingComponents.ComponentId = componentData.Id;
-            var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
+            //var result = _persistenceDbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefault();
 
-            compoundingComponents.RecipeId = result.ReceipeId;
-            compoundingComponents.CreatedBy= userId;
+            //compoundingComponents.RecipeId = result.ReceipeId;
+
+            compoundingComponents.RecipeId = compoundingData.RecipeId; //added for test 
+
+
+            //compoundingComponents.CreatedBy= userId;
             compoundingComponents.CreatedDate = DateTime.Now;
 
             await _persistenceDbContext.CompoundingComponents.AddAsync(compoundingComponents);
@@ -68,8 +73,21 @@ namespace DataMgmtModule.Persistence.Repository
                 
                 var findCompoundingComponentId = await _persistenceDbContext.CompoundingComponents.Where(x => x.CompoundingId == searchCompounding.CompoundingId).ToListAsync();
                 var dosagedata=  await _persistenceDbContext.Dosages.Where(x => x.CompoundingId == searchCompounding.CompoundingId).FirstOrDefaultAsync();
-                _persistenceDbContext.Remove(dosagedata);
-                _persistenceDbContext.RemoveRange(findCompoundingComponentId);
+
+                if (dosagedata != null)
+                {
+                    //dosagedata.IsDelete = true;
+                    _persistenceDbContext.Remove(dosagedata);
+                }
+                //_persistenceDbContext.Remove(dosagedata);
+
+                if (findCompoundingComponentId != null && findCompoundingComponentId.Any())
+                {
+
+                    //findCompoundingComponentId. = true;
+                    //_persistenceDbContext.RemoveRange(findCompoundingComponentId);
+                }
+                //_persistenceDbContext.RemoveRange(findCompoundingComponentId);
             }
             foreach (var searchCompounding in searchCompoundings)
             {
@@ -82,9 +100,10 @@ namespace DataMgmtModule.Persistence.Repository
                 Date = searchCompounding.Date,
                 Notes = "Deleted old compounding data",
                 Repetation = searchCompounding.Repetation,
-                Pretreatment = searchCompounding.Pretreatment,
-                Temperature = searchCompounding.Temperature,
-                Duration = searchCompounding.Duration,
+                    //PretreatmentDrying = searchCompounding.,
+                    Pretreatment = searchCompounding.PretreatmentNone,
+                    Temperature = searchCompounding.Temperature,
+                //Duration = searchCompounding.Duration,
                 ResidualIm = searchCompounding.ResidualM,
                 NotMeasured = searchCompounding.NotMeasured,
                 DeletedBy = userId,
@@ -95,7 +114,7 @@ namespace DataMgmtModule.Persistence.Repository
             }
 
 
-
+               
             _persistenceDbContext.RemoveRange(searchCompoundings);
             _persistenceDbContext.Recipes.Remove(recipe);
 
@@ -111,6 +130,11 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<CompoundingComponent>GetCompoundingComponentsAsync(int id)
         {
             var getData =await _persistenceDbContext.CompoundingComponents.FirstOrDefaultAsync(x => x.Id == id);
+            return getData;
+        }
+        public async Task<IEnumerable<CompoundingComponent>> GetCompoundingComponentsBycompoundingId(int id)
+        {
+            var getData = await _persistenceDbContext.CompoundingComponents.Where(x => x.CompoundingId == id).ToListAsync();
             return getData;
         }
 
@@ -134,7 +158,7 @@ namespace DataMgmtModule.Persistence.Repository
                 item.CreatedBy = userId;
                 item.CreatedDate = DateTime.Now;
                 item.ModifiedDate = DateTime.Now;
-                item.ModifiedBy = userId;
+                item.ModifiedBy = compoundingdata.ModifiedBy;
                  await _persistenceDbContext.CompoundingComponents.AddAsync(item);
                  await _persistenceDbContext.SaveChangesAsync();
             }

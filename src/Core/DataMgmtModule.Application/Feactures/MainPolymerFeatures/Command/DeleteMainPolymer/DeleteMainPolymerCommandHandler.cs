@@ -19,7 +19,7 @@ namespace DataMgmtModule.Application.Feactures.MainPolymerFeatures.Command.Delet
 
         public async Task<bool> Handle(DeleteMainPolymerCommand request, CancellationToken cancellationToken)
         {
-            return await _repo.DeleteAsync(request.Id);
+            return await _repo.DeleteAsync(request.Id,request.deletedBy);
         }
     }
 }

@@ -16,10 +16,10 @@ public partial class Contact
 
     public string? AddressLine2 { get; set; }
 
-    public string City { get; set; } = null!;
-
-    public string State { get; set; } = null!;
-
+    public int? CityId { get; set; }
+    public Cities? Cities { get; set; }
+    public int StateId { get; set; }
+    public States? States { get; set; } = null!;
     public int Zip { get; set; }
 
     public string Email { get; set; } = null!;
@@ -27,9 +27,11 @@ public partial class Contact
     public string? Phone { get; set; }
     public bool? IsDelete { get; set; }
     public int? CreatedBy { get; set; }
-    public int? updatedBy { get; set; }
+    public int? ModifiedBy { get; set; }
     public DateTime? CreatedDate { get; set; }
-    public DateTime? UpdatedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
+    public DateTime? DeletedDate { get; set; }
+    public int? DeletedBy{get;set;}
 
     //public virtual ICollection<Materials>? Materials { get; set; } = new List<Materials>();
 }

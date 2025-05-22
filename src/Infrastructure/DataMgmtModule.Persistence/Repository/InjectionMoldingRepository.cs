@@ -1,4 +1,6 @@
-﻿using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInjectionMolding;
+﻿using System.Runtime.CompilerServices;
+using DataMgmtModule.Application.Exceptions;
+using DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInjectionMolding;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -16,53 +18,85 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<InjectionMolding> AddAsync(InjectionMolding entity, int? userId)
         {
-            var recipe = await _dbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
-            entity.RecipeId = recipe.ReceipeId;
-            entity.CreatedBy = userId;
+            //var recipe = await _dbContext.Recipes.OrderByDescending(x => x.ReceipeId).FirstOrDefaultAsync();
+            //entity.RecipeId = recipe.Rece;
+            //entity.CreatedBy = userId;
             entity.CreatedDate = DateTime.Now;
-            _dbContext.InjectionMoldings.Add(entity);
+            entity.IsDelete = false;
+            await _dbContext.InjectionMoldings.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }
+        //public async Task<int> getparameterSet()
+        //{
+        //    var data = _dbContext.InjectionMoldings.OrderByDescending(x => x.Id).Select(p=>p.ParameterSet).FirstOrDefaultAsync();
+        //    return data != null ? data : 0;
+        //}
 
+        public async Task<int> InjectionmoldigSoftDelete(int moldingId, int deletedBy)
+        {
+            var injectionMolding = await _dbContext.InjectionMoldings
+                .Where(b => b.Id == moldingId).FirstOrDefaultAsync();
+            if (injectionMolding == null)
+            {
+                throw new NotFoundException($"injection MOlding id {moldingId} not found!!");
+            }
+            injectionMolding.IsDelete= true;
+            injectionMolding.DeletedBy = deletedBy;
+            injectionMolding.DeletedDate = DateTime.Now;
+           return  await _dbContext.SaveChangesAsync();
 
-
+        }
         
 
 
         public async Task<IEnumerable<InjectionMolding>> GetAllInjectionMolding()
         {
             return await _dbContext.InjectionMoldings
-             .Include(im => im.Project)
              .Include(im => im.Recipe)
              .ToListAsync();
         }
 
-        public async Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id)
+        public async Task<List<InjectionMolding?>> GetByIdInjectionMolding(int id,DateOnly? searchDate)
         {
-            var injectionMoldingList = await _dbContext.InjectionMoldings
-                .Where(b => b.RecipeId == id)
+            if (searchDate==null)
+            {
+                var injectionMoldingList = await _dbContext.InjectionMoldings
+                .Where(b => b.RecipeId == id && b.IsDelete == false)
                 .ToListAsync();
 
-            if (injectionMoldingList == null || !injectionMoldingList.Any())
-                throw new Exception($"No Injection Molding records found for Recipe ID {id}.");
+                //if (injectionMoldingList == null || !injectionMoldingList.Any())
+                //    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id}.");
 
-            return injectionMoldingList;
+                return injectionMoldingList;
+            }
+            DateTime startDate = searchDate.Value.ToDateTime(TimeOnly.MinValue); // 00:00:00
+            DateTime endDate = searchDate.Value.ToDateTime(TimeOnly.MaxValue);  // 23:59:59.999
+
+            var records = await _dbContext.InjectionMoldings
+                .Where(e => e.RecipeId == id && e.IsDelete == false)
+                .Where(e => e.CreatedDate >= startDate && e.CreatedDate <= endDate)
+                .ToListAsync();
+
+            //if (records == null || !records.Any())
+            //    throw new NotFoundException($"No Injection Molding records found for Recipe ID {id} on the specified date.");
+
+            return records;
         }
 
 
 
-
+        public async Task<InjectionMolding?> GetInjectionMoldingbyId(int id)
         //GetById with Id
-        //public async Task<InjectionMolding?> GetByIdInjectionMolding(int id)
-        //{
-        //    var Injectionmolding = await _dbContext.InjectionMolding.FirstOrDefaultAsync(b => b.Id == id);
+         
+        {
+            var Injectionmolding = await _dbContext.InjectionMoldings.FirstOrDefaultAsync(b => b.Id == id);
 
-        //    if (Injectionmolding == null)
-        //        throw new Exception($"Injection Molding with ID {id} not found.");
+            if (Injectionmolding == null)
+                throw new Exception($"Injection Molding with ID {id} not found.");
 
-        //    return Injectionmolding;
-        //}
+            return Injectionmolding;
+        }
 
         public async Task<int> UpdateInjectionMolding(int id, InjectionMolding injectionmolding, int? userId)
         {
@@ -73,13 +107,14 @@ namespace DataMgmtModule.Persistence.Repository
 
 
 
-            
 
 
+            existingMaterial.ProjectId = injectionmolding.ProjectId;
             existingMaterial.Repetition = injectionmolding.Repetition;
-            existingMaterial.ReferenceAdditive = injectionmolding.ReferenceAdditive;
+            existingMaterial.Reference = injectionmolding.Reference;
             existingMaterial.ParameterSet = injectionmolding.ParameterSet;
-            existingMaterial.PreTreatment = injectionmolding.PreTreatment;
+            existingMaterial.PretreatmentNone = injectionmolding.PretreatmentNone;
+            existingMaterial.PretreatmentDryTest = injectionmolding.PretreatmentDryTest;
             existingMaterial.DryingTemperature = injectionmolding.DryingTemperature;
             existingMaterial.DryingTime = injectionmolding.DryingTime;
             existingMaterial.ResidualMoisture = injectionmolding.ResidualMoisture;
@@ -89,17 +124,18 @@ namespace DataMgmtModule.Persistence.Repository
             existingMaterial.DecompressionVolume = injectionmolding.DecompressionVolume;
             existingMaterial.SwitchingPoint = injectionmolding.SwitchingPoint;
             existingMaterial.HoldingPressure = injectionmolding.HoldingPressure;
-            existingMaterial.BackPressure = injectionmolding.BackPressure;
+            //existingMaterial.BackPressure = injectionmolding.BackPressure;
             existingMaterial.ScrewSpeed = injectionmolding.ScrewSpeed;
             existingMaterial.InjectionSpeed = injectionmolding.InjectionSpeed;
             existingMaterial.InjectionPressure = injectionmolding.InjectionPressure;
             existingMaterial.TemperatureZone = injectionmolding.TemperatureZone;
-            existingMaterial.ExtraFeedSection = injectionmolding.ExtraFeedSection;
+            //existingMaterial.ExtraFeedSection = injectionmolding.ExtraFeedSection;
             existingMaterial.MeltTemperature = injectionmolding.MeltTemperature;
             existingMaterial.NozzleTemperature = injectionmolding.NozzleTemperature;
-            existingMaterial.MoldTemperature = injectionmolding.MoldTemperature;
+            existingMaterial.MouldTemperature = injectionmolding.MouldTemperature;
             existingMaterial.ModifiedDate= DateTime.Now;
-            existingMaterial.ModifiedBy = userId;
+            existingMaterial.ModifiedBy = injectionmolding.ModifiedBy;
+            existingMaterial.Additive = injectionmolding.Additive;
 
 
 
@@ -121,38 +157,38 @@ namespace DataMgmtModule.Persistence.Repository
             foreach (var injectionMolding in injectionMolding1)
             {
 
-                var log = new MouldingLog
-                {
-                    Id=injectionMolding.Id,
-                    ProjectId = injectionMolding.ProjectId,
-                    RecipeId = injectionMolding.RecipeId,
-                    ParameterSet = injectionMolding.ParameterSet,
-                    Repetition = injectionMolding.Repetition,
-                    ReferenceAdditive = injectionMolding.ReferenceAdditive,
-                    PreTreatment = injectionMolding.PreTreatment,
-                    DryingTemperature = injectionMolding.DryingTemperature,
-                    DryingTime = injectionMolding.DryingTime,
-                    ResidualMoisture = injectionMolding.ResidualMoisture,
-                    NotMeasured = injectionMolding.NotMeasured,
-                    ProcessingMoisture = injectionMolding.ProcessingMoisture,
-                    PlasticizingVolume = injectionMolding.PlasticizingVolume,
-                    DecompressionVolume = injectionMolding.DecompressionVolume,
-                    SwitchingPoint = injectionMolding.SwitchingPoint,
-                    HoldingPressure = injectionMolding.HoldingPressure,
-                    BackPressure = injectionMolding.BackPressure,
-                    ScrewSpeed = injectionMolding.ScrewSpeed,
-                    InjectionSpeed = injectionMolding.InjectionSpeed,
-                    InjectionPressure = injectionMolding.InjectionPressure,
-                    TemperatureZone = injectionMolding.TemperatureZone,
-                    ExtraFeedSection = injectionMolding.ExtraFeedSection,
-                    MeltTemperature = injectionMolding.MeltTemperature,
-                    NozzleTemperature = injectionMolding.NozzleTemperature,
-                    MoldTemperature = injectionMolding.MoldTemperature,
-                    DeletedBy = userId,
-                    DeletedDate = DateTime.UtcNow
-                };
+                //var log = new MouldingLog
+                //{
+                //    Id=injectionMolding.Id,
+                //    ProjectId = injectionMolding.ProjectId,
+                //    RecipeId = injectionMolding.RecipeId,
+                //    ParameterSet = injectionMolding.ParameterSet,
+                //    Repetition = injectionMolding.Repetition,
+                //    //ReferenceAdditive = injectionMolding.ReferenceAdditive,
+                //    PreTreatment = injectionMolding.PreTreatment,
+                //    DryingTemperature = injectionMolding.DryingTemperature,
+                //    DryingTime = injectionMolding.DryingTime,
+                //    ResidualMoisture = injectionMolding.ResidualMoisture,
+                //    NotMeasured = injectionMolding.NotMeasured,
+                //    ProcessingMoisture = injectionMolding.ProcessingMoisture,
+                //    PlasticizingVolume = injectionMolding.PlasticizingVolume,
+                //    DecompressionVolume = injectionMolding.DecompressionVolume,
+                //    SwitchingPoint = injectionMolding.SwitchingPoint,
+                //    HoldingPressure = injectionMolding.HoldingPressure,
+                //    BackPressure = injectionMolding.BackPressure,
+                //    ScrewSpeed = injectionMolding.ScrewSpeed,
+                //    InjectionSpeed = injectionMolding.InjectionSpeed,
+                //    InjectionPressure = injectionMolding.InjectionPressure,
+                //    TemperatureZone = injectionMolding.TemperatureZone,
+                //    ExtraFeedSection = injectionMolding.ExtraFeedSection,
+                //    MeltTemperature = injectionMolding.MeltTemperature,
+                //    NozzleTemperature = injectionMolding.NozzleTemperature,
+                //    MoldTemperature = injectionMolding.MoldTemperature,
+                //    DeletedBy = userId,
+                //    DeletedDate = DateTime.UtcNow
+                //};
 
-                await _dbContext.MouldingLogs.AddAsync(log);
+                //await _dbContext.MouldingLogs.AddAsync(log);
                 await _dbContext.SaveChangesAsync();
 
             }

@@ -8,5 +8,5 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.UpdateAdditive
 {
-    public record UpdateAdditiveCommand(int Id, UpdateAdditiveDto Additive, int? userId) : IRequest<bool>;
+    public record UpdateAdditiveCommand(int Id, UpdateAdditiveDto additive, int? userId) : IRequest<bool>;
 }

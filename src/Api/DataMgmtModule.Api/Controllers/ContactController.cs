@@ -33,7 +33,7 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<IActionResult>>> GetAllContactsAsync()
+        public async Task<IActionResult> GetAllContactsAsync()
         {
             var getAllData =await _mediator.Send(new GetAllContactsQuery());
             return Ok(getAllData);
@@ -65,16 +65,16 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(getDataById);
         }
         [HttpPut]
-        public async Task<IActionResult>UpdateContactAsync(int id,AddContactDTO addContactDTO)
+        public async Task<IActionResult>UpdateContactAsync(int id,UpdateContactDTO addContactDTO)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             var updateData=await _mediator.Send(new UpdateContactQuery(id, addContactDTO,userId));
             return Ok(updateData);
         }
         [HttpDelete]
-        public async Task<IActionResult>DeleteContactAsync(int id)
+        public async Task<IActionResult>DeleteContactAsync(int id, int deletedBy)
         {
-            var deleteData=await _mediator.Send(new DeleteContactQuery(id));
+            var deleteData=await _mediator.Send(new DeleteContactQuery(id,deletedBy));
             return Ok(deleteData);
         }
 

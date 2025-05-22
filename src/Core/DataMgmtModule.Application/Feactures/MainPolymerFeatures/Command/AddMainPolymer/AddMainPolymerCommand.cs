@@ -9,5 +9,5 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.MainPolymerFeatures.Command.AddMainPolymer
 {
-    public record AddMainPolymerCommand(CreateMainPolymerDto Polymer,int? userId) : IRequest<DisplayMainPolymer>;
+    public record AddMainPolymerCommand(CreateMainPolymerDto Polymer,int? userId) : IRequest<MainPolymer>;
 }

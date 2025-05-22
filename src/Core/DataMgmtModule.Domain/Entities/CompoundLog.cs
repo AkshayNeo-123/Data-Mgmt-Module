@@ -17,15 +17,15 @@ public partial class CompoundLog
 
     public int? Repetation { get; set; }
 
-    public int Pretreatment { get; set; }
-
+    //public bool? PretreatmentNone { get; set; }
+    public bool? Pretreatment { get; set; }
     public decimal Temperature { get; set; }
 
     public TimeSpan? Duration { get; set; }
 
     public decimal? ResidualIm { get; set; }
 
-    public int? NotMeasured { get; set; }
+    public bool? NotMeasured { get; set; }
 
     public int? DeletedBy { get; set; }
 

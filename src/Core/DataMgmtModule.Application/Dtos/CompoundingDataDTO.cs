@@ -4,33 +4,30 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos
 {
-    public class CompoundingDataDTO
+    public class CompoundingDataDTO:Common
     {
-        //public int ReceipeId { get; set; }
+        public int ReceipeId { get; set; }
         public int ParameterSet { get; set; }
-        [Required]
+        public DateOnly? Date { get; set; }
+       
+        public string? Notes { get; set; }
+      
+        public int? Repetation { get; set; }
+  
+        public decimal? Temperature { get; set; }
+       
+        public decimal? Duration { get; set; }
+      
+        public decimal? ResidualM { get; set; }
+        
+        public bool? NotMeasured { get; set; }
 
-        public DateOnly Date { get; set; }
-        [Required]
-
-        public string Notes { get; set; }
-        [Required]
-
-        public int Repetation { get; set; }
-        [Required]
-        public int Pretreatment { get; set; }
-        public decimal Temperature { get; set; }
-        [Required]
-
-        public TimeSpan Duration { get; set; }
-
-        [Required]
-        public decimal ResidualM { get; set; }
-        [Required]
-        public int NotMeasured { get; set; }
+        public bool? PretreatmentNone { get; set; }
+        public bool? PretreatmentDrying { get; set; }
 
     }
 }

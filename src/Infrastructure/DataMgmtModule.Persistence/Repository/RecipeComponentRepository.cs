@@ -19,17 +19,34 @@ namespace DataMgmtModule.Persistence.Repository
         }
         public async Task<int> AddRecipeComponent(int id, RecipeComponent component, int? userId)
         {
-            component.RecipeId = id;
-            component.CreatedBy = userId;
-            component.CreatedDate = DateTime.Now;
-             _persistenceDbContext.RecipeComponents.Add(component);
-            return await _persistenceDbContext.SaveChangesAsync();
+            //component.RecipeId = id;
+            //component.CreatedBy = userId;
+            //component.CreatedDate = DateTime.Now;
+            // _persistenceDbContext.RecipeComponents.Add(component);
+            //return await _persistenceDbContext.SaveChangesAsync();
+            try
+            {
+                component.RecipeId = id;
+                //component.CreatedBy = userId;
+                component.CreatedDate = DateTime.Now;
+
+                _persistenceDbContext.RecipeComponents.Add(component);
+                return await _persistenceDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Log or rethrow the inner exception message
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
+            }
         }
 
 
 
-        public async Task<List<RecipeComponent>> GetAllAsync() => await _persistenceDbContext.RecipeComponents
-            .Include(x => x.Component).ToListAsync();
+        public async Task<List<RecipeComponent>> GetAllAsync() =>
+     await _persistenceDbContext.RecipeComponents
+         .Include(x => x.Component)
+         .Include(t => t.RecipeComponentType)
+         .ToListAsync();
 
         public async Task<RecipeComponent?> GetByIdAsync(int id) =>
             await _persistenceDbContext.RecipeComponents.FindAsync(id);

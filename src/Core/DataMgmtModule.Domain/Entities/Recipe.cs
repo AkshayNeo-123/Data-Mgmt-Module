@@ -5,6 +5,7 @@ namespace DataMgmtModule.Domain.Entities;
 
 public partial class Recipe:Common
 {
+    
     public int ReceipeId { get; set; }
 
     public string? ProductName { get; set; }
@@ -19,6 +20,8 @@ public partial class Recipe:Common
 
     public int MainPolymerId { get; set; }
 
+    public bool? IsDelete { get; set; }
+
     public virtual Additive Additive { get; set; } = null!;
 
     public virtual ICollection<CompoundingComponent> CompoundingComponents { get; set; } = new List<CompoundingComponent>();
@@ -32,6 +35,6 @@ public partial class Recipe:Common
     public virtual Projects? Project { get; set; }
 
     public virtual ICollection<RecipeComponent> RecipeComponents { get; set; } = new List<RecipeComponent>();
-
+    
 
 }

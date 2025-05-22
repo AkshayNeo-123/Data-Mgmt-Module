@@ -19,7 +19,7 @@ namespace DataMgmtModule.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProjectsController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -126,9 +126,9 @@ namespace DataMgmtModule.Api.Controllers
         }
 
         [HttpDelete("DeleteProject")]
-        public async Task<IActionResult> DeleteProject(int id)
+        public async Task<IActionResult> DeleteProject(int id,int? deletedBy)
         {
-            var result = await _mediator.Send(new DeleteProjectCommand(id));
+            var result = await _mediator.Send(new DeleteProjectCommand(id, deletedBy));
             if (result == 0)
             {
                 return Ok(new { Messge = "It is already Deleted!!" });

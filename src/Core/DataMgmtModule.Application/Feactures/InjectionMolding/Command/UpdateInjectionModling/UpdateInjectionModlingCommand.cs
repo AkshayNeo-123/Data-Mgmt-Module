@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataMgmtModule.Application.Dtos.InjectionMolding;
+using DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding;
 using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.InjectionMolding.Command.UpdateInjectionModling

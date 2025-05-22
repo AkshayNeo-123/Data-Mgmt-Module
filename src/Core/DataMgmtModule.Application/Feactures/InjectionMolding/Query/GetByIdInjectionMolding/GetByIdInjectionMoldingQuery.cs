@@ -11,10 +11,12 @@ namespace DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInj
     public class GetByIdInjectionMoldingQuery :IRequest <List<InjectionMoldingDto>>
     {
         public int Id { get; set; }
+        public DateOnly? SearchDate { get; set; }
 
-        public GetByIdInjectionMoldingQuery(int id)
+        public GetByIdInjectionMoldingQuery(int id, DateOnly? searchDate)
         {
             Id = id;
+            SearchDate = searchDate;
         }
     }
 }

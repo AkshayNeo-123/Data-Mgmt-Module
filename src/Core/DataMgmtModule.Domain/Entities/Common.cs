@@ -13,6 +13,6 @@ namespace DataMgmtModule.Domain.Entities
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public int? DeletedBy { get; set; }
-        public DateTime? DeletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; } 
     }
 }

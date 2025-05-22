@@ -31,7 +31,7 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 throw new NotFoundException("Invalid Username or Password");
             }
-            if (email.PasswordHash != loginRequest.Password)
+            if (email.PasswordHash != loginRequest.Password)      
             {
                 throw new NotFoundException("Invalid Username or Password");
             }

@@ -7,5 +7,5 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.DeleteAdditive
 {
-    public record DeleteAdditiveCommand(int Id) : IRequest<bool>;
+    public record DeleteAdditiveCommand(int Id,int deletedBy) : IRequest<bool>;
 }

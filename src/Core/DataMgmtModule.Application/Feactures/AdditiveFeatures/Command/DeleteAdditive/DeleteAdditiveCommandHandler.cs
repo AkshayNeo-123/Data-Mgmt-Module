@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using MediatR;
 
@@ -17,7 +18,14 @@ namespace DataMgmtModule.Application.Feactures.AdditiveFeatures.Command.DeleteAd
         }
         public async Task<bool> Handle(DeleteAdditiveCommand request,  CancellationToken cancellationToken)
         {
-            return await _repo.DeleteAsync(request.Id);
+            var getData = await _repo.GetByIdAsync(request.Id);
+            if (getData == null)
+            {
+                throw new NotFoundException("Data not found");
+            }
+            var deleteData = await _repo.DeleteAsync(getData.Id, request.deletedBy);
+            return true;
+            //return await _repo.DeleteAsync(request.Id,request.deletedBy);
         }
     }
 }

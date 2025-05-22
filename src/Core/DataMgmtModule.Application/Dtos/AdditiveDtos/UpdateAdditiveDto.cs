@@ -9,5 +9,9 @@ namespace DataMgmtModule.Application.Dtos.AdditiveDtos
     public class UpdateAdditiveDto
     {
         public string AdditiveName { get; set; }
+        public int ModifiedBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public int? CreatedBy{get; set;}
+        public DateTime CreatedDate { get; set; }
     }
 }

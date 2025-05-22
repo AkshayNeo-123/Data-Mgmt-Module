@@ -13,5 +13,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<bool> DeleteCompoundingComponents(int id,int?userId);
         Task<CompoundingComponent> GetCompoundingComponentsAsync(int id);
         Task<int>UpdateCompoundingComponents(int id,CompoundingComponent[] compoundingComponents,int? userId);
+        Task<IEnumerable<CompoundingComponent>> GetCompoundingComponentsBycompoundingId(int id);
     }
 }

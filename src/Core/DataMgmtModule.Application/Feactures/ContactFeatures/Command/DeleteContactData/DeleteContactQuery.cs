@@ -7,7 +7,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.ContactFeatures.Command.DeleteContactData
 {
-    public record DeleteContactQuery(int id):IRequest<bool>
+    public record DeleteContactQuery(int id,int deletedBy):IRequest<bool>
     {
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DataMgmtModule.Domain.Entities;
 
@@ -37,7 +38,7 @@ public partial class Projects:Common
     [ForeignKey("PriorityId")]
     public Priorities Priorities { get; set; }
 
-    public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
+    //public virtual ICollection<InjectionMolding> InjectionMoldings { get; set; } = new List<InjectionMolding>();
 
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }

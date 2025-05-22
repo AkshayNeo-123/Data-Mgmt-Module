@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataMgmtModule.Domain.Entities;
 
-public partial class RecipeComponent:Common
+public partial class RecipeComponent
 {
     public int RecipeComponentId { get; set; }
 
@@ -19,9 +19,21 @@ public partial class RecipeComponent:Common
 
     public bool? Mf { get; set; }
 
-    public int ComponentId { get; set; }
+    public int? ComponentId { get; set; }
+
+    //public bool IsDelete { get; set; }
 
     public virtual Component Component { get; set; } = null!;
 
     public virtual Recipe? Recipe { get; set; }
+
+    public int? TypeId { get; set; }
+    public int? CreatedBy { get; set; }
+    public DateTime? CreatedDate { get; set; }
+
+    public int? DeletedBy { get; set; }
+    public DateTime? DeletedDate { get; set; }
+
+
+    public virtual RecipeComponentType? RecipeComponentType { get; set; }
 }

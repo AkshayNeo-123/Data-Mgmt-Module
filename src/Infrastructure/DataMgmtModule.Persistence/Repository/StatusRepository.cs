@@ -20,5 +20,11 @@ namespace DataMgmtModule.Persistence.Repository
         {
             return await _persistenceDbContext.Status.ToListAsync();
         }
+        public async Task<Cities>AddCitiesAsync(Cities cities)
+        {
+            var addCities= await _persistenceDbContext.Cities.AddAsync(cities);
+            await _persistenceDbContext.SaveChangesAsync();
+            return addCities.Entity;
+        }
     }
 }

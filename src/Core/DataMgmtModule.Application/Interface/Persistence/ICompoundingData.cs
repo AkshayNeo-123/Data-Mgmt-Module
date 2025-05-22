@@ -10,11 +10,11 @@ namespace DataMgmtModule.Application.Interface.Persistence
     public interface ICompoundingData
     {
         Task<int> AddCompoundingData(CompoundingDatum compoundingData,int? userId);
-        Task<int> DeleteCompoundingDataAsync(int id,int? userId);
+        Task<int> DeleteCompoundingDataAsync(int id,int? userId, int DeletedBy);
         Task<CompoundingDatum>GetCompoundingDataAsync(int id);
 
         Task<int> UpdateCompoundingDataAsync(int id,CompoundingDatum compoundingData, int? userId);
-        Task<IEnumerable<CompoundingDatum>>GetCompoundingDataByRecipeAsync(int id);
+        Task<IEnumerable<CompoundingDatum>>GetCompoundingDataByRecipeAsync(int id, DateOnly? searchdate);
         Task<IEnumerable<CompoundingDatum>> GetAllCompoundingDatumAsync();
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Application.Dtos.ContactDTO;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
@@ -19,9 +20,15 @@ namespace DataMgmtModule.Persistence.Repository
             _persistenceDbContext = persistenceDbContext; 
         }
         public async Task<Contact> AddContactAsync(Contact contact, int? userId)
-        {
+            {
+            var fetchLastContact = await _persistenceDbContext.Cities.OrderByDescending(x => x.CityId).FirstOrDefaultAsync();
+            if (contact.CityId == 0)
+            {
+                contact.CityId = fetchLastContact.CityId;
+            }
+
             contact.IsDelete = false;
-            contact.CreatedBy = userId;
+            //contact.CreatedBy = userId;
             contact.CreatedDate = DateTime.Now;
             var addContact =await _persistenceDbContext.Contacts.AddAsync(contact);
             
@@ -32,7 +39,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<bool> DeleteContactAsync(int id)
+        public async Task<bool> DeleteContactAsync(int id,int deletedBy)
         {
             var getData = await _persistenceDbContext.Contacts.FindAsync(id);
             //if (getData == null)
@@ -41,17 +48,22 @@ namespace DataMgmtModule.Persistence.Repository
             //}
             if (getData.IsDelete == false)
             {
+                getData.DeletedBy = deletedBy;
+                getData.DeletedDate = DateTime.Now;
                 getData.IsDelete = true;
+                //getData.DeletedDate = DateTime.Now;
                 await _persistenceDbContext.SaveChangesAsync();
 
             }
-            //_persistenceDbContext.Contacts.Remove(getData);
             return true;
         }
 
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
-            var getAllData = await _persistenceDbContext.Contacts.Where(x=>x.IsDelete==false).ToListAsync();
+            var getAllData = await _persistenceDbContext.Contacts.Where(x => x.IsDelete == false)
+                .Include(x => x.States)
+                .Include(x=>x.Cities).
+                ToListAsync();
             if (getAllData == null)
             {
                 throw new NotFoundException("Contact Data Not  Found");
@@ -61,7 +73,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<Contact>> GetAllContactsofmanufacturer()
         {
             var getAllData = await _persistenceDbContext.Contacts
-                .Where(x => x.ContactType == ContactTypes.Manufacturer || x.ContactType == ContactTypes.Both)
+                .Where(x => x.ContactType == ContactTypes.Manufacturer)
                 .ToListAsync();
 
             if (getAllData == null || !getAllData.Any()) 
@@ -108,14 +120,35 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<bool> UpdateContactAsync(int id, Contact contact, int? userId)
         {
-            var existingData = await _persistenceDbContext.Contacts.FindAsync(id);
+            var existingData = await _persistenceDbContext.Contacts.Where(x=>x.ContactId==id).FirstOrDefaultAsync();
+            var cityData = await _persistenceDbContext.Cities.OrderByDescending(x => x.CityId).FirstOrDefaultAsync();
             if (existingData == null)
             {
                 throw new NotFoundException("Data not found");
             }
-            contact.UpdatedDate = DateTime.Now;
-            contact.updatedBy = userId;
-            _persistenceDbContext.Contacts.Update(contact);
+            existingData.ModifiedDate = DateTime.Now;
+            //contact.CreatedBy = existingData.CreatedBy;
+            //contact.CreatedDate = existingData.CreatedDate;
+
+            existingData.ModifiedBy = contact.ModifiedBy;
+            existingData.AddressLine1 = contact.AddressLine1;
+            existingData.AddressLine2 = contact.AddressLine2;
+            existingData.Phone = contact.Phone;
+            existingData.Zip = contact.Zip;
+            if (contact.CityId == 0)
+            {
+                contact.CityId = cityData.CityId;
+            }
+            else
+            {
+                existingData.CityId = contact.CityId;
+            }
+            existingData.StateId = contact.StateId;
+            existingData.Email = contact.Email;
+            existingData.ContactName = contact.ContactName;
+            existingData.ContactType = contact.ContactType;
+            //existingData.
+            //_persistenceDbContext.Contacts.Update(contact);
             await _persistenceDbContext.SaveChangesAsync();
             return true;
         }

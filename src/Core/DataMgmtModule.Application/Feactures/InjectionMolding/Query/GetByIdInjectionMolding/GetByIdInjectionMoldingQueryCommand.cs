@@ -24,7 +24,7 @@ namespace DataMgmtModule.Application.Feactures.InjectionMolding.Query.GetByIdInj
         }
         public async Task<List<InjectionMoldingDto>> Handle(GetByIdInjectionMoldingQuery request, CancellationToken cancellationToken)
         {
-            var injection = await _repository.GetByIdInjectionMolding(request.Id);
+            var injection = await _repository.GetByIdInjectionMolding(request.Id,request.SearchDate);
             return _mapper.Map<List<InjectionMoldingDto>>(injection); throw new NotImplementedException();
         }
     }

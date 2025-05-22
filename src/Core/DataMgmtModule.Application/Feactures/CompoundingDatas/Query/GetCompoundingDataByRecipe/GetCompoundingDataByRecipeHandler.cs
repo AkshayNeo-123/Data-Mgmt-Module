@@ -22,7 +22,7 @@ namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoun
        
         async Task<IEnumerable<CompoundingDatum>> IRequestHandler<GetCompoundingDataByRecipe, IEnumerable<CompoundingDatum>>.Handle(GetCompoundingDataByRecipe request, CancellationToken cancellationToken)
         {
-            var getData =await _compoundingRepository.GetCompoundingDataByRecipeAsync(request.Id);
+            var getData =await _compoundingRepository.GetCompoundingDataByRecipeAsync(request.Id,request.searchdate);
             return getData;
         }
     }

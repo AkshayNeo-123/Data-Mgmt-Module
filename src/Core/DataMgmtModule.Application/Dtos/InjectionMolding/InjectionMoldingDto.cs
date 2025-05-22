@@ -8,15 +8,18 @@ namespace DataMgmtModule.Application.Dtos.InjectionMolding
 {
     public class InjectionMoldingDto
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
 
-       
+
         //public int ProjectId { get; set; }
         //public string ProjectName { get; set; }  
 
         //public int RecipeId { get; set; }
         //public string RecipeName { get; set; }  
         // Other Fields
+
+        //public int RecipeId { get; set; }
+
         public int? Repetition { get; set; }
         public string ReferenceAdditive { get; set; }
 

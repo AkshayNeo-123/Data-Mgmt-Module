@@ -22,7 +22,15 @@ namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecip
         public async Task<GetAllRecipeDtos> Handle(GetByIdRecipeCommand request, CancellationToken cancellationToken)
         {
             var recipe = await _recipeRepository.RecipeFindById(request.recipeId);
-            var result = _mapper.Map<GetAllRecipeDtos>(recipe);
+            var result = new GetAllRecipeDtos
+            {
+                ReceipeId = recipe.ReceipeId,
+                ProductName = recipe.ProductName,
+                AdditiveName = recipe.Additive.AdditiveName,
+                PolymerName = recipe.MainPolymer.PolymerName,
+                ProjectNumber = recipe.Project != null ? recipe.Project.ProjectNumber : string.Empty,
+            };
+            //var result = _mapper.Map<GetAllRecipeDtos>(recipe);
             return result;
         }
     }

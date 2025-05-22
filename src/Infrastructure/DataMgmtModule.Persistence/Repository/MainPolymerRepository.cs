@@ -23,7 +23,7 @@ namespace DataMgmtModule.Persistence.Repository
             try
             {
 
-               return await _context.MainPolymers.Where(x=>x.IsDelete==false).ToListAsync();
+               return await _context.MainPolymers.ToListAsync();
             }
             catch (Exception Ex)
             {
@@ -34,34 +34,34 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<MainPolymer?> GetByIdAsync(int id) => await _context.MainPolymers.FindAsync(id);
 
-        public async Task<MainPolymer> AddAsync(CreateMainPolymerDto dto, int? userId)
+        public async Task<MainPolymer> AddAsync(MainPolymer dto, int? userId)
         {
-            var polymer = new MainPolymer
-            {
-                IsDelete=false,
-                PolymerName = dto.PolymerName,
-                CreatedBy = userId,
-                CreatedDate = DateTime.Now
-            };
-            _context.MainPolymers.Add(polymer);
+
+            //IsDelete=false,
+            //PolymerName = dto.PolymerName,
+            //CreatedBy = userId,
+            //CreatedDate = DateTime.Now
+            //};
+            dto.IsDelete = false;
+            _context.MainPolymers.Add(dto);
             await _context.SaveChangesAsync();
-            return polymer;
+            return dto;
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateMainPolymerDto dto,int? userId)
+        public async Task<bool> UpdateAsync(int id, MainPolymer dto,int? userId)
         {
             var existing = await _context.MainPolymers.FindAsync(id);
             if (existing == null) return false;
 
             existing.PolymerName = dto.PolymerName;
-            existing.ModifiedBy = userId;
+            existing.ModifiedBy = dto.ModifiedBy;
             existing.ModifiedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id,int deletedBy)
         {
             var polymer = await _context.MainPolymers.FindAsync(id);
             //if (polymer == null) return false;
@@ -71,6 +71,8 @@ namespace DataMgmtModule.Persistence.Repository
             if (polymer.IsDelete == false)
             {
                 polymer.IsDelete = true;
+                polymer.DeletedBy = deletedBy;
+                polymer.DeletedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
 
             }

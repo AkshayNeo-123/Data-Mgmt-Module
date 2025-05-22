@@ -17,7 +17,7 @@ namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Command.DeleteCo
         }
         public Task<int> Handle(DeleteCompoundingDataCommand request, CancellationToken cancellationToken)
         {
-            var deletData = _compoundingData.DeleteCompoundingDataAsync(request.id,request.userId);
+            var deletData = _compoundingData.DeleteCompoundingDataAsync(request.id,request.userId,request.DeletedBy);
             return deletData;
         }
     }

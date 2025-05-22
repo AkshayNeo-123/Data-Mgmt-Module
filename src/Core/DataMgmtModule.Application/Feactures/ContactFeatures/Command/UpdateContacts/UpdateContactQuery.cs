@@ -8,7 +8,7 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.ContactFeatures.Command.UpdateContacts
 {
-    public record UpdateContactQuery(int id, AddContactDTO addContactDTO,int? userId):IRequest<bool>
+    public record UpdateContactQuery(int id, UpdateContactDTO addContactDTO,int? userId):IRequest<bool>
     {
     }
 }

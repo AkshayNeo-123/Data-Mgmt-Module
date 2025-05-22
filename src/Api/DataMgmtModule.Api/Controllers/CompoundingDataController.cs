@@ -9,15 +9,18 @@ using DataMgmtModule.Application.Feactures.CompoundingDatas.Command.UpdateCompou
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetAllCompoundingData;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundDataByIdQuery;
 using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetCompoundingDataByRecipe;
+using DataMgmtModule.Application.Feactures.CompoundingDatas.Query.GetDataByIdcompoundingQuery;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.AddDosages;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.DeleteDosage;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Command.UpdateDosageData;
 using DataMgmtModule.Application.Feactures.DosagesFeatures.Query.GetDosage;
 using DataMgmtModule.Domain.Entities;
+using DataMgmtModule.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Api.Controllers
 {
@@ -26,10 +29,14 @@ namespace DataMgmtModule.Api.Controllers
     public class CompoundingDataController : ControllerBase
     {
         private readonly IMediator _mediator;
+        readonly PersistenceDbContext _persistenceDbContext;
 
-        public CompoundingDataController(IMediator mediator)
+
+        public CompoundingDataController(IMediator mediator, PersistenceDbContext persistenceDbContext)
         {
             _mediator = mediator;
+            _persistenceDbContext = persistenceDbContext;
+
         }
 
         [HttpGet]
@@ -47,8 +54,16 @@ namespace DataMgmtModule.Api.Controllers
                 return BadRequest("Invalid Components data.");
             }
             var data = await _mediator.Send(new AddCompoundingCommand(compoundingDataDTO,userId));
+            if(compoundingDataDTO.Components != null)
+            {
+
             var finalData = await _mediator.Send(new AddCompoundingComponentsCommand(data, compoundingDataDTO,userId));
+            }
+            if(compoundingDataDTO.DosageDTO != null)
+            {
+
             var result = await _mediator.Send(new AddDosagesCommand(data, compoundingDataDTO,userId));
+            }
             return Ok(new { Message = "Compoundings added successfully!" });
         }
 
@@ -64,10 +79,10 @@ namespace DataMgmtModule.Api.Controllers
 
 
         [HttpDelete]
-        public async Task<IActionResult> deleteCompoundingData(int CompoundingId)
+        public async Task<IActionResult> deleteCompoundingData(int CompoundingId, int DeletedBy)
         {
             var userId= HttpContext.Session.GetInt32("UserId");
-            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId, userId)));
+            return Ok(await _mediator.Send(new DeleteCompoundingDataCommand(CompoundingId, userId, DeletedBy)));
 
         }
 
@@ -99,10 +114,34 @@ namespace DataMgmtModule.Api.Controllers
 
 
         [HttpGet("get-by-recipe-id/{recipeId}")]
-        public async Task<IActionResult>GetCompoundingDataByRecipe(int recipeId)
+        public async Task<IActionResult>GetCompoundingDataByRecipe(int recipeId, DateOnly? searchdate)
         {
-            var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId));
+            var getCompoundingData =await _mediator.Send(new GetCompoundingDataByRecipe(recipeId,searchdate));
             return Ok(getCompoundingData);
+        }
+
+
+        [HttpGet("GetDataByCompoundingId")]
+        public async Task<IActionResult> GetDataByCompoundingId(int id)
+        {
+            return Ok(await _mediator.Send(new GetDataByIdcompoundingQuery(id)));
+        }
+
+
+
+        [HttpGet("GetCommonSet")]
+        public async Task<IActionResult> GetLastCommonSet()
+        {
+            var lastCommonSet = await _persistenceDbContext.CompoundingData
+                .OrderByDescending(x => x.CompoundingId)
+                .Select(p => new
+                {
+                    ParameterSet=p.ParameterSet+1,
+                    CompoundingId=p.CompoundingId+1
+                })
+                .FirstOrDefaultAsync();
+
+            return Ok(lastCommonSet);
         }
 
 

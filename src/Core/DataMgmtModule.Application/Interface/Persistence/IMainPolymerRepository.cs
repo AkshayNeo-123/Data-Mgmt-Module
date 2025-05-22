@@ -12,8 +12,8 @@ namespace DataMgmtModule.Application.Interface.Persistence
     {
         Task<List<MainPolymer>> GetAllAsync();
         Task<MainPolymer?> GetByIdAsync(int id);
-        Task<MainPolymer> AddAsync(CreateMainPolymerDto dto,int? userId);
-        Task<bool> UpdateAsync(int id, UpdateMainPolymerDto dto, int? userId);
-        Task<bool> DeleteAsync(int id);
+        Task<MainPolymer> AddAsync(MainPolymer dto,int? userId);
+        Task<bool> UpdateAsync(int id, MainPolymer dto, int? userId);
+        Task<bool> DeleteAsync(int id,int deletedBy);
     }
 }

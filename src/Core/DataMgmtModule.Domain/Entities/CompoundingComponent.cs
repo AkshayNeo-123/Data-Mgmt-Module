@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DataMgmtModule.Domain.Entities;
 
@@ -31,10 +32,13 @@ public partial class CompoundingComponent:Common
 
     public bool? F { get; set; }
 
-    public int ComponentId { get; set; }
+    public int? ComponentId { get; set; }
 
-    public virtual Component Component { get; set; } = null!;
+    public bool? IsDelete { get; set; } = false;
 
+    public virtual Component? Component { get; set; }
+
+    [JsonIgnore]
     public virtual CompoundingDatum? Compounding { get; set; }
 
     public virtual Recipe? Recipe { get; set; }

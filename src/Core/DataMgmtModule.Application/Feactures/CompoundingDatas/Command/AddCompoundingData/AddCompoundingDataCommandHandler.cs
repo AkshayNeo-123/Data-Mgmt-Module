@@ -7,6 +7,7 @@ using AutoMapper;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Command.AddCompoundingData
 {
@@ -23,6 +24,9 @@ namespace DataMgmtModule.Application.Feactures.CompoundingDatas.Command.AddCompo
         public async Task<int> Handle(AddCompoundingCommand request, CancellationToken cancellationToken)
         {
             var addData = _mapper.Map<CompoundingDatum>(request. compoundingDataDTO.CompoundingDataDTO);
+
+            addData.RecipeId = request.compoundingDataDTO.CompoundingDataDTO.ReceipeId;
+
             var data = await _compoundingData.AddCompoundingData(addData,request.userId);
             return data;
         }
