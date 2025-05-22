@@ -35,6 +35,10 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task UpdateAsync(RolePermission rolePermission)
         {
+            //foreach(var rolesP in rolePermission)
+            //{
+
+            //}
             _context.RolePermissions.Update(rolePermission);
             await _context.SaveChangesAsync();
         }
