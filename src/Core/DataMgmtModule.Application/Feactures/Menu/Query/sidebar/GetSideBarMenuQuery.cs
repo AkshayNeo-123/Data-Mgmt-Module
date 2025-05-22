@@ -7,9 +7,9 @@ using DataMgmtModule.Application.Dtos.Menu;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
 
-namespace DataMgmtModule.Application.Feactures.Menu.Query
+namespace DataMgmtModule.Application.Feactures.Menu.Query.sidebar
 {
-    public record GetMenuQuery:IRequest<IEnumerable<MenuWithChildCountDto>>
+    public record GetSideBarMenuQuery:IRequest<IEnumerable<sidebarwithMenu>>
     {
 
     }

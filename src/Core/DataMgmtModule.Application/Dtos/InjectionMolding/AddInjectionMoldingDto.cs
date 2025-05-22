@@ -63,6 +63,7 @@ namespace DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding
         public decimal? MouldTemperature { get; set; }
         public int? CreatedBy { get; set; }
 
+        public string? Notes { get; set; }
 
 
     }

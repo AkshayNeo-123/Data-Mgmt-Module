@@ -65,6 +65,9 @@ namespace DataMgmtModule.Application.Dtos.InjectionMolding
 
         public decimal? MouldTemperature { get; set; }
         public int? ModifiedBy { get; set; }
+
+        public string? Notes { get; set; }
+
     }
 
 }

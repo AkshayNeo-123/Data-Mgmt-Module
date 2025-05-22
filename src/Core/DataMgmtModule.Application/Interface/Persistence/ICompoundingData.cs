@@ -14,7 +14,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<CompoundingDatum>GetCompoundingDataAsync(int id);
 
         Task<int> UpdateCompoundingDataAsync(int id,CompoundingDatum compoundingData, int? userId);
-        Task<IEnumerable<CompoundingDatum>>GetCompoundingDataByRecipeAsync(int id);
+        Task<IEnumerable<CompoundingDatum>>GetCompoundingDataByRecipeAsync(int id, DateOnly? searchdate);
         Task<IEnumerable<CompoundingDatum>> GetAllCompoundingDatumAsync();
     }
 
