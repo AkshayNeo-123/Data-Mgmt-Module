@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class GeneralProperties:Common
+    public class GeneralProperties:CommonTest
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,7 +16,7 @@ namespace DataMgmtModule.Domain.Entities
 
         [Required]
         public int Testid { get; set; }
-        
+        public Test Test { get; set; }
         public int? Density { get; set; }
 
         public int? HumidityAbsorption { get; set; }

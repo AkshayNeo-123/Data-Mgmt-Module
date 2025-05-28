@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class ElectricalProperties
+    public class ElectricalProperties:CommonTest
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,6 +16,8 @@ namespace DataMgmtModule.Domain.Entities
 
         [Required]
         public int Testid { get; set; }
+
+        public Test Test { get; set; }
 
         public int? VolumeResistivity1 { get; set; }
 
