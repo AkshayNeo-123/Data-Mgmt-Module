@@ -63,9 +63,9 @@ namespace DataMgmtModule.Api.Controllers
             return success ? NoContent() : NotFound();
         }
         [HttpPut("{userId}/changepassword")]
-        public async Task<IActionResult>ChangePasswordAsync( [FromBody] ChangePasswordDto dto)
+        public async Task<IActionResult>ChangePasswordAsync(int userId, ChangePasswordDto dto)
         {
-            var success = await _mediator.Send(new ChangeUserPasswordCommand(dto.UserId,dto.OldPassword, dto.NewPassword));
+            var success = await _mediator.Send(new ChangeUserPasswordCommand(userId,dto));
             return success ? NoContent() : NotFound();
 
         }
