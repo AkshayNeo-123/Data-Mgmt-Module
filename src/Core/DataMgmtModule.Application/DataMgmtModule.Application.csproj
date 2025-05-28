@@ -10,6 +10,7 @@
     <Folder Include="Dtos\ForgotPasswordRequest\" />
     <Folder Include="Feactures\Menu\Command\" />
     <Folder Include="Feactures\RecipeComponentFeactures\Query\" />
+    <Folder Include="Feactures\TestFeactures\Commands\" />
     <Folder Include="Interface\Identity\" />
   </ItemGroup>
 

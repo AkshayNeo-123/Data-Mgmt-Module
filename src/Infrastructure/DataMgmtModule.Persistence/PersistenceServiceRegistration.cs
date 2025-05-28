@@ -45,6 +45,7 @@ namespace DataMgmtModule.Persistence
             
             services.AddScoped<IRecipeComponentTypeRepository, RecipeComponentTypeRepository>();
             services.AddScoped<IComponentRepository, ComponentRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();
 
 
 

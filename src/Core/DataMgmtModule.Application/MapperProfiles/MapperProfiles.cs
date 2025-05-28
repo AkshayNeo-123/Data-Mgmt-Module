@@ -15,6 +15,7 @@ using DataMgmtModule.Application.Dtos.Materials;
 using DataMgmtModule.Application.Dtos.ProjectsDtos;
 using DataMgmtModule.Application.Dtos.RecipeComponentDtos;
 using DataMgmtModule.Application.Dtos.RecipeDtos;
+using DataMgmtModule.Application.Dtos.TestDtos;
 using DataMgmtModule.Application.Feactures.RoleManager.Command.CreateRoles;
 using DataMgmtModule.Application.Features.RolePermissions.DTOs;
 using DataMgmtModule.Domain.Entities;
@@ -70,6 +71,14 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Contact, GetAllContacts>().ReverseMap();
             CreateMap<Cities, CitiesDTO>().ReverseMap();
             CreateMap<Cities, AddCityDTO>().ReverseMap();
+
+            CreateMap<Test,TestDto>()
+                .ForMember(dest => dest.RecipeName, opt => opt.MapFrom(src => src.Recipe.ProductName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Comment))
+                .ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber))
+                .ForMember(dest => dest.IsPublish, opt => opt.MapFrom(src => src.IsPublish))
+                .ForMember(dest => dest.MainPolymerName, opt => opt.MapFrom(src => src.Recipe.MainPolymer.PolymerName));
 
         }
     }
