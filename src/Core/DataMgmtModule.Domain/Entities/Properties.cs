@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +8,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class Properties : Common
+    public class Properties : CommonTest
     {
+        [Key]
         public int Id { get; set; }
         public int TestId { get; set; }
         public bool Sustainable { get; set; } = false;
@@ -34,6 +36,9 @@ namespace DataMgmtModule.Domain.Entities
         public bool RecycledContent { get; set; } = false;
         public bool AdditiveManufacturing { get; set; } = false;
         public bool IsDelete { get; set; } = false;
+
+        public Test Test { get; set; }
+
 
     }
 }
