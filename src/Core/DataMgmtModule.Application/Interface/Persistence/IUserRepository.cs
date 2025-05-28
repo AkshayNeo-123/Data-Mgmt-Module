@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataMgmtModule.Application.Dtos;
+using DataMgmtModule.Application.Dtos.User;
 using DataMgmtModule.Application.Models;
 using DataMgmtModule.Domain.Entities;
 
@@ -17,5 +18,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<User> AddUserAsync(User user);
         Task<bool> UpdateUserAsync(int id, UpdateUserDto user);
         Task<bool> DeleteUserAsync(int id,int? deletedBy);
+        Task<bool> ChangePasswordAsync(int id, ChangePasswordDto changePasswordDto);
     }
 }

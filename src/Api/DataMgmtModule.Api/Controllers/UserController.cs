@@ -1,8 +1,10 @@
 ﻿using System.Net.Mail;
 using DataMgmtModule.Application.Dtos;
+using DataMgmtModule.Application.Dtos.User;
 using DataMgmtModule.Application.Feactures.Users.Commands.AddUser;
 using DataMgmtModule.Application.Feactures.Users.Commands.DeleteUser;
 using DataMgmtModule.Application.Feactures.Users.Commands.UpdateUser;
+using DataMgmtModule.Application.Feactures.Users.Commands.UpdateUserPass;
 using DataMgmtModule.Application.Feactures.Users.Queries.GetAllUsers;
 using DataMgmtModule.Application.Feactures.Users.Queries.GetUserById;
 using DataMgmtModule.Application.Interface.Persistence;
@@ -59,6 +61,13 @@ namespace DataMgmtModule.Api.Controllers
         {
             var success = await _mediator.Send(new DeleteUserCommand(id,deletedBy));
             return success ? NoContent() : NotFound();
+        }
+        [HttpPut("{userId}/changepassword")]
+        public async Task<IActionResult>ChangePasswordAsync( [FromBody] ChangePasswordDto dto)
+        {
+            var success = await _mediator.Send(new ChangeUserPasswordCommand(dto.UserId,dto.OldPassword, dto.NewPassword));
+            return success ? NoContent() : NotFound();
+
         }
     }
 }
