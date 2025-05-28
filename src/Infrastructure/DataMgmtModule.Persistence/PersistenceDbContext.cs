@@ -58,8 +58,14 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Cities> Cities { get; set; }
         public virtual DbSet<Test> Test { get; set; }
+        public virtual DbSet<FlammabilityProperties> FlammabilityProperties { get; set; }
+        public virtual DbSet<Properties> Properties { get; set; }
+        public virtual DbSet<MechanicalProperty> MechanicalProperty { get; set; }
+        public virtual DbSet<TemperatureProperty> TemperatureProperty { get; set; }
+        public virtual DbSet<GeneralProperties> GeneralProperties { get; set; }
+        public virtual DbSet<ElectricalProperties> ElectricalProperties { get; set; }
 
-
+        
         public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
        
 
