@@ -11,8 +11,9 @@ namespace DataMgmtModule.Application.Features.TestFeatures.Commands.AddTest
 {
     public class AddTestCommandHandler : IRequestHandler<AddTestCommand, int>
     {
-        readonly ITestRepository _repository;
-        readonly IMapper _mapper;
+        private readonly ITestRepository _repository;
+        private readonly IMapper _mapper;
+
         public AddTestCommandHandler(ITestRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -24,13 +25,40 @@ namespace DataMgmtModule.Application.Features.TestFeatures.Commands.AddTest
             var test = _mapper.Map<Test>(request.Test);
             test.IsDelete = false;
 
-            // Map related collections
-            test.TemperatureProperties = _mapper.Map<List<TemperatureProperty>>(request.TemperatureProperties ?? new());
-            test.FlammabilityProperties = _mapper.Map<List<FlammabilityProperties>>(request.FlammabilityProperties ?? new());
+            // One-to-one property assignments
+            if (request.TemperatureProperty != null)
+            {
+                test.TemperatureProperty = _mapper.Map<TemperatureProperty>(request.TemperatureProperty);
+            }
+
+            if (request.FlammabilityProperty != null)
+            {
+                test.FlammabilityProperty = _mapper.Map<FlammabilityProperties>(request.FlammabilityProperty);
+            }
+
+            if (request.MechanicalProperty != null)
+            {
+                test.MechanicalProperty = _mapper.Map<MechanicalProperty>(request.MechanicalProperty);
+            }
+
+            if (request.GeneralProperty != null)
+            {
+                test.GeneralProperty = _mapper.Map<GeneralProperties>(request.GeneralProperty);
+            }
+
+            if (request.ElectricalProperty != null)
+            {
+                test.ElectricalProperty = _mapper.Map<ElectricalProperties>(request.ElectricalProperty);
+            }
+
+            if (request.Properties != null)
+            {
+                test.Properties = _mapper.Map<Properties>(request.Properties);
+            }
 
             var newTestId = await _repository.AddTest(test);
-
             return newTestId;
         }
     }
+
 }

@@ -81,7 +81,9 @@ namespace DataMgmtModule.Application.MapperProfiles
                 .ForMember(dest => dest.MainPolymerName, opt => opt.MapFrom(src => src.Recipe.MainPolymer.PolymerName));
 
             CreateMap<AddDto, Test>();
-            
+
+            CreateMap<MechanicalPropertyDto, MechanicalProperty>()
+  .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
 
             CreateMap<TemperaturePropertyDto, TemperatureProperty>()
     .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
@@ -89,6 +91,16 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<FlammabilityPropertyDto, FlammabilityProperties>()
                 .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
 
+            CreateMap<GeneralPropertyDto, GeneralProperties>()
+               .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
+
+            CreateMap<ElectricalPropertyDto, ElectricalProperties>()
+               .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
+
+            CreateMap<PropertiesDto, Properties>()
+            .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
+
+          
         }
     }
 }
