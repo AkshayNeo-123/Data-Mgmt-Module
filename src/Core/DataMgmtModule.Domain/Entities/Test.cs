@@ -19,5 +19,14 @@ namespace DataMgmtModule.Domain.Entities
         public string? Comment { get; set; }
         public bool IsPublish { get; set; }
         public bool IsDelete { get; set; }
+        public TemperatureProperty TemperatureProperty { get; set; }
+        public FlammabilityProperties FlammabilityProperty { get; set; }
+        public MechanicalProperty MechanicalProperty { get; set; }
+        public GeneralProperties GeneralProperty { get; set; }
+        public ElectricalProperties ElectricalProperty { get; set; }
+        public Properties Properties { get; set; }
+
+
+
     }
 }

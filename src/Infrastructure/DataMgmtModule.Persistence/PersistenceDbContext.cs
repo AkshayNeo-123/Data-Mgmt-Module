@@ -65,7 +65,6 @@ namespace DataMgmtModule.Persistence
         public virtual DbSet<GeneralProperties> GeneralProperties { get; set; }
         public virtual DbSet<ElectricalProperties> ElectricalProperties { get; set; }
 
-        
         public virtual DbSet<RecipeComponentType> RecipeComponentType { get; set; }
        
 

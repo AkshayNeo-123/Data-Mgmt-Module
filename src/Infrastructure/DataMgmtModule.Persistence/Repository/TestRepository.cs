@@ -24,7 +24,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<int> AddTest(Test test)
         {
-            test.IsDelete=false;
+            test.IsDelete = false;
             await _persistenceContext.AddAsync(test);
             return await _persistenceContext.SaveChangesAsync();
         }
