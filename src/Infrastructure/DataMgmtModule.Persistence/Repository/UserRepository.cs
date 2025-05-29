@@ -13,6 +13,7 @@ using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DataMgmtModule.Application.Exceptions;
+using DataMgmtModule.Application.Dtos.User;
 
 namespace DataMgmtModule.Persistence.Repository
 {
@@ -111,5 +112,22 @@ namespace DataMgmtModule.Persistence.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> ChangePasswordAsync(int id,ChangePasswordDto changePasswordDto)
+        {
+            var getUser =await _context.Users.FindAsync(id);
+            if (getUser == null) return false;
+            if (getUser.PasswordHash != changePasswordDto.OldPassword || getUser.PasswordHash == changePasswordDto.NewPassword)
+            {
+                throw new InvalidOperationException("The current password you entered is incorrect.");
+            }
+            getUser.PasswordHash = changePasswordDto.NewPassword;
+            getUser.ModifiedBy = changePasswordDto.ModifiedBy;
+            getUser.ModifiedDate = DateTime.Now;
+            _context.Update(getUser);
+            await _context.SaveChangesAsync();
+            return true;
+
+
+        }
     }
 }

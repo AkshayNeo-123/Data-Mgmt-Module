@@ -52,6 +52,17 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<DataMgmtModule.Application.Interface.Persistence.IEmailServiceRepository,
     DataMgmtModule.Persistence.Repository.EmailServiceRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<IFlammabilityPropertiesRepository, FlammabilityPropertiesRepository>();
+            services.AddScoped<ITemperaturePropertyRepository, TemperaturePropertyRepository>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IElectricalPropertiesRepository, ElectricalPropertiesRepository>();
+            services.AddScoped<IGeneralPropertiesRepository, GeneralPropertiesRepository>();
+            services.AddScoped<IMechanicalPropertyRepository, MechanicalPropertyRepository>();
+
+
+
+
 
 
 

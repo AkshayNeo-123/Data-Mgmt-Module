@@ -186,7 +186,7 @@ namespace DataMgmtModule.Persistence.Repository
                 query = query.Where(x =>
                     x.Project.ProjectNumber.ToString().Contains(loweredSearch) ||
                     x.Project.Project_Description.ToLower().Contains(loweredSearch) ||
-                    x.ReceipeId.ToString().Contains(loweredSearch)
+                    x.ProductName.ToString().ToLower().Contains(loweredSearch)
                 );
             }
 

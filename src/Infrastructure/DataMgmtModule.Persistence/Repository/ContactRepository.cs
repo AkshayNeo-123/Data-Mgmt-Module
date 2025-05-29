@@ -42,10 +42,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> DeleteContactAsync(int id,int deletedBy)
         {
             var getData = await _persistenceDbContext.Contacts.FindAsync(id);
-            //if (getData == null)
-            //{
-            //    throw new NotFoundException($"Contact data with id {id} not found");
-            //}
+            
             if (getData.IsDelete == false)
             {
                 getData.DeletedBy = deletedBy;
@@ -127,8 +124,7 @@ namespace DataMgmtModule.Persistence.Repository
                 throw new NotFoundException("Data not found");
             }
             existingData.ModifiedDate = DateTime.Now;
-            //contact.CreatedBy = existingData.CreatedBy;
-            //contact.CreatedDate = existingData.CreatedDate;
+           
 
             existingData.ModifiedBy = contact.ModifiedBy;
             existingData.AddressLine1 = contact.AddressLine1;
@@ -147,8 +143,7 @@ namespace DataMgmtModule.Persistence.Repository
             existingData.Email = contact.Email;
             existingData.ContactName = contact.ContactName;
             existingData.ContactType = contact.ContactType;
-            //existingData.
-            //_persistenceDbContext.Contacts.Update(contact);
+            
             await _persistenceDbContext.SaveChangesAsync();
             return true;
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataMgmtModule.Application.Dtos;
+using DataMgmtModule.Application.Dtos.User;
 using DataMgmtModule.Application.Models;
 using DataMgmtModule.Domain.Entities;
 
@@ -21,5 +22,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task SendOtpAsync(User user, string otp);
         Task<bool> VerifyOtpAsync(string email, string otp);
         Task ResetPasswordAsync(string email, string newPassword);
+        Task<bool> ChangePasswordAsync(int id, ChangePasswordDto changePasswordDto);
     }
 }

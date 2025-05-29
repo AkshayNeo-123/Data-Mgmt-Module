@@ -36,6 +36,8 @@ namespace DataMgmtModule.Application.Feactures.Menu.Query.side
                 ParentId = menu.ParentId,
                 ChildCount = menu.ChildCount,
                 Route = menu.Route,
+                Icon=menu.Icon,
+
                 Children = new List<MenuWithChildCountDto>()
             }).ToList();
 
@@ -58,7 +60,8 @@ namespace DataMgmtModule.Application.Feactures.Menu.Query.side
                         Order = menu.Order,
                         ParentId = menu.ParentId,
                         ChildCount = menu.ChildCount,
-                        Route = menu.Route
+                        Route = menu.Route,
+                        Icon= menu.Icon
                     });
                 }
             }

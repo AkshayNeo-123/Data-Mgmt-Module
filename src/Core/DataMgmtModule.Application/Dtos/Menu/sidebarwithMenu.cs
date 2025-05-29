@@ -15,6 +15,7 @@ namespace DataMgmtModule.Application.Dtos.Menu
         public int? ParentId { get; set; }
         public int ChildCount { get; set; }
         public string? Route { get; set; }
+        public string Icon { get; set; }
         public List<MenuWithChildCountDto> Children { get; set; } = new List<MenuWithChildCountDto>();
     }
 }
