@@ -1,5 +1,6 @@
 ﻿using DataMgmtModule.Application.Dtos.ContactDTO;
 using DataMgmtModule.Application.Feactures.ProjectsFeactures.Query.GetAllProjects;
+using DataMgmtModule.Application.Feactures.TestFeactures.Commands;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,11 @@ namespace DataMgmtModule.Api.Controllers
         {
             var result = await _mediator.Send(new GetTestQuery());
             return Ok(result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTest(int testId)
+        {
+            return Ok(await _mediator.Send(new DeleteTestCommand(testId)));
         }
     }
 }

@@ -63,13 +63,33 @@ namespace DataMgmtModule.Persistence.Repository
             var tempData = await _persistenceContext.TemperatureProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
             var proData = await _persistenceContext.Properties.Where(t => t.TestId == id).FirstOrDefaultAsync();
             var flamData = await _persistenceContext.FlammabilityProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            if (mechData != null)
+            {
+               mechData.IsDelete = true;
+            }
+            if (flamData != null)
+            {
+                flamData.IsDelete = true;
+            }
+            if (proData != null)
+            {
+                proData.IsDelete = true;
 
-            mechData.IsDelete = true;
-            genData.IsDelete = true;
+            }
+            if (tempData != null)
+            {
+                tempData.IsDelete = true;
+
+            }
+            if (electricalData != null)
+            {
             electricalData.IsDelete = true;
-            tempData.IsDelete = true;
-            proData.IsDelete = true;
-            flamData.IsDelete = true;
+            }
+            if (genData != null)
+            {
+            genData.IsDelete = true;
+            }
+            
 
             testData.IsDelete = true;
             
