@@ -22,4 +22,7 @@ public partial class User : Common
 
     public virtual Roles? Role { get; set; }
     public bool isDelete { get; set; } = false;
+    public string? Otp { get; set; }
+    public DateTime? OtpExpiry { get; set; }
+    public bool OtpVerified { get; set; } = false;
 }

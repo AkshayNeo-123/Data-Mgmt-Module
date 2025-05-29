@@ -11,15 +11,19 @@ using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Application.Models;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using DataMgmtModule.Application.Exceptions;
 
 namespace DataMgmtModule.Persistence.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly PersistenceDbContext _context;
-        public UserRepository(PersistenceDbContext context)
+        private readonly IPasswordHasher<User> _passwordHasher;
+        public UserRepository(PersistenceDbContext context, IPasswordHasher<User> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public User? ValidateUser(string email, string password)
@@ -39,6 +43,9 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<User> AddUserAsync(User user)
         {
             user.CreatedDate = DateTime.Now;
+            //user.Otp = null;
+            //user.OtpExpiry = null;
+            //user.OtpVerified = false;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user;
@@ -66,5 +73,43 @@ namespace DataMgmtModule.Persistence.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email)
+                ?? throw new NotFoundException($"User with email {email} not found");
+        }
+
+        public async Task SendOtpAsync(User user, string otp)
+        {
+            user.Otp = otp;
+            user.OtpExpiry = DateTime.UtcNow.AddMinutes(10);
+            user.OtpVerified = false;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> VerifyOtpAsync(string email, string otp)
+        {
+            var user = await GetByEmailAsync(email);
+            if (user == null || user.Otp != otp || user.OtpExpiry < DateTime.UtcNow) return false;
+
+            user.OtpVerified = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task ResetPasswordAsync(string email, string newPassword)
+        {
+            var user = await GetByEmailAsync(email);
+            if (user == null || !user.OtpVerified) throw new Exception("OTP not verified or user not found.");
+
+            user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
+            user.Otp = null;
+            user.OtpExpiry = null;
+            user.OtpVerified = false;
+
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
