@@ -80,6 +80,15 @@ namespace DataMgmtModule.Application.MapperProfiles
                 .ForMember(dest => dest.IsPublish, opt => opt.MapFrom(src => src.IsPublish))
                 .ForMember(dest => dest.MainPolymerName, opt => opt.MapFrom(src => src.Recipe.MainPolymer.PolymerName));
 
+            CreateMap<AddDto, Test>();
+            
+
+            CreateMap<TemperaturePropertyDto, TemperatureProperty>()
+    .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
+
+            CreateMap<FlammabilityPropertyDto, FlammabilityProperties>()
+                .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
+
         }
     }
 }

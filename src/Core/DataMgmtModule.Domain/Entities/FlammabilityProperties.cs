@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataMgmtModule.Domain.Entities
 {
-    public class FlammabilityProperties
+    public class FlammabilityProperties :CommonTest
     {
         [Key]
         public int Id { get; set; }
@@ -26,14 +26,6 @@ namespace DataMgmtModule.Domain.Entities
         public int? BurningRateThickness1 { get; set; }
 
         public int? BurningRateThickness2 { get; set; }
-
-        public int? ModifiedBy { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
-
-        public int? DeletedBy { get; set; }
-
-        public DateTime? DeletedDate { get; set; }
 
         public bool IsDelete { get; set; }
     }
