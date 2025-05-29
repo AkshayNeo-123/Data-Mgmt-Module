@@ -15,7 +15,7 @@ namespace DataMgmtModule.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        public int Testid { get; set; }
+        public int TestId { get; set; }
         public Test Test { get; set; }
         public int? Density { get; set; }
 

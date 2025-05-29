@@ -13,7 +13,6 @@ namespace DataMgmtModule.Domain.Entities
         public int Id { get; set; }
         public int TestId { get; set; }
 
-        // Tensile
         public decimal? TensileModulus_DAM { get; set; }
         public decimal? TensileModulus_Conditioned { get; set; }
         public decimal? TensileModulus_Conditioned_Mm_Min { get; set; }

@@ -57,7 +57,22 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 throw new NotFoundException($"Test Id={id} is not Found!!");
             }
+            var mechData = await _persistenceContext.MechanicalProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var genData = await _persistenceContext.GeneralProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var electricalData = await _persistenceContext.ElectricalProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var tempData = await _persistenceContext.TemperatureProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var proData = await _persistenceContext.Properties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var flamData = await _persistenceContext.FlammabilityProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+
+            mechData.IsDelete = true;
+            genData.IsDelete = true;
+            electricalData.IsDelete = true;
+            tempData.IsDelete = true;
+            proData.IsDelete = true;
+            flamData.IsDelete = true;
+
             testData.IsDelete = true;
+            
             return await _persistenceContext.SaveChangesAsync();
         }
 
