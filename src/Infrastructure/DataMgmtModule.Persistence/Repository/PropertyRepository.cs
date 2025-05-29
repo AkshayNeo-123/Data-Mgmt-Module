@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataMgmtModule.Persistence.Repository
 {
-    public class FlammabilityPropertiesRepository: IFlammabilityPropertiesRepository
+    public class PropertyRepository: IPropertyRepository
     {
         readonly PersistenceDbContext _dbContext;
-        public FlammabilityPropertiesRepository(PersistenceDbContext dbContext)
+        public PropertyRepository(PersistenceDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        
-        public async Task<FlammabilityProperties> GetByTestId(int id)
+
+        public async Task<Properties> GetByTestId(int id)
         {
-            var data = await _dbContext.FlammabilityProperties.Where(t => t.TestId == id).FirstOrDefaultAsync();
-            
+            var data = await _dbContext.Properties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+
             return data;
         }
     }

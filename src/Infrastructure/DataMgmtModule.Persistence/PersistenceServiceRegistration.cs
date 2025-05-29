@@ -46,6 +46,14 @@ namespace DataMgmtModule.Persistence
             services.AddScoped<IRecipeComponentTypeRepository, RecipeComponentTypeRepository>();
             services.AddScoped<IComponentRepository, ComponentRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<IFlammabilityPropertiesRepository, FlammabilityPropertiesRepository>();
+            services.AddScoped<ITemperaturePropertyRepository, TemperaturePropertyRepository>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IElectricalPropertiesRepository, ElectricalPropertiesRepository>();
+            services.AddScoped<IGeneralPropertiesRepository, GeneralPropertiesRepository>();
+            services.AddScoped<IMechanicalPropertyRepository, MechanicalPropertyRepository>();
+
+
 
 
 

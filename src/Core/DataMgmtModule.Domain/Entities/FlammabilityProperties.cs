@@ -11,10 +11,11 @@ namespace DataMgmtModule.Domain.Entities
     public class FlammabilityProperties :CommonTest
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [ForeignKey("Test")]
-        public int Testid { get; set; }
+        public int TestId { get; set; }
         public Test Test { get; set; }  
 
         public int? BurningRateWallThickness { get; set; }

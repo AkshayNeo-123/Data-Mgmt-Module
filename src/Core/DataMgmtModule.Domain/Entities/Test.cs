@@ -11,6 +11,7 @@ namespace DataMgmtModule.Domain.Entities
     public class Test:Common
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [ForeignKey("Recipe")]
         public int RecipeNumber { get; set; }

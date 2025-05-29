@@ -16,6 +16,12 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         public bool IsPublish { get; set; }
         public string RecipeName { get; set; }
         public string MainPolymerName { get; set; }
+        public bool FlammabilityProperties { get; set; } = false;
+        public bool Property { get; set; } = false;
+        public bool TemperatureProperties { get; set; } = false;
+        public bool ElectricalProperties { get; set; } = false;
+        public bool GeneralProperties { get; set; } = false;
+        public bool MechanicalProperty { get; set; } = false;
 
     }
 }

@@ -7,8 +7,8 @@ using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Interface.Persistence
 {
-    public interface IFlammabilityPropertiesRepository
+    public interface IElectricalPropertiesRepository
     {
-        Task<FlammabilityProperties> GetByTestId(int id);
+        Task<ElectricalProperties> GetByTestId(int id);
     }
 }
