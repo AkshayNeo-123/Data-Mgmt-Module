@@ -24,7 +24,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
         {
 
-            return await _persistenceDbContext.Recipes.Where(x=>x.IsDelete==false)
+            return await _persistenceDbContext.Recipes.Where(x => x.IsDelete == false)
         .Include(r => r.Project)
         .Include(r => r.Additive)
         .Include(r => r.MainPolymer)
@@ -42,7 +42,7 @@ namespace DataMgmtModule.Persistence.Repository
         }).
              ToListAsync();
         }
-       
+
         public async Task<int> AddRecipe(Recipe recipe, int? userId)
         {
             recipe.CreatedDate = DateTime.Now;
@@ -89,7 +89,7 @@ namespace DataMgmtModule.Persistence.Repository
             {
                 recipe.IsDelete = true;
 
-               await _persistenceDbContext.SaveChangesAsync();
+                await _persistenceDbContext.SaveChangesAsync();
 
             }
             return 1;
@@ -97,9 +97,9 @@ namespace DataMgmtModule.Persistence.Repository
         }
 
 
-        public async Task<int> RecipeSoftDelete(int id,int deletedBy)
+        public async Task<int> RecipeSoftDelete(int id, int deletedBy)
         {
-            
+
             var recipes = await _persistenceDbContext.Recipes.FindAsync(id);
             if (recipes.IsDelete == false)
             {
@@ -178,7 +178,7 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var query = _persistenceDbContext.Recipes
         .Include(x => x.Project)
-        .Where(x => x.Project.IsDelete == false && x.IsDelete==false);
+        .Where(x => x.Project.IsDelete == false && x.IsDelete == false);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -194,7 +194,7 @@ namespace DataMgmtModule.Persistence.Repository
                 .Select(x => new RecipeProjectDTO
                 {
                     RecipeId = x.ReceipeId,
-                    ProductName=x.ProductName,
+                    ProductName = x.ProductName,
                     ProjectNumber = x.Project.ProjectNumber,
                     Description = x.Project.Project_Description
                 }).ToListAsync();
@@ -208,7 +208,7 @@ namespace DataMgmtModule.Persistence.Repository
                 {
 
                     RecipeId = x.ReceipeId,
-                    ProductName=x.ProductName,
+                    ProductName = x.ProductName,
                     ProjectNumber = x.Project.ProjectNumber,
                     Description = x.Project.Project_Description
                 }).FirstOrDefaultAsync();
@@ -218,7 +218,9 @@ namespace DataMgmtModule.Persistence.Repository
             }
             return getById;
         }
+
+        
     }
 
-    
+
 }

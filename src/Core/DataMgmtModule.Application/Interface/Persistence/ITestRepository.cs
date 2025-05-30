@@ -14,5 +14,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<Test> FindByIdTest(int id);
         Task<int> UpdateTest(Test test);
         Task<int> DeleteTest(int id,int deletedBy);
+        Task<IEnumerable<Recipe>> GetRecipedataForAddTest();
     }
 }

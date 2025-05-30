@@ -2,6 +2,7 @@
 using DataMgmtModule.Application.Feactures.ProjectsFeactures.Query.GetAllProjects;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,13 @@ namespace DataMgmtModule.Api.Controllers
             var newTestId = await _mediator.Send(command);
             return Ok(new { Id = newTestId });
         }
+        [HttpGet("GetRecipeDataForTestList")]
+        public async Task<IActionResult> GetRecipeData()
+        {
+            var result = await _mediator.Send(new GetRecipeQuery());
+            return Ok(result);
+        }
+
 
     }
 }

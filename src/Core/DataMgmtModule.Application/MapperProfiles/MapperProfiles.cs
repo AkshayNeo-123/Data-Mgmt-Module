@@ -72,9 +72,10 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Cities, CitiesDTO>().ReverseMap();
             CreateMap<Cities, AddCityDTO>().ReverseMap();
 
+            CreateMap<Recipe, GetRecipeForTestDto>().ReverseMap();
             CreateMap<Test,TestDto>()
                 .ForMember(dest => dest.RecipeName, opt => opt.MapFrom(src => src.Recipe.ProductName))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Comment))
                 .ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber))
                 .ForMember(dest => dest.IsPublish, opt => opt.MapFrom(src => src.IsPublish))

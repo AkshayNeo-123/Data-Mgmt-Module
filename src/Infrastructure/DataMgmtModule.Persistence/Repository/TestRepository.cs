@@ -110,6 +110,17 @@ namespace DataMgmtModule.Persistence.Repository
 
             return await _persistenceContext.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Recipe>> GetRecipedataForAddTest()
+        {
+            var recipesNotInTests = await _persistenceContext.Recipes
+            .Where(r => r.IsDelete == false && !_persistenceContext.Test
+                    .Where(t => t.IsDelete == false)
+                    .Select(t => t.RecipeNumber)
+                    .Contains(r.ReceipeId))
+            .ToListAsync();
+            return recipesNotInTests;
+        }
+
 
 
 
