@@ -13,6 +13,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> AddTest(Test test);
         Task<Test> FindByIdTest(int id);
         Task<int> UpdateTest(Test test);
-        Task<int> DeleteTest(int id);
+        Task<int> DeleteTest(int id,int deletedBy);
     }
 }
