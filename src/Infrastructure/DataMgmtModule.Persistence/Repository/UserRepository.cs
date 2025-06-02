@@ -47,7 +47,9 @@ namespace DataMgmtModule.Persistence.Repository
             //user.Otp = null;
             //user.OtpExpiry = null;
             //user.OtpVerified = false;
+            user.PasswordHash = _passwordHasher.HashPassword(user, user.PasswordHash);
             _context.Users.Add(user);
+            
             await _context.SaveChangesAsync();
             return user;
         }
@@ -59,6 +61,13 @@ namespace DataMgmtModule.Persistence.Repository
 
             _context.Entry(existing).CurrentValues.SetValues(user);
             existing.ModifiedDate = DateTime.Now;
+            //existing.PasswordHash = _passwordHasher.HashPassword(user, user.PasswordHash);
+            if (!string.IsNullOrWhiteSpace(user.PasswordHash) &&
+                    !user.PasswordHash.StartsWith("AQAAAA")) // crude check for already-hashed password
+            {
+                var passwordHasher = new PasswordHasher<User>();
+                existing.PasswordHash = passwordHasher.HashPassword(existing, user.PasswordHash);
+            }
             await _context.SaveChangesAsync();
             return true;
         }
@@ -92,7 +101,7 @@ namespace DataMgmtModule.Persistence.Repository
         public async Task<bool> VerifyOtpAsync(string email, string otp)
         {
             var user = await GetByEmailAsync(email);
-            if (user == null || user.Otp != otp || user.OtpExpiry < DateTime.UtcNow) return false;
+            if (user == null || user.Otp != otp || user.OtpExpiry < DateTime.UtcNow || user.OtpVerified==true) return false;
 
             user.OtpVerified = true;
             await _context.SaveChangesAsync();
@@ -104,7 +113,11 @@ namespace DataMgmtModule.Persistence.Repository
             var user = await GetByEmailAsync(email);
             if (user == null || !user.OtpVerified) throw new Exception("OTP not verified or user not found.");
 
+            var newHashedPassword = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, newPassword);
+            if (newHashedPassword == PasswordVerificationResult.Success) throw new Exception("You cannot keep the same password as previous!");
+
             user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
+            //user.PasswordHash = newHashedPassword;
             user.Otp = null;
             user.OtpExpiry = null;
             user.OtpVerified = false;

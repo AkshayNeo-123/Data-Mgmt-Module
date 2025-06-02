@@ -35,7 +35,6 @@ namespace DataMgmtModule.Application.Feactures.Users.Commands.SendOtp
             }
             catch (Exception ex)
             {
-                // Log or return full error
                 throw new Exception("SendOtpCommandHandler failed: " + ex.Message, ex);
             }
 
