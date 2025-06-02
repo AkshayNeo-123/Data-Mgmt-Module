@@ -1,5 +1,6 @@
 ﻿
 using DataMgmtModule.Application.Dtos.RecipeDtos;
+using DataMgmtModule.Application.Dtos.TestDtos;
 using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Interface.Persistence
@@ -16,6 +17,8 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string projectNumber);
         Task<RecipeProjectDTO> GetRecipeAndProjectById(int id);
         Task<IEnumerable<RecipeComponent>> FindRecipeComponents(int recipeId);
+
+        Task<CommonTestDto> GetTestByRecipe(int id);
 
 
     }

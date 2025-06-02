@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataMgmtModule.Application.Dtos.RecipeDtos;
+using DataMgmtModule.Application.Dtos.TestDtos;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DataMgmtModule.Persistence.Repository
@@ -16,9 +19,11 @@ namespace DataMgmtModule.Persistence.Repository
     public class RecipeRepository : IRecipe
     {
         readonly PersistenceDbContext _persistenceDbContext;
-        public RecipeRepository(PersistenceDbContext persistenceDbContext)
+        readonly IMapper _mapper;
+        public RecipeRepository(PersistenceDbContext persistenceDbContext,IMapper mapper)
         {
             _persistenceDbContext = persistenceDbContext;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<GetAllRecipeDtos>> GetAllRecipes()
@@ -217,8 +222,65 @@ namespace DataMgmtModule.Persistence.Repository
                 throw new NotFoundException($" Recipe ID={id} is not Found!!");
             }
             return getById;
+
         }
+
+        public async Task<CommonTestDto>GetTestByRecipe(int id)
+        {
+
+
+            var getTestByRecipe = await _persistenceDbContext.Test
+                .Where(x => x.RecipeNumber == id && x.IsPublish == true && x.IsDelete==false).FirstOrDefaultAsync();
+
+
+            if (getTestByRecipe == null)
+            {
+                throw new NotFoundException($"Data with Id {id} not found");
+            }
+
+            var testDto = _mapper.Map<CommonTestDto>(getTestByRecipe);
+
+            var mech = await _persistenceDbContext.MechanicalProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+            if (mech != null)
+            {
+                testDto.MechanicalPropertyDto = _mapper.Map<MechanicalPropertyDto>(mech);
+            }
+            var electticalPro = await _persistenceDbContext.ElectricalProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+
+            if (electticalPro != null)
+            {
+                testDto.ElectricalPropertyDto = _mapper.Map<ElectricalPropertyDto>(electticalPro);
+            }
+            var tempProperty = await _persistenceDbContext.TemperatureProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+            if (tempProperty != null)
+            {
+                testDto.TemperaturePropertyDto = _mapper.Map<TemperaturePropertyDto>(tempProperty);
+            }
+            var generalProperty = await _persistenceDbContext.GeneralProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+            if (generalProperty != null)
+            {
+                testDto.GeneralPropertyDto = _mapper.Map<GeneralPropertyDto>(generalProperty);
+            }
+
+            var properties = await _persistenceDbContext.Properties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+            if (properties != null)
+            {
+                testDto.PropertiesDto = _mapper.Map<PropertiesDto>(properties);
+            }
+            var flam = await _persistenceDbContext.FlammabilityProperties
+                    .FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
+            if (flam != null)
+                testDto.FlammabilityPropertyDto = _mapper.Map<FlammabilityPropertyDto>(flam);
+
+
+            return testDto;
+
+        }
+
+       
     }
+
+    
 
     
 }

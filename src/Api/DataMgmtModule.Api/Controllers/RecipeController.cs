@@ -12,6 +12,7 @@ using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetById;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetByIdRecipe;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject;
 using DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetRecipeAndProjectbyId;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestByRecipe;
 using DataMgmtModule.Application.Features.InjectionMolding.Command.DeleteInjectionModling;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
@@ -136,6 +137,12 @@ namespace DataMgmtModule.Api.Controllers
         public async Task<IActionResult>GetRecipeAndProjectById(int id)
         {
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
+        }
+
+        [HttpGet("GetTestByRecipe")]
+        public async Task<IActionResult>GetTestByRecipe(int id)
+        {
+            return Ok(await _mediator.Send(new GetTestByRecipeQuery(id)));
         }
 
 
