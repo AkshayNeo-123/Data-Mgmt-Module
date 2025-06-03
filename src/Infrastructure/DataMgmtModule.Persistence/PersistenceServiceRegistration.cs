@@ -12,6 +12,9 @@ using DataMgmtModule.Persistence.Repository;
 using DataMgmtModule.Application.Interfaces.Persistence;
 using DataMgmtModule.Application.Interfaces.Repositories;
 using DataMgmtModule.Infrastructure.Repository;
+using Microsoft.AspNetCore.Identity;
+using DataMgmtModule.Domain.Entities;
+using NETCore.MailKit.Core;
 
 namespace DataMgmtModule.Persistence
 {
@@ -45,6 +48,10 @@ namespace DataMgmtModule.Persistence
             
             services.AddScoped<IRecipeComponentTypeRepository, RecipeComponentTypeRepository>();
             services.AddScoped<IComponentRepository, ComponentRepository>();
+            //services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<DataMgmtModule.Application.Interface.Persistence.IEmailServiceRepository,
+    DataMgmtModule.Persistence.Repository.EmailServiceRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<IFlammabilityPropertiesRepository, FlammabilityPropertiesRepository>();
             services.AddScoped<ITemperaturePropertyRepository, TemperaturePropertyRepository>();

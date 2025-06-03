@@ -18,6 +18,10 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<User> AddUserAsync(User user);
         Task<bool> UpdateUserAsync(int id, UpdateUserDto user);
         Task<bool> DeleteUserAsync(int id,int? deletedBy);
+        Task<User?> GetByEmailAsync(string email);
+        Task SendOtpAsync(User user, string otp);
+        Task<bool> VerifyOtpAsync(string email, string otp);
+        Task ResetPasswordAsync(string email, string newPassword);
         Task<bool> ChangePasswordAsync(int id, ChangePasswordDto changePasswordDto);
     }
 }
