@@ -8,6 +8,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
 {
     public interface IEmailServiceRepository
     {
-        Task SendEmailAsync(string toEmail, string subject, string body);
+        Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml = true);
     }
 }

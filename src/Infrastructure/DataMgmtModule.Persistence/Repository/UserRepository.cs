@@ -47,6 +47,7 @@ namespace DataMgmtModule.Persistence.Repository
             //user.Otp = null;
             //user.OtpExpiry = null;
             //user.OtpVerified = false;
+            //var OgPw = user.PasswordHash;
             user.PasswordHash = _passwordHasher.HashPassword(user, user.PasswordHash);
             _context.Users.Add(user);
             
@@ -95,6 +96,7 @@ namespace DataMgmtModule.Persistence.Repository
             user.Otp = otp;
             user.OtpExpiry = DateTime.UtcNow.AddMinutes(10);
             user.OtpVerified = false;
+            
             await _context.SaveChangesAsync();
         }
 
@@ -129,11 +131,17 @@ namespace DataMgmtModule.Persistence.Repository
         {
             var getUser =await _context.Users.FindAsync(id);
             if (getUser == null) return false;
-            if (getUser.PasswordHash != changePasswordDto.OldPassword || getUser.PasswordHash == changePasswordDto.NewPassword)
+            var result = _passwordHasher.VerifyHashedPassword(getUser, getUser.PasswordHash, changePasswordDto.OldPassword);
+            if (result!=PasswordVerificationResult.Success || getUser.PasswordHash == changePasswordDto.NewPassword)
             {
                 throw new InvalidOperationException("The current password you entered is incorrect.");
             }
-            getUser.PasswordHash = changePasswordDto.NewPassword;
+            //if (getUser.PasswordHash != changePasswordDto.OldPassword || getUser.PasswordHash == changePasswordDto.NewPassword)
+            //{
+            //    throw new InvalidOperationException("The current password you entered is incorrect.");
+            //}
+            //getUser.PasswordHash = changePasswordDto.NewPassword;
+            getUser.PasswordHash = _passwordHasher.HashPassword(getUser, changePasswordDto.NewPassword);
             getUser.ModifiedBy = changePasswordDto.ModifiedBy;
             getUser.ModifiedDate = DateTime.Now;
             _context.Update(getUser);

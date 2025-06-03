@@ -11,7 +11,7 @@ namespace DataMgmtModule.Persistence.Repository
 {
     public class EmailServiceRepository : IEmailServiceRepository
     {
-        public async Task SendEmailAsync(string toEmail, string subject, string body)
+        public async Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml = true)
         {
             try
             {
@@ -25,10 +25,10 @@ namespace DataMgmtModule.Persistence.Repository
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress("kapillund29@gmail.com"),
+                    From = new MailAddress("kapillund29@gmail.com", "DMM Support Team"),
                     Subject = subject,
                     Body = body,
-                    IsBodyHtml = false,
+                    IsBodyHtml = isHtml,
                 };
 
                 mailMessage.To.Add(toEmail);
