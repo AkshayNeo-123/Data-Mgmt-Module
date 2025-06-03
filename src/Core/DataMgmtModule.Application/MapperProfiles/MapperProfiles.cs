@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -81,7 +82,16 @@ namespace DataMgmtModule.Application.MapperProfiles
                 .ForMember(dest => dest.MainPolymerName, opt => opt.MapFrom(src => src.Recipe.MainPolymer.PolymerName));
 
             CreateMap<AddDto, Test>();
-
+            CreateMap<CommonTestDto,Test>().ReverseMap();
+            CreateMap<Test, CommonTestDto>()
+    .ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber));
+            CreateMap<TestDashboard, Test>().ReverseMap();
+            CreateMap<ElectricalPropertyDto, ElectricalProperties>().ReverseMap();
+            CreateMap<PropertiesDto, Properties>().ReverseMap();
+            CreateMap<GeneralPropertyDto, GeneralProperties>().ReverseMap();
+            CreateMap<TemperaturePropertyDto, TemperatureProperty>().ReverseMap();
+            CreateMap<MechanicalPropertyDto, MechanicalProperty>().ReverseMap();
+            CreateMap<FlammabilityPropertyDto, FlammabilityProperties>().ReverseMap();
             CreateMap<MechanicalPropertyDto, MechanicalProperty>()
   .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
 
