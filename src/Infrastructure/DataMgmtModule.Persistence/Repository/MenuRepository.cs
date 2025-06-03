@@ -35,6 +35,7 @@ namespace DataMgmtModule.Persistence.Repository
                     Order = m.Order,
                     ParentId = m.ParentId,
                     Route = m.Route,
+                    Icon=m.Icon,
                     ChildCount = _context.Menu.Count(x => x.ParentId == m.id)
                 })
                 .OrderBy(m => m.Order)

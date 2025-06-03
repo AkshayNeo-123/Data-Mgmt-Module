@@ -19,7 +19,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         public async Task<Properties> GetByTestId(int id)
         {
-            var data = await _dbContext.Properties.Where(t => t.TestId == id).FirstOrDefaultAsync();
+            var data = await _dbContext.Properties.Where(t => t.TestId == id && t.IsDelete == false).FirstOrDefaultAsync();
 
             return data;
         }

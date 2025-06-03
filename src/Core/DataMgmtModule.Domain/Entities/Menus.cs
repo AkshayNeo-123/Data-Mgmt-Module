@@ -13,5 +13,6 @@ namespace DataMgmtModule.Domain.Entities
         public int ParentId { get; set; }
         public int Order { get; set; }
         public string Route { get; set; }
+        public string Icon { get; set; }
     }
 }
