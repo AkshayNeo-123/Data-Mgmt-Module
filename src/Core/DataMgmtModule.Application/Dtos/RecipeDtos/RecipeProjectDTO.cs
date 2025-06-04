@@ -12,5 +12,11 @@ namespace DataMgmtModule.Application.Dtos.RecipeDtos
         public string? ProductName { get; set; }
         public string ProjectNumber { get; set; }
         public string Description { get; set; }
+        public decimal? TensileModulus_DAM { get; set; }
+        public decimal? CharpyImpact_DAM { get; set; }
+        public decimal? FlexuralStrength_DAM { get; set; }
+
+
+
     }
 }
