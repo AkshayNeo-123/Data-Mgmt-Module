@@ -35,7 +35,7 @@ namespace DataMgmtModule.Domain.Entities
         public bool FluidInjection { get; set; } = false;
         public bool RecycledContent { get; set; } = false;
         public bool AdditiveManufacturing { get; set; } = false;
-        public bool IsDelete { get; set; } = false;
+        public bool IsDelete { get; set; } =    false;
 
         public Test Test { get; set; }
 
