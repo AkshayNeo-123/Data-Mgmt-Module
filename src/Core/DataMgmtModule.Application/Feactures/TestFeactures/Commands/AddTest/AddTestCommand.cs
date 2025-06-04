@@ -6,6 +6,8 @@ namespace DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest
 {
     public class AddTestCommand : IRequest<int>
     {
+        public int TestId { get; set; } // 🟢 new property
+
         public AddDto Test { get; set; }
         public MechanicalPropertyDto? MechanicalProperty { get; set; }
 

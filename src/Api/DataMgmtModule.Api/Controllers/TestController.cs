@@ -4,6 +4,7 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
+using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,20 @@ namespace DataMgmtModule.Api.Controllers
         {
             var result = await _mediator.Send(new GetRecipeQuery());
             return Ok(result);
+        }
+
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateTest([FromBody] UpdateTestCommand command, int id)
+        {
+            // 🟢 Inject the ID from route into the command object
+            command.TestId = id;
+
+            var result = await _mediator.Send(command);
+
+            if (result == 0)
+                return NotFound("Test with the given ID was not found.");
+
+            return Ok("Test updated successfully.");
         }
 
 

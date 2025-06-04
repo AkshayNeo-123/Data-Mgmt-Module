@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Interface.Persistence
@@ -15,6 +12,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> UpdateTest(Test test);
         Task<int> DeleteTest(int id);
 
+        Task<int> UpdateTestWithProperties(UpdateTestCommand request);
         Task<int> DeleteTest(int id,int deletedBy);
         Task<IEnumerable<Recipe>> GetRecipedataForAddTest();
     }
