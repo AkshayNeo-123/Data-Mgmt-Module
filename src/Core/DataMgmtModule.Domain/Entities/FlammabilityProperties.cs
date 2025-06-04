@@ -16,17 +16,14 @@ namespace DataMgmtModule.Domain.Entities
 
         [ForeignKey("Test")]
         public int TestId { get; set; }
-        public Test Test { get; set; }  
+        public Test Test { get; set; }
 
-        public int? BurningRateWallThickness { get; set; }
+        public decimal? BurningRateWallThickness { get; set; }
+        public decimal? GWFI { get; set; }
+        public decimal? GWFT { get; set; }
+        public decimal? BurningRateThickness1 { get; set; }
+        public decimal? BurningRateThickness2 { get; set; }
 
-        public int? GWFI { get; set; }
-
-        public int? GWFT { get; set; }
-
-        public int? BurningRateThickness1 { get; set; }
-
-        public int? BurningRateThickness2 { get; set; }
 
         public bool IsDelete { get; set; }
     }

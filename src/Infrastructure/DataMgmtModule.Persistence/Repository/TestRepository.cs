@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using DataMgmtModule.Application.Exceptions;
+using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -36,19 +33,51 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<int> UpdateTest(Test test)
-        {
-            var testData = await FindByIdTest(test.Id);
-            if (testData == null)
-            {
-                throw new NotFoundException($"Test Id={test.Id} is not Found!!");
-            }
-            testData.RecipeNumber = test.RecipeNumber;
-            testData.Comment = test.Comment;
-            testData.IsPublish = test.IsPublish;
+        //public async Task<int> UpdateTest(Test test)
+        //{
+        //    var testData = await FindByIdTest(test.Id);
+        //    if (testData == null)
+        //    {
+        //        throw new NotFoundException($"Test Id={test.Id} is not Found!!");
+        //    }
+        //    testData.RecipeNumber = test.RecipeNumber;
+        //    testData.Comment = test.Comment;
+        //    testData.IsPublish = test.IsPublish;
 
+        //    return await _persistenceContext.SaveChangesAsync();
+        //}
+
+        public async Task<int> UpdateTestWithProperties(UpdateTestCommand request)
+        {
+            var existingTest = await _persistenceContext.Test
+                .Include(t => t.TemperatureProperty)
+                .Include(t => t.FlammabilityProperty)
+                .Include(t => t.MechanicalProperty)
+                .Include(t => t.GeneralProperty)
+                .Include(t => t.ElectricalProperty)
+                .Include(t => t.Properties)
+    .FirstOrDefaultAsync(t => t.Id == request.TestId);
+
+            if (existingTest == null) return 0;
+
+            // Map basic Test data
+            existingTest.RecipeNumber = request.Test.RecipeNumber;
+            existingTest.Comment = request.Test.Comment;
+            existingTest.IsPublish = request.Test.IsPublish;
+
+            // TemperatureProperty
+            existingTest.TemperatureProperty.TempHdtA = request.TemperatureProperty.TempHdtA;
+            existingTest.TemperatureProperty.TempHdtB = request.TemperatureProperty.TempHdtB;
+            existingTest.TemperatureProperty.MeltingTemp = request.TemperatureProperty.MeltingTemp;
+            existingTest.TemperatureProperty.CoefficientsParallel = request.TemperatureProperty.CoefficientsParallel;
+            existingTest.TemperatureProperty.CoefficientsTransverse = request.TemperatureProperty.CoefficientsTransverse;
+
+            // Repeat for all other nested objects...
+
+            // Save changes
             return await _persistenceContext.SaveChangesAsync();
         }
+
 
         public async Task<int> DeleteTest(int id, int deletedBy)
         {

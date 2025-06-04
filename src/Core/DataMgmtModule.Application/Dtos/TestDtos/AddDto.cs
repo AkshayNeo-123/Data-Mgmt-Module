@@ -11,7 +11,8 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         public int RecipeNumber { get; set; }
         public string Comment { get; set; }
         public bool IsPublish { get; set; }
-
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 
     public class MechanicalPropertyDto
@@ -67,11 +68,12 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
 
     public class FlammabilityPropertyDto
     {
-        public int? BurningRateWallThickness { get; set; }
-        public int? GWFI { get; set; }
-        public int? GWFT { get; set; }
-        public int? BurningRateThickness1 { get; set; }
-        public int? BurningRateThickness2 { get; set; }
+        public decimal? BurningRateWallThickness { get; set; }
+        public decimal? GWFI { get; set; }
+        public decimal? GWFT { get; set; }
+        public decimal? BurningRateThickness1 { get; set; }
+        public decimal? BurningRateThickness2 { get; set; }
+
     }
 
     public class GeneralPropertyDto
