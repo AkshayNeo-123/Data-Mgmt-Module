@@ -10,7 +10,7 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
 {
     public class TestDto
     {
-        public int Id { get; set; }
+        public int TestId { get; set; }
         public int RecipeNumber { get; set; }
         public string? Comment { get; set; }
         public bool IsPublish { get; set; }

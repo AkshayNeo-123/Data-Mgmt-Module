@@ -40,35 +40,36 @@ namespace DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest
             var mapdata= _mapper.Map<IEnumerable<TestDto>>(testData);
             foreach(var item in mapdata)
             {
-                var flammabilityPropertiesdata = await _flammabilityPropertiesRepository.GetByTestId(item.Id);
+                var flammabilityPropertiesdata = await _flammabilityPropertiesRepository.GetByTestId(item.TestId);
+
                 if (flammabilityPropertiesdata != null)
                 {
                     item.FlammabilityProperties = true;
                 }
 
-                var temperaturePropertydata = await _temperaturePropertyRepository.GetByTestId(item.Id);
+                var temperaturePropertydata = await _temperaturePropertyRepository.GetByTestId(item.TestId);
                 if (temperaturePropertydata!=null)
                 {
                     item.TemperatureProperties = true;
                 }
 
-                var propertydata = await _propertyRepository.GetByTestId(item.Id);
+                var propertydata = await _propertyRepository.GetByTestId(item.TestId);
                 if (propertydata != null)
                 {
                     item.Property = true;
                 }
 
-                var ElectricalPropertiesdata = await _electricalPropertiesRepository.GetByTestId(item.Id);
+                var ElectricalPropertiesdata = await _electricalPropertiesRepository.GetByTestId(item.TestId);
                 if (ElectricalPropertiesdata != null)
                 {
                     item.ElectricalProperties = true;
                 }
-                var generalPropertiesdata = await _generalPropertiesRepository.GetByTestId(item.Id);
+                var generalPropertiesdata = await _generalPropertiesRepository.GetByTestId(item.TestId);
                 if (generalPropertiesdata != null)
                 {
                     item.GeneralProperties = true;
                 }
-                var mechanicalPropertydata = await _mechanicalPropertyRepository.GetByTestId(item.Id);
+                var mechanicalPropertydata = await _mechanicalPropertyRepository.GetByTestId(item.TestId);
                 if (mechanicalPropertydata != null)
                 {
                     item.MechanicalProperty = true;

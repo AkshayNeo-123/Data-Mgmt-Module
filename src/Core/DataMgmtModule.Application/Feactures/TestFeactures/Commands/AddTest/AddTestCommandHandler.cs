@@ -3,7 +3,8 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Interface.Persistence;
 using DataMgmtModule.Domain.Entities;
 using MediatR;
-using System.Collections.Generic;
+using System;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,40 +26,30 @@ namespace DataMgmtModule.Application.Features.TestFeatures.Commands.AddTest
             var test = _mapper.Map<Test>(request.Test);
             test.IsDelete = false;
 
-            // One-to-one property assignments
-            if (request.TemperatureProperty != null)
-            {
+            bool IsAllDefault<T>(T obj) => obj == null || typeof(T).GetProperties()
+                .All(p => Equals(p.GetValue(obj), p.PropertyType.IsValueType ? Activator.CreateInstance(p.PropertyType) : null));
+
+            if (!IsAllDefault(request.TemperatureProperty))
                 test.TemperatureProperty = _mapper.Map<TemperatureProperty>(request.TemperatureProperty);
-            }
 
-            if (request.FlammabilityProperty != null)
-            {
+            if (!IsAllDefault(request.FlammabilityProperty))
                 test.FlammabilityProperty = _mapper.Map<FlammabilityProperties>(request.FlammabilityProperty);
-            }
 
-            if (request.MechanicalProperty != null)
-            {
+            if (!IsAllDefault(request.MechanicalProperty))
                 test.MechanicalProperty = _mapper.Map<MechanicalProperty>(request.MechanicalProperty);
-            }
 
-            if (request.GeneralProperty != null)
-            {
+            if (!IsAllDefault(request.GeneralProperty))
                 test.GeneralProperty = _mapper.Map<GeneralProperties>(request.GeneralProperty);
-            }
 
-            if (request.ElectricalProperty != null)
-            {
+            if (!IsAllDefault(request.ElectricalProperty))
                 test.ElectricalProperty = _mapper.Map<ElectricalProperties>(request.ElectricalProperty);
-            }
 
-            if (request.Properties != null)
-            {
+            if (!IsAllDefault(request.Properties))
                 test.Properties = _mapper.Map<Properties>(request.Properties);
-            }
 
-            var newTestId = await _repository.AddTest(test);
-            return newTestId;
+            return await _repository.AddTest(test);
         }
-    }
 
+
+    }
 }

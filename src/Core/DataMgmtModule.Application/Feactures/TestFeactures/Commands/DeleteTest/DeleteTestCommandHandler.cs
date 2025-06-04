@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DataMgmtModule.Application.Interface.Persistence;
 using MediatR;
 
-namespace DataMgmtModule.Application.Feactures.TestFeactures.Commands
+namespace DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest
 {
     public class DeleteTestCommandHandler : IRequestHandler<DeleteTestCommand, int>
     {
@@ -18,7 +18,7 @@ namespace DataMgmtModule.Application.Feactures.TestFeactures.Commands
         }
         public async Task<int> Handle(DeleteTestCommand request, CancellationToken cancellationToken)
         {
-            return await _testRepository.DeleteTest(request.testId);
+            return await _testRepository.DeleteTest(request.testId,request.deletedBy);
             
         }
     }
