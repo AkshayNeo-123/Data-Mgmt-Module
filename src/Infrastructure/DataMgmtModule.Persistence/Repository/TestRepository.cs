@@ -232,8 +232,9 @@ namespace DataMgmtModule.Persistence.Repository
             return recipesNotInTests;
         }
 
-
-
-
+        public Task<int> DeleteTest(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
