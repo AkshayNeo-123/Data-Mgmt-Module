@@ -17,17 +17,18 @@ namespace DataMgmtModule.Domain.Entities
         [Required]
         public int TestId { get; set; }
         public Test Test { get; set; }
-        public int? Density { get; set; }
+        public decimal? Density { get; set; }
 
-        public int? HumidityAbsorption { get; set; }
+        public decimal? HumidityAbsorption { get; set; }
 
-        public int? MoldingShrinkageFlow { get; set; }
+        public decimal? MoldingShrinkageFlow { get; set; }
 
-        public int? MoldingShrinkageTransverse { get; set; }
+        public decimal? MoldingShrinkageTransverse { get; set; }
 
-        public int? MFR { get; set; }
+        public decimal? MFR { get; set; }
 
-        public int? MVR { get; set; }
+        public decimal? MVR { get; set; }
+
         public bool IsDelete { get; set; }
     }
 }

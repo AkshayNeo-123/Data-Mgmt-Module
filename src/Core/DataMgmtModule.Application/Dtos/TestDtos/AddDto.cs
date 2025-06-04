@@ -78,25 +78,30 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
 
     public class GeneralPropertyDto
     {
-        public int? Density { get; set; }
+        public decimal? Density { get; set; }
 
-        public int? HumidityAbsorption { get; set; }
+        public decimal? HumidityAbsorption { get; set; }
 
-        public int? MoldingShrinkageFlow { get; set; }
+        public decimal? MoldingShrinkageFlow { get; set; }
 
-        public int? MoldingShrinkageTransverse { get; set; }
+        public decimal? MoldingShrinkageTransverse { get; set; }
 
-        public int? MFR { get; set; }
+        public decimal? MFR { get; set; }
 
-        public int? MVR { get; set; }
+        public decimal? MVR { get; set; }
+
     }
 
     public class ElectricalPropertyDto
     {
-        public int? VolumeResistivity1 { get; set; }
-        public int? VolumeResistivity2 { get; set; }
-        public int? SurfaceResistivity { get; set; }
-        public int? ComparativeTracking { get; set; }
+        public decimal? VolumeResistivity1 { get; set; }
+
+        public decimal? VolumeResistivity2 { get; set; }
+
+        public decimal? SurfaceResistivity { get; set; }
+
+        public decimal? ComparativeTracking { get; set; }
+
     }
 
     public class PropertiesDto

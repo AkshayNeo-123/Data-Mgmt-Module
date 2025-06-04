@@ -19,13 +19,14 @@ namespace DataMgmtModule.Domain.Entities
 
         public Test Test { get; set; }
 
-        public int? VolumeResistivity1 { get; set; }
+        public decimal? VolumeResistivity1 { get; set; }
 
-        public int? VolumeResistivity2 { get; set; }
+        public decimal? VolumeResistivity2 { get; set; }
 
-        public int? SurfaceResistivity { get; set; }
+        public decimal? SurfaceResistivity { get; set; }
 
-        public int? ComparativeTracking { get; set; }
+        public decimal? ComparativeTracking { get; set; }
+
         public bool IsDelete { get; set; }
     }
 
