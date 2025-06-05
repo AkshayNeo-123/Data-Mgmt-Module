@@ -14,7 +14,6 @@ using DataMgmtModule.Application.Interfaces.Repositories;
 using DataMgmtModule.Infrastructure.Repository;
 using Microsoft.AspNetCore.Identity;
 using DataMgmtModule.Domain.Entities;
-using NETCore.MailKit.Core;
 
 namespace DataMgmtModule.Persistence
 {
