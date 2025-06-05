@@ -126,7 +126,7 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(recipes);
         }
 
-        [HttpGet("GetREcipeAndProject")]
+        [HttpGet("GetRecipeAndProject")]
         public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync([FromQuery] string? search)
         {
             var getData = await _mediator.Send(new GetRecipeAndProject (search));
@@ -139,7 +139,7 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
         }
 
-        [HttpGet("GetTestByRecipe")]
+        [HttpGet("GetTestPropertiesByRecipe")]
         public async Task<IActionResult>GetTestByRecipe(int id)
         {
             return Ok(await _mediator.Send(new GetTestByRecipeQuery(id)));

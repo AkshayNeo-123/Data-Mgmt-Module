@@ -464,6 +464,8 @@ namespace DataMgmtModule.Persistence
             });
 
             OnModelCreatingPartial(modelBuilder);
+  
+    
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

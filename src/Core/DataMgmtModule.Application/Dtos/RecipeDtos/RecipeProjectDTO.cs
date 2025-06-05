@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataMgmtModule.Domain.Entities;
 
 namespace DataMgmtModule.Application.Dtos.RecipeDtos
 {
@@ -15,7 +16,7 @@ namespace DataMgmtModule.Application.Dtos.RecipeDtos
         public decimal? TensileModulus_DAM { get; set; }
         public decimal? CharpyImpact_DAM { get; set; }
         public decimal? FlexuralStrength_DAM { get; set; }
-
+        public Test Tests { get; set; }
 
 
     }

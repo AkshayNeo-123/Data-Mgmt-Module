@@ -21,7 +21,7 @@ namespace DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestByReci
         }
         public Task<CommonTestDto> Handle(GetTestByRecipeQuery request, CancellationToken cancellationToken)
         {
-            var getRecipe = _recipe.GetTestByRecipe(request.id);
+            var getRecipe = _recipe.GetTestPropertiesByRecipe(request.id);
             if (getRecipe == null)
             {
                 throw new Exception($"Data with id{request.id}not found ");
