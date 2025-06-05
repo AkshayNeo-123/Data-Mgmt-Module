@@ -1,15 +1,12 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using DataMgmtModule.Application.Dtos.TestDtos;
-//using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataMgmtModule.Application.Dtos.TestDtos;
+using MediatR;
 
-//namespace DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById
-//{
-//    public class GetTestByIdQuery:IRequest<TestDto>
-//    {
-//        public int Id { get; set; }
-//    }
-//}
+namespace DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById
+{
+    public record GetTestByIdQuery(int testId) : IRequest<UpdateTestDto>;
+}

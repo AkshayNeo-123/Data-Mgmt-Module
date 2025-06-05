@@ -10,11 +10,11 @@ namespace DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest
         public int TestId { get; set; } 
 
         public AddDto Test { get; set; }
-        public TemperaturePropertyDto   TemperatureProperty { get; set; }
-        public FlammabilityPropertyDto FlammabilityProperty { get; set; }
-        public MechanicalPropertyDto MechanicalProperty { get; set; }
-        public GeneralPropertyDto GeneralProperty { get; set; }
-        public ElectricalPropertyDto ElectricalProperty { get; set; }
-        public PropertiesDto Properties { get; set; }
+        public TemperaturePropertyDto?   TemperatureProperty { get; set; }
+        public FlammabilityPropertyDto? FlammabilityProperty { get; set; }
+        public MechanicalPropertyDto? MechanicalProperty { get; set; }
+        public GeneralPropertyDto? GeneralProperty { get; set; }
+        public ElectricalPropertyDto? ElectricalProperty { get; set; }
+        public PropertiesDto? Properties { get; set; }
     }
 }
