@@ -16,7 +16,7 @@ namespace DataMgmtModule.Application.Dtos.RecipeDtos
         public decimal? TensileModulus_DAM { get; set; }
         public decimal? CharpyImpact_DAM { get; set; }
         public decimal? FlexuralStrength_DAM { get; set; }
-        public Test Tests { get; set; }
+        //public Test Tests { get; set; }
 
 
     }

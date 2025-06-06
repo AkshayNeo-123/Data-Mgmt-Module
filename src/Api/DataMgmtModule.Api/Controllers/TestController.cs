@@ -4,6 +4,7 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.MechTestData;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -64,6 +65,12 @@ namespace DataMgmtModule.Api.Controllers
             return Ok("Test updated successfully.");
         }
 
+
+        [HttpGet("GetMechPropertyByTest")]
+        public async Task<IActionResult>GetMechPropertyByTest(int id)
+        {
+            return Ok(await _mediator.Send(new GetMechPropertyDataByTestCommand(id)));
+        }
 
     }
 }

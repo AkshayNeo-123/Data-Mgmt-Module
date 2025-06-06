@@ -11,12 +11,13 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
 {
     public class CommonTestDto
     {
-        //public int Id { get; set; }
-        public int RecipeId { get; set; }
-        public string RecipeName { get; set; }
-        public string? Description { get; set; }
+        ////public int Id { get; set; }
+        //public int RecipeNumber { get; set; }
+        ////public Recipe Recipe { get; set; }
+        //public string RecipeName { get; set; }
+        //public string? Comment { get; set; }
         //public RecipeProjectDTO RecipeProjectDTO { get; set; }
-        public string ProjectNumber { get; set; }
+        public int RecipeNumber { get; set; }
 
 
         public MechanicalPropertyDto MechanicalPropertyDto { get; set; }

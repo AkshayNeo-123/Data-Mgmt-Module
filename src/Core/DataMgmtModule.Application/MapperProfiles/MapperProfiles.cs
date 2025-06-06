@@ -84,8 +84,8 @@ namespace DataMgmtModule.Application.MapperProfiles
 
             CreateMap<AddDto, Test>();
             CreateMap<CommonTestDto,Test>().ReverseMap();
-    //        CreateMap<Test, CommonTestDto>()
-    //.ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber));
+            CreateMap<Test, CommonTestDto>()
+    .ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber));
             CreateMap<TestDashboard, Test>().ReverseMap();
             CreateMap<ElectricalPropertyDto, ElectricalProperties>().ReverseMap();
             CreateMap<PropertiesDto, Properties>().ReverseMap();

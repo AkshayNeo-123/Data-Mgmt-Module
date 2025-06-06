@@ -1,4 +1,5 @@
 ﻿
+using DataMgmtModule.Application.Dtos.TestDtos;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using DataMgmtModule.Domain.Entities;
 
@@ -12,5 +13,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> UpdateTestWithProperties(UpdateTestCommand request);
         Task<int> DeleteTest(int id,int deletedBy);
         Task<IEnumerable<Recipe>> GetRecipedataForAddTest();
+
+        Task<MechanicalProperty> GetMechPropertyByTest(int testId);
     }
 }
