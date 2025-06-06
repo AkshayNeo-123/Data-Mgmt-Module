@@ -13,7 +13,6 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<int> UpdateTestWithProperties(UpdateTestCommand request);
         Task<int> DeleteTest(int id,int deletedBy);
         Task<IEnumerable<Recipe>> GetRecipedataForAddTest();
-
-        Task<MechanicalProperty> GetMechPropertyByTest(int testId);
+        Task<Test> GetTestById(int testId);
     }
 }

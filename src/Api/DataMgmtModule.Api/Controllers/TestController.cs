@@ -4,7 +4,9 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
-using DataMgmtModule.Application.Feactures.TestFeactures.Query.MechTestData;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
+
+//using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -62,15 +64,9 @@ namespace DataMgmtModule.Api.Controllers
             if (result == 0)
                 return NotFound("Test with the given ID was not found.");
 
-            return Ok("Test updated successfully.");
+            return Ok(new { message = "Test updated successfully." });
         }
 
-
-        [HttpGet("GetMechPropertyByTest")]
-        public async Task<IActionResult>GetMechPropertyByTest(int id)
-        {
-            return Ok(await _mediator.Send(new GetMechPropertyDataByTestCommand(id)));
-        }
 
     }
 }
