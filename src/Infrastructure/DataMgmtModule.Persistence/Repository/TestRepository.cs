@@ -71,6 +71,9 @@ namespace DataMgmtModule.Persistence.Repository
             if (testdetails?.ElectricalProperty?.IsDelete == true)
                 testdetails.ElectricalProperty = null;
 
+            if (testdetails?.Properties?.IsDelete == true)
+                testdetails.Properties = null;
+
             return testdetails;
 
         }
