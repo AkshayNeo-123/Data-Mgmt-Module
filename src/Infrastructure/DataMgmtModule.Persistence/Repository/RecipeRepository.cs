@@ -179,7 +179,10 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search)
+        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search,
+            decimal? tensileModulusMAX,decimal? tensileModulusMin,
+            decimal? charpyImpactMax,decimal? charpyImpactMin,
+            decimal? stressAtYieldMax , decimal? stressAtYieldMin)
         {
             var recipes = await _persistenceDbContext.Recipes
                 .Include(r => r.Project)
@@ -205,9 +208,26 @@ namespace DataMgmtModule.Persistence.Repository
                     Description = r.Project.Project_Description,
                     TensileModulus_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.TensileModulus_DAM : null,
                     CharpyImpact_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.CharpyImpact_DAM : null,
-                    FlexuralStrength_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.FlexuralStrength_DAM : null
+                    StressAtYield_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.StressAtYield_DAM : null
                 };
             });
+
+            if (tensileModulusMin.HasValue && tensileModulusMAX.HasValue)
+                filtered = filtered.Where(r =>
+                    r.TensileModulus_DAM.HasValue &&
+                    r.TensileModulus_DAM.Value >= tensileModulusMin &&
+                    r.TensileModulus_DAM.Value <= tensileModulusMAX);
+            if(charpyImpactMax.HasValue && charpyImpactMin.HasValue)
+            {
+                filtered = filtered.Where(r => r.CharpyImpact_DAM.HasValue &&
+                r.CharpyImpact_DAM.Value >= charpyImpactMin && r.CharpyImpact_DAM.Value <= charpyImpactMax);
+            }
+
+            if(stressAtYieldMax.HasValue && stressAtYieldMin.HasValue)
+            {
+                filtered = filtered.Where(r => r.StressAtYield_DAM.HasValue &&
+                r.StressAtYield_DAM.Value >= stressAtYieldMin && r.StressAtYield_DAM.Value <= stressAtYieldMax);
+            }
 
             if (!string.IsNullOrWhiteSpace(search))
             {

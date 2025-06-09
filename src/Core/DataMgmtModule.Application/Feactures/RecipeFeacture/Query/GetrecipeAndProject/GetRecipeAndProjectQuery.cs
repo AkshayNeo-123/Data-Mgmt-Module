@@ -8,7 +8,9 @@ using MediatR;
 
 namespace DataMgmtModule.Application.Feactures.RecipeFeacture.Query.GetrecipeAndProject
 {
-    public record GetRecipeAndProject(string search) : IRequest<IEnumerable<RecipeProjectDTO>>
+    public record GetRecipeAndProject(string search, decimal? tensileModulusMAX,decimal? tensileModulusMin,
+            decimal? charpyImpactMax,decimal? charpyImpactMin,
+            decimal? stressAtYieldMax , decimal? stressAtYieldMin) : IRequest<IEnumerable<RecipeProjectDTO>>
     { }
         //public string ProjectNumber { get; set; }
 

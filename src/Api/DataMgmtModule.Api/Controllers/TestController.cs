@@ -67,6 +67,22 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(new { message = "Test updated successfully." });
         }
 
+        [HttpGet("GetTestById/{id}")]
+        public async Task<IActionResult> GetTestById(int id)
+        {
+            var test = await _mediator.Send(new GetTestByIdQuery(id));
+
+            if (test == null)
+            {
+                return NotFound($"Test with ID {id} not found");
+            }
+
+            return Ok(test);
+        }
+
+
+
+
 
     }
 }
