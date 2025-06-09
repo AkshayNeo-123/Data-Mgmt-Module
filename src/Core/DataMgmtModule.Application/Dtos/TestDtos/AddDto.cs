@@ -15,6 +15,17 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         public DateTime? CreatedDate { get; set; }
         //public string ProductName { get; set; }
     }
+    public class ExportAddDto
+    {
+        public int RecipeNumber { get; set; }
+        public string Comment { get; set; }
+        public bool IsPublish { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string RecipeName { get; set; }
+        public string MainPplymerName { get; set; }
+        //public string ProductName { get; set; }
+    }
 
     public class MechanicalPropertyDto
     {

@@ -101,6 +101,38 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Properties, PropertiesDto>();
 
 
+
+
+            CreateMap<Test, ExportTestDataDto>()
+    .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))
+    .ForMember(dest => dest.Test, opt => opt.MapFrom(src => new ExportAddDto
+    {
+        RecipeNumber = src.RecipeNumber,
+        Comment = src.Comment,
+        IsPublish = src.IsPublish,
+        CreatedBy = src.CreatedBy,
+        CreatedDate = src.CreatedDate,
+        RecipeName=src.Recipe.ProductName,
+        MainPplymerName=src.Recipe.MainPolymer.PolymerName
+
+
+        //ProductName=src.Recipe.ProductName
+
+    }))
+    .ForMember(dest => dest.MechanicalProperty, opt => opt.MapFrom(src => src.MechanicalProperty))
+    .ForMember(dest => dest.TemperatureProperty, opt => opt.MapFrom(src => src.TemperatureProperty))
+    .ForMember(dest => dest.FlammabilityProperty, opt => opt.MapFrom(src => src.FlammabilityProperty))
+    .ForMember(dest => dest.GeneralProperty, opt => opt.MapFrom(src => src.GeneralProperty))
+    .ForMember(dest => dest.ElectricalProperty, opt => opt.MapFrom(src => src.ElectricalProperty))
+    .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+            CreateMap<MechanicalProperty, MechanicalPropertyDto>();
+            CreateMap<TemperatureProperty, TemperaturePropertyDto>();
+            CreateMap<FlammabilityProperties, FlammabilityPropertyDto>();
+            CreateMap<GeneralProperties, GeneralPropertyDto>();
+            CreateMap<ElectricalProperties, ElectricalPropertyDto>();
+            CreateMap<Properties, PropertiesDto>();
+
+
             CreateMap<Test, TestDto>()
                 .ForMember(dest => dest.RecipeName, opt => opt.MapFrom(src => src.Recipe.ProductName))
                 .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))

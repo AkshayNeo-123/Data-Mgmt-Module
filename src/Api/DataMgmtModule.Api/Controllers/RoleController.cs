@@ -73,27 +73,44 @@ namespace DataMgmtModule.Api.Controllers
         //    return Ok();
         //}
 
+        
         [HttpPost]
         public async Task<IActionResult> AddRoleAsync(AddRole addRole)
         {
             try
             {
                 var existingRole = await _context.Roles
-                .FirstOrDefaultAsync(r => r.RoleName == addRole.RoleName);
+                    .FirstOrDefaultAsync(r => r.RoleName == addRole.RoleName);
 
                 if (existingRole != null)
                 {
                     return BadRequest(new { message = "Role name already exists." });
                 }
+
                 var role = await _roleRepo.AddRolesAsync(new Roles { RoleName = addRole.RoleName });
 
                 var rolePermissionsList = new List<RolePermission>();
                 var menuList = await _context.Menu.ToListAsync();
 
+                int countCanView = 0;
+                int countofcanviedforuser = 0;
+
                 foreach (var entry in addRole.Permissions)
                 {
                     var menuId = entry.Key;
                     var perm = entry.Value;
+
+                    // Track count for special parents
+                    var menu = menuList.FirstOrDefault(m => m.id == menuId);
+
+                    if (menu?.ParentId == 1 && perm.View)
+                    {
+                        countCanView++;
+                    }
+                    if (menu?.ParentId == 12 && perm.View)
+                    {
+                        countofcanviedforuser++;
+                    }
 
                     var rolePermission = new RolePermission
                     {
@@ -105,66 +122,47 @@ namespace DataMgmtModule.Api.Controllers
                         CanDelete = perm.Delete
                     };
 
-                    //_context.RolePermissions.Add(rolePermission);
                     rolePermissionsList.Add(rolePermission);
                 }
 
-                // Second pass: ensure parent CanView = true if any child has CanView
                 var permissionDict = rolePermissionsList.ToDictionary(rp => rp.MenuId);
 
-                //foreach (var permission in rolePermissionsList.Where(p => p.CanView))
-                //{
-                //    var menu = menuList.FirstOrDefault(m => m.id == permission.MenuId);
-                //    if (menu != null && menu.ParentId != 0)
-                //    {
-                //        var parentId = menu.ParentId;
-                //        if (permissionDict.TryGetValue(parentId, out var parentPerm))
-                //        {
-                //            parentPerm.CanView = true;
-                //        }
-                //        else
-                //        {
-                //            // Add parent permission with only CanView = true
-                //            permissionDict[parentId] = new RolePermission
-                //            {
-                //                RoleId = role.RoleId,
-                //                MenuId = parentId,
-                //                CanView = true,
-                //                CanCreate = false,
-                //                CanEdit = false,
-                //                CanDelete = false
-                //            };
-                //        }
-                //    }
-                //}
-
-                foreach (var entry in addRole.Permissions.Where(e => e.Value.View))
+                // Ensure parent MenuId = 1 (parent of dashboard?) gets CanView = true if any child has it
+                if (!permissionDict.ContainsKey(1))
                 {
-                    var menuId = entry.Key;
-                    var menu = menuList.FirstOrDefault(m => m.id == menuId);
-                    if (menu != null && menu.ParentId != 0)
+                    permissionDict[1] = new RolePermission
                     {
-                        var parentId = menu.ParentId;
-                        if (permissionDict.TryGetValue(parentId, out var parentPerm))
-                        {
-                            parentPerm.CanView = true;
-                        }
-                        else
-                        {
-                            permissionDict[parentId] = new RolePermission
-                            {
-                                RoleId = role.RoleId,
-                                MenuId = parentId,
-                                CanView = true,
-                                CanCreate = false,
-                                CanEdit = false,
-                                CanDelete = false
-                            };
-                        }
-                    }
+                        RoleId = role.RoleId,
+                        MenuId = 1,
+                        CanView = countCanView > 0,
+                        CanCreate = false,
+                        CanEdit = false,
+                        CanDelete = false
+                    };
+                }
+                else
+                {
+                    permissionDict[1].CanView = countCanView > 0;
                 }
 
-                // Add all to DB
+                if (!permissionDict.ContainsKey(12))
+                {
+                    permissionDict[12] = new RolePermission
+                    {
+                        RoleId = role.RoleId,
+                        MenuId = 12,
+                        CanView = countofcanviedforuser > 0,
+                        CanCreate = false,
+                        CanEdit = false,
+                        CanDelete = false
+                    };
+                }
+                else
+                {
+                    permissionDict[12].CanView = countofcanviedforuser > 0;
+                }
+
+                // Add all RolePermissions to DB
                 foreach (var perm in permissionDict.Values)
                 {
                     _context.RolePermissions.Add(perm);
@@ -179,6 +177,7 @@ namespace DataMgmtModule.Api.Controllers
             }
         }
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult>GetRoleByIdAsync(int id)
         {
@@ -189,6 +188,7 @@ namespace DataMgmtModule.Api.Controllers
         public async Task<IActionResult> UpdateRoleAsync(int id, AddRole updateRole)
         {
             var countCanView = 0;
+            var countofcanviedforuser = 0;
             bool check = false;
             var findRole = await _context.Roles.FirstOrDefaultAsync(r=>r.RoleId==id);
             findRole.RoleName = updateRole.RoleName;
@@ -217,7 +217,7 @@ namespace DataMgmtModule.Api.Controllers
                     //    CanEdit = perm.Update,
                     //    CanDelete = perm.Delete
                     //};
-                    var checkMenu = _context.Menu.Where(e => e.id == editPermission.MenuId && e.ParentId != 0).FirstOrDefaultAsync();
+                    var checkMenu = _context.Menu.Where(e => e.id == editPermission.MenuId && e.ParentId == 1).FirstOrDefaultAsync();
                     if (checkMenu.Result != null)
                     {
                         check = true;
@@ -225,6 +225,17 @@ namespace DataMgmtModule.Api.Controllers
                     if (check && editPermission.CanView == true)
                     {
                         countCanView++;
+                    }
+                    check = false;
+
+                    var checkMenuforUser =await _context.Menu.Where(e => e.id == editPermission.MenuId && e.ParentId == 12).FirstOrDefaultAsync();
+                    if (checkMenuforUser != null)
+                    {
+                        check = true;
+                    }
+                    if (check && editPermission.CanView == true)
+                    {
+                        countofcanviedforuser++;
                     }
                     check = false;
                 _context.RolePermissions.Update(editPermission);
@@ -252,15 +263,26 @@ namespace DataMgmtModule.Api.Controllers
                 var perm = entry.Value;
 
                 var editPermission = _context.RolePermissions.FirstOrDefault(r => r.MenuId == menuId && r.RoleId == findRole.RoleId);
-                
-                if(editPermission.MenuId==1 && countCanView == 0)
+                if (editPermission != null)
                 {
-                    editPermission.CanView = false;
-                }
-                if (editPermission.MenuId == 1 && countCanView > 0)
-                {
-                    editPermission.CanView = true;
-                    countCanView = 0;
+                    if (editPermission.MenuId == 1 && countCanView == 0)
+                    {
+                        editPermission.CanView = false;
+                    }
+                    if (editPermission.MenuId == 1 && countCanView > 0)
+                    {
+                        editPermission.CanView = true;
+                        countCanView = 0;
+                    }
+                    if (editPermission.MenuId == 12 && countofcanviedforuser == 0)
+                    {
+                        editPermission.CanView = false;
+                    }
+                    if (editPermission.MenuId == 12 && countofcanviedforuser > 0)
+                    {
+                        editPermission.CanView = true;
+                        countofcanviedforuser = 0;
+                    }
                 }
             }
             //countCanView = 0;
