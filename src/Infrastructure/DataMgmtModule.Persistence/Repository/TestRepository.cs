@@ -19,6 +19,33 @@ namespace DataMgmtModule.Persistence.Repository
             return await _persistenceContext.Test.Include(t => t.Recipe).Include(t => t.Recipe.MainPolymer).Where(t => t.IsDelete == false).ToListAsync();
         }
 
+        public async Task<IEnumerable<Test>> GetTestForExport()
+        {
+            var testData = await _persistenceContext.Test
+    .Where(t => !t.IsDelete)
+    .Include(t=>t.Recipe)
+    .Include(t=>t.Recipe.MainPolymer)
+    .Include(t => t.MechanicalProperty)
+    .Include(t => t.TemperatureProperty)
+    .Include(t => t.FlammabilityProperty)
+    .Include(t => t.GeneralProperty)
+    .Include(t => t.ElectricalProperty)
+    .Include(t => t.Properties)
+    .ToListAsync();
+
+            // Optional: Filter soft-deleted child properties in memory
+            foreach (var test in testData)
+            {
+                if (test.MechanicalProperty?.IsDelete == true) test.MechanicalProperty = null;
+                if (test.TemperatureProperty?.IsDelete == true) test.TemperatureProperty = null;
+                if (test.FlammabilityProperty?.IsDelete == true) test.FlammabilityProperty = null;
+                if (test.GeneralProperty?.IsDelete == true) test.GeneralProperty = null;
+                if (test.ElectricalProperty?.IsDelete == true) test.ElectricalProperty = null;
+
+            }
+                return testData;
+        }
+
         public async Task<int> AddTest(Test test)
         {
             test.IsDelete = false;

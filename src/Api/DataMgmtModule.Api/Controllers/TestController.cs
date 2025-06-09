@@ -5,6 +5,8 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestDataForExport;
+
 
 //using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
@@ -78,7 +80,15 @@ namespace DataMgmtModule.Api.Controllers
             }
 
             return Ok(test);
-        } 
+        }
+
+        [HttpGet("ExpoortTestData")]
+        public async Task<IActionResult> GetTestDataForExport()
+        {
+            var result = await _mediator.Send(new GetTestDataForExportQuery());
+            return Ok(result);
+
+        }
 
     }
 }
