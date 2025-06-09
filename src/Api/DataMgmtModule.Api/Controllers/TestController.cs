@@ -4,6 +4,11 @@ using DataMgmtModule.Application.Feactures.TestFeactures.Commands.AddTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Commands.DeleteTest;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.getRecipe;
 using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTest;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
+using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestDataForExport;
+
+
+//using DataMgmtModule.Application.Feactures.TestFeactures.Query.GetTestById;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -61,9 +66,29 @@ namespace DataMgmtModule.Api.Controllers
             if (result == 0)
                 return NotFound("Test with the given ID was not found.");
 
-            return Ok("Test updated successfully.");
+            return Ok(new { message = "Test updated successfully." });
         }
 
+        [HttpGet("GetTestById/{id}")]
+        public async Task<IActionResult> GetTestById(int id)
+        {
+            var test = await _mediator.Send(new GetTestByIdQuery(id));
+
+            if (test == null)
+            {
+                return NotFound($"Test with ID {id} not found");
+            }
+
+            return Ok(test);
+        }
+
+        [HttpGet("ExpoortTestData")]
+        public async Task<IActionResult> GetTestDataForExport()
+        {
+            var result = await _mediator.Send(new GetTestDataForExportQuery());
+            return Ok(result);
+
+        }
 
     }
 }

@@ -24,7 +24,7 @@ using DataMgmtModule.InjectionMoldingInjectionMolding.InjectionMolding;
 
 namespace DataMgmtModule.Application.MapperProfiles
 {
-    public class MapperProfiles:Profile
+    public class MapperProfiles : Profile
     {
         public MapperProfiles()
         {
@@ -74,7 +74,66 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<Cities, AddCityDTO>().ReverseMap();
 
             CreateMap<Recipe, GetRecipeForTestDto>().ReverseMap();
-            CreateMap<Test,TestDto>()
+
+            CreateMap<Test, UpdateTestDto>()
+    .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))
+    .ForMember(dest => dest.Test, opt => opt.MapFrom(src => new AddDto
+    {
+        RecipeNumber = src.RecipeNumber,
+        Comment = src.Comment,
+        IsPublish = src.IsPublish,
+        CreatedBy = src.CreatedBy,
+        CreatedDate = src.CreatedDate,
+        //ProductName=src.Recipe.ProductName
+        
+    }))
+    .ForMember(dest => dest.MechanicalProperty, opt => opt.MapFrom(src => src.MechanicalProperty))
+    .ForMember(dest => dest.TemperatureProperty, opt => opt.MapFrom(src => src.TemperatureProperty))
+    .ForMember(dest => dest.FlammabilityProperty, opt => opt.MapFrom(src => src.FlammabilityProperty))
+    .ForMember(dest => dest.GeneralProperty, opt => opt.MapFrom(src => src.GeneralProperty))
+    .ForMember(dest => dest.ElectricalProperty, opt => opt.MapFrom(src => src.ElectricalProperty))
+    .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+            CreateMap<MechanicalProperty, MechanicalPropertyDto>();
+            CreateMap<TemperatureProperty, TemperaturePropertyDto>();
+            CreateMap<FlammabilityProperties, FlammabilityPropertyDto>();
+            CreateMap<GeneralProperties, GeneralPropertyDto>();
+            CreateMap<ElectricalProperties, ElectricalPropertyDto>();
+            CreateMap<Properties, PropertiesDto>();
+
+
+
+
+            CreateMap<Test, ExportTestDataDto>()
+    .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))
+    .ForMember(dest => dest.Test, opt => opt.MapFrom(src => new ExportAddDto
+    {
+        RecipeNumber = src.RecipeNumber,
+        Comment = src.Comment,
+        IsPublish = src.IsPublish,
+        CreatedBy = src.CreatedBy,
+        CreatedDate = src.CreatedDate,
+        RecipeName=src.Recipe.ProductName,
+        MainPplymerName=src.Recipe.MainPolymer.PolymerName
+
+
+        //ProductName=src.Recipe.ProductName
+
+    }))
+    .ForMember(dest => dest.MechanicalProperty, opt => opt.MapFrom(src => src.MechanicalProperty))
+    .ForMember(dest => dest.TemperatureProperty, opt => opt.MapFrom(src => src.TemperatureProperty))
+    .ForMember(dest => dest.FlammabilityProperty, opt => opt.MapFrom(src => src.FlammabilityProperty))
+    .ForMember(dest => dest.GeneralProperty, opt => opt.MapFrom(src => src.GeneralProperty))
+    .ForMember(dest => dest.ElectricalProperty, opt => opt.MapFrom(src => src.ElectricalProperty))
+    .ForMember(dest => dest.Properties, opt => opt.MapFrom(src => src.Properties));
+            CreateMap<MechanicalProperty, MechanicalPropertyDto>();
+            CreateMap<TemperatureProperty, TemperaturePropertyDto>();
+            CreateMap<FlammabilityProperties, FlammabilityPropertyDto>();
+            CreateMap<GeneralProperties, GeneralPropertyDto>();
+            CreateMap<ElectricalProperties, ElectricalPropertyDto>();
+            CreateMap<Properties, PropertiesDto>();
+
+
+            CreateMap<Test, TestDto>()
                 .ForMember(dest => dest.RecipeName, opt => opt.MapFrom(src => src.Recipe.ProductName))
                 .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Comment))
@@ -83,7 +142,7 @@ namespace DataMgmtModule.Application.MapperProfiles
                 .ForMember(dest => dest.MainPolymerName, opt => opt.MapFrom(src => src.Recipe.MainPolymer.PolymerName));
 
             CreateMap<AddDto, Test>();
-            CreateMap<CommonTestDto,Test>().ReverseMap();
+            CreateMap<CommonTestDto, Test>().ReverseMap();
             CreateMap<Test, CommonTestDto>()
     .ForMember(dest => dest.RecipeNumber, opt => opt.MapFrom(src => src.RecipeNumber));
             CreateMap<TestDashboard, Test>().ReverseMap();
@@ -111,7 +170,7 @@ namespace DataMgmtModule.Application.MapperProfiles
             CreateMap<PropertiesDto, Properties>()
             .ForMember(dest => dest.IsDelete, opt => opt.MapFrom(src => false));
 
-          
+
         }
     }
 }
