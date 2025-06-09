@@ -16,7 +16,7 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         ////public Recipe Recipe { get; set; }
         //public string RecipeName { get; set; }
         //public string? Comment { get; set; }
-        ////public RecipeProjectDTO RecipeProjectDTO { get; set; }
+        //public RecipeProjectDTO RecipeProjectDTO { get; set; }
         public int RecipeNumber { get; set; }
 
 

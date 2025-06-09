@@ -33,6 +33,7 @@ public partial class Recipe:Common
     public virtual MainPolymer MainPolymer { get; set; } = null!;
 
     public virtual Projects? Project { get; set; }
+    public virtual Test? Test { get; set; }
 
     public virtual ICollection<RecipeComponent> RecipeComponents { get; set; } = new List<RecipeComponent>();
     

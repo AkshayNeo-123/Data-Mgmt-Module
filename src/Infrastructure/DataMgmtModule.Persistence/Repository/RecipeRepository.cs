@@ -179,61 +179,82 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search)
+        public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search,
+            decimal? tensileModulusMAX,decimal? tensileModulusMin,
+            decimal? charpyImpactMax,decimal? charpyImpactMin,
+            decimal? stressAtYieldMax , decimal? stressAtYieldMin)
         {
-            var query = _persistenceDbContext.Test
-                .Include(t => t.Recipe)
-                    .ThenInclude(r => r.Project)
-                .Include(t => t.MechanicalProperty)
-                .Where(  t => t.Recipe != null  && t.Recipe.IsDelete==false && t.Recipe.Project.IsDelete==false && t.IsDelete==false);
+            var recipes = await _persistenceDbContext.Recipes
+                .Include(r => r.Project)
+                .Include(r => r.Test)
+                    .ThenInclude(t => t.MechanicalProperty)
+                .Where(r => r.IsDelete==false && !r.Project.IsDelete)
+                .ToListAsync();
+
+            var filtered = recipes.Select(r =>
+            {
+                bool includeMechanicalProps = 
+                r.Test != null
+                    && r.Test.IsDelete == false
+                    && r.Test.IsPublish == true
+                    && r.Test.MechanicalProperty != null;
+                    //&& !r.Test.MechanicalProperty.IsDelete;
+
+                return new RecipeProjectDTO
+                {
+                    RecipeId = r.ReceipeId,
+                    ProductName = r.ProductName,
+                    ProjectNumber = r.Project.ProjectNumber,
+                    Description = r.Project.Project_Description,
+                    TensileModulus_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.TensileModulus_DAM : null,
+                    CharpyImpact_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.CharpyImpact_DAM : null,
+                    StressAtYield_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.StressAtYield_DAM : null
+                };
+            });
+
+            if (tensileModulusMin.HasValue && tensileModulusMAX.HasValue)
+                filtered = filtered.Where(r =>
+                    r.TensileModulus_DAM.HasValue &&
+                    r.TensileModulus_DAM.Value >= tensileModulusMin &&
+                    r.TensileModulus_DAM.Value <= tensileModulusMAX);
+            if(charpyImpactMax.HasValue && charpyImpactMin.HasValue)
+            {
+                filtered = filtered.Where(r => r.CharpyImpact_DAM.HasValue &&
+                r.CharpyImpact_DAM.Value >= charpyImpactMin && r.CharpyImpact_DAM.Value <= charpyImpactMax);
+            }
+
+            if(stressAtYieldMax.HasValue && stressAtYieldMin.HasValue)
+            {
+                filtered = filtered.Where(r => r.StressAtYield_DAM.HasValue &&
+                r.StressAtYield_DAM.Value >= stressAtYieldMin && r.StressAtYield_DAM.Value <= stressAtYieldMax);
+            }
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 string loweredSearch = search.ToLower();
-                query = query.Where(t =>
-                    t.Recipe.Project.ProjectNumber.ToLower().Contains(loweredSearch) ||
-                    t.Recipe.Project.Project_Description.ToLower().Contains(loweredSearch) ||
-                    t.Recipe.ProductName.ToLower().Contains(loweredSearch)
+                filtered = filtered.Where(t =>
+                    (t.ProjectNumber?.ToLower().Contains(loweredSearch) ?? false) ||
+                    (t.Description?.ToLower().Contains(loweredSearch) ?? false) ||
+                    (t.ProductName?.ToLower().Contains(loweredSearch) ?? false)
                 );
             }
 
-            return await query
-                .Select(t => new RecipeProjectDTO
-                {
-                    RecipeId = t.Recipe.ReceipeId,
-                    ProductName = t.Recipe.ProductName,
-                    ProjectNumber = t.Recipe.Project.ProjectNumber,
-                    Description = t.Recipe.Project.Project_Description,
-                    TensileModulus_DAM = t.MechanicalProperty.TensileModulus_DAM,
-                    CharpyImpact_DAM = t.MechanicalProperty.CharpyImpact_DAM,
-                    FlexuralStrength_DAM=t.MechanicalProperty.FlexuralStrength_DAM
-
-                    //Elongation = t.MechanicalProperties.Elongation
-                })
-                .ToListAsync();
+            return filtered
+                .DistinctBy(z => z.RecipeId)
+                .ToList();
         }
 
         public async Task<RecipeProjectDTO> GetRecipeAndProjectById(int id)
         {
-            var getById =await _persistenceDbContext.Test
-                 .Include(t => t.Recipe)
-                     .ThenInclude(r => r.Project)
-                 .Include(t => t.MechanicalProperty)
-                 .Where(t => t.Recipe != null&& t.RecipeNumber==id && t.Recipe.IsDelete == false && t.Recipe.Project.IsDelete == false  && t.IsDelete == false)
-
-            
+            var getById = await _persistenceDbContext.Recipes.Include(x => x.Project)
+                .Where(x => x.ReceipeId == id && x.IsDelete==false)
                 .Select(x => new RecipeProjectDTO
                 {
 
-                    RecipeId = x.Recipe.ReceipeId,
-                    ProductName=x.Recipe.ProductName,
-                    ProjectNumber = x.Recipe.Project.ProjectNumber,
-                    Description = x.Recipe.Project.Project_Description,
-
-                    TensileModulus_DAM = x.MechanicalProperty.TensileModulus_DAM,
-                    CharpyImpact_DAM = x.MechanicalProperty.CharpyImpact_DAM,
-                    FlexuralStrength_DAM = x.MechanicalProperty.FlexuralStrength_DAM
-
+                    RecipeId = x.ReceipeId,
+                    ProductName=x.ProductName,
+                    ProjectNumber = x.Project.ProjectNumber,
+                    Description = x.Project.Project_Description
                 }).FirstOrDefaultAsync();
             if (getById == null)
             {
@@ -295,10 +316,13 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
+
        
     }
 
 
+
+    
 
     
 }

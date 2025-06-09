@@ -126,10 +126,12 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(recipes);
         }
 
-        [HttpGet("GetREcipeAndProject")]
-        public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync([FromQuery] string? search)
+        [HttpGet("GetRecipeAndProject")]
+        public async Task<ActionResult<IEnumerable<RecipeProjectDTO>>> GetRecipeAndProjectAsync([FromQuery] string? search, decimal? tensileModulusMAX, decimal? tensileModulusMin,
+            decimal? charpyImpactMax, decimal? charpyImpactMin,
+            decimal? stressAtYieldMax, decimal? stressAtYieldMin)
         {
-            var getData = await _mediator.Send(new GetRecipeAndProject (search));
+            var getData = await _mediator.Send(new GetRecipeAndProject (search,tensileModulusMAX,tensileModulusMin,charpyImpactMax,charpyImpactMin, stressAtYieldMax,stressAtYieldMin));
             return Ok( getData);
 
         }
@@ -139,7 +141,7 @@ namespace DataMgmtModule.Api.Controllers
             return Ok(await _mediator.Send(new GetRecipeAndProjectByIdCommand(id)));
         }
 
-        [HttpGet("GetTestByRecipe")]
+        [HttpGet("GetTestPropertiesByRecipe")]
         public async Task<IActionResult>GetTestByRecipe(int id)
         {
             return Ok(await _mediator.Send(new GetTestByRecipeQuery(id)));

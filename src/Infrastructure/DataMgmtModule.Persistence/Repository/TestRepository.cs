@@ -1,4 +1,5 @@
 ﻿
+using DataMgmtModule.Application.Dtos.TestDtos;
 using DataMgmtModule.Application.Exceptions;
 using DataMgmtModule.Application.Features.TestFeatures.Commands.UpdateTest;
 using DataMgmtModule.Application.Interface.Persistence;
@@ -623,6 +624,18 @@ namespace DataMgmtModule.Persistence.Repository
         public Task<int> DeleteTest(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<MechanicalProperty> GetMechPropertyByTest(int id)
+        {
+            var getMechData = await _persistenceContext.Test.FirstOrDefaultAsync(x => x.RecipeNumber ==id && x.IsDelete==false && x.IsPublish==true);
+            var mech = await _persistenceContext.MechanicalProperties.FirstOrDefaultAsync(x => x.TestId == getMechData.Id);
+            if (mech == null)
+            {
+                throw new NotFoundException($"Data with {getMechData.Id} is not found");
+            }
+            
+            return mech;
         }
     }
 }
