@@ -212,23 +212,14 @@ namespace DataMgmtModule.Persistence.Repository
                 };
             });
 
-            if (tensileModulusMin.HasValue && tensileModulusMAX.HasValue)
-                filtered = filtered.Where(r =>
-                    r.TensileModulus_DAM.HasValue &&
-                    r.TensileModulus_DAM.Value >= tensileModulusMin &&
-                    r.TensileModulus_DAM.Value <= tensileModulusMAX);
-            if(charpyImpactMax.HasValue && charpyImpactMin.HasValue)
-            {
-                filtered = filtered.Where(r => r.CharpyImpact_DAM.HasValue &&
-                r.CharpyImpact_DAM.Value >= charpyImpactMin && r.CharpyImpact_DAM.Value <= charpyImpactMax);
-            }
-
-            if(stressAtYieldMax.HasValue && stressAtYieldMin.HasValue)
-            {
-                filtered = filtered.Where(r => r.StressAtYield_DAM.HasValue &&
-                r.StressAtYield_DAM.Value >= stressAtYieldMin && r.StressAtYield_DAM.Value <= stressAtYieldMax);
-            }
-
+            filtered = filtered.Where(r =>
+         (!tensileModulusMin.HasValue || (r.TensileModulus_DAM.HasValue && r.TensileModulus_DAM.Value >= tensileModulusMin)) &&
+         (!tensileModulusMAX.HasValue || (r.TensileModulus_DAM.HasValue && r.TensileModulus_DAM.Value <= tensileModulusMAX)) &&
+         (!charpyImpactMin.HasValue || (r.CharpyImpact_DAM.HasValue && r.CharpyImpact_DAM.Value >= charpyImpactMin)) &&
+         (!charpyImpactMax.HasValue || (r.CharpyImpact_DAM.HasValue && r.CharpyImpact_DAM.Value <= charpyImpactMax)) &&
+         (!stressAtYieldMin.HasValue || (r.StressAtYield_DAM.HasValue && r.StressAtYield_DAM.Value >= stressAtYieldMin)) &&
+         (!stressAtYieldMax.HasValue || (r.StressAtYield_DAM.HasValue && r.StressAtYield_DAM.Value <= stressAtYieldMax))
+     );
             if (!string.IsNullOrWhiteSpace(search))
             {
                 string loweredSearch = search.ToLower();
