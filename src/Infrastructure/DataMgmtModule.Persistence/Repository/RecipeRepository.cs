@@ -180,25 +180,25 @@ namespace DataMgmtModule.Persistence.Repository
         }
 
         public async Task<IEnumerable<RecipeProjectDTO>> GetRecipeAndProjectAsync(string search,
-            decimal? tensileModulusMAX,decimal? tensileModulusMin,
-            decimal? charpyImpactMax,decimal? charpyImpactMin,
-            decimal? stressAtYieldMax , decimal? stressAtYieldMin)
+            decimal? tensileModulusMAX, decimal? tensileModulusMin,
+            decimal? charpyImpactMax, decimal? charpyImpactMin,
+            decimal? stressAtYieldMax, decimal? stressAtYieldMin)
         {
             var recipes = await _persistenceDbContext.Recipes
                 .Include(r => r.Project)
                 .Include(r => r.Test)
                     .ThenInclude(t => t.MechanicalProperty)
-                .Where(r => r.IsDelete==false && !r.Project.IsDelete)
+                .Where(r => r.IsDelete == false && !r.Project.IsDelete)
                 .ToListAsync();
 
             var filtered = recipes.Select(r =>
             {
-                bool includeMechanicalProps = 
+                bool includeMechanicalProps =
                 r.Test != null
                     && r.Test.IsDelete == false
                     && r.Test.IsPublish == true
                     && r.Test.MechanicalProperty != null;
-                    //&& !r.Test.MechanicalProperty.IsDelete;
+                //&& !r.Test.MechanicalProperty.IsDelete;
 
                 return new RecipeProjectDTO
                 {
@@ -212,14 +212,40 @@ namespace DataMgmtModule.Persistence.Repository
                 };
             });
 
-            filtered = filtered.Where(r =>
-         (!tensileModulusMin.HasValue || (r.TensileModulus_DAM.HasValue && r.TensileModulus_DAM.Value >= tensileModulusMin)) &&
-         (!tensileModulusMAX.HasValue || (r.TensileModulus_DAM.HasValue && r.TensileModulus_DAM.Value <= tensileModulusMAX)) &&
-         (!charpyImpactMin.HasValue || (r.CharpyImpact_DAM.HasValue && r.CharpyImpact_DAM.Value >= charpyImpactMin)) &&
-         (!charpyImpactMax.HasValue || (r.CharpyImpact_DAM.HasValue && r.CharpyImpact_DAM.Value <= charpyImpactMax)) &&
-         (!stressAtYieldMin.HasValue || (r.StressAtYield_DAM.HasValue && r.StressAtYield_DAM.Value >= stressAtYieldMin)) &&
-         (!stressAtYieldMax.HasValue || (r.StressAtYield_DAM.HasValue && r.StressAtYield_DAM.Value <= stressAtYieldMax))
-     );
+            bool hasAnyFilter =
+                tensileModulusMin.HasValue || tensileModulusMAX.HasValue ||
+                charpyImpactMin.HasValue || charpyImpactMax.HasValue ||
+                stressAtYieldMin.HasValue || stressAtYieldMax.HasValue;
+
+            if (hasAnyFilter)
+            {
+                filtered = filtered.Where(r =>
+                    (
+                        (tensileModulusMin.HasValue || tensileModulusMAX.HasValue) &&
+                        r.TensileModulus_DAM.HasValue &&
+                        (!tensileModulusMin.HasValue || r.TensileModulus_DAM.Value >= tensileModulusMin) &&
+                        (!tensileModulusMAX.HasValue || r.TensileModulus_DAM.Value <= tensileModulusMAX)
+                    ) ||
+
+                    (
+                        (charpyImpactMin.HasValue || charpyImpactMax.HasValue) &&
+                        r.CharpyImpact_DAM.HasValue &&
+                        (!charpyImpactMin.HasValue || r.CharpyImpact_DAM.Value >= charpyImpactMin) &&
+                        (!charpyImpactMax.HasValue || r.CharpyImpact_DAM.Value <= charpyImpactMax)
+                    ) ||
+
+                    (
+                        (stressAtYieldMin.HasValue || stressAtYieldMax.HasValue) &&
+                        r.StressAtYield_DAM.HasValue &&
+                        (!stressAtYieldMin.HasValue || r.StressAtYield_DAM.Value >= stressAtYieldMin) &&
+                        (!stressAtYieldMax.HasValue || r.StressAtYield_DAM.Value <= stressAtYieldMax)
+                    )
+                );
+            }
+
+
+
+
             if (!string.IsNullOrWhiteSpace(search))
             {
                 string loweredSearch = search.ToLower();
