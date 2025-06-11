@@ -66,18 +66,25 @@ namespace DataMgmtModule.Api
 
             var app = builder.Build();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            // Create the uploads directory if it doesn't exist
-            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
-            if (!Directory.Exists(uploadsPath))
-            {
-                Directory.CreateDirectory(uploadsPath);
-            }
+            //app.UseStaticFiles();
+            //// Create the uploads directory if it doesn't exist
+            //var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            //if (!Directory.Exists(uploadsPath))
+            //{
+            //    Directory.CreateDirectory(uploadsPath);
+            //}
 
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(uploadsPath),
+            //    RequestPath = "/wwwroot/Uploads"  // This is the URL path, not the filesystem path
+            //});
+            app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(uploadsPath),
-                RequestPath = "/Uploads"  // This is the URL path, not the filesystem path
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/Uploads"
             });
 
             //Configure the HTTP request pipeline.
