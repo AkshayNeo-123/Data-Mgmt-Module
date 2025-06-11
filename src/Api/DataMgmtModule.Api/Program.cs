@@ -65,24 +65,34 @@ namespace DataMgmtModule.Api
             builder.Host.UseSerilog();
 
             var app = builder.Build();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            // Create the uploads directory if it doesn't exist
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            if (!Directory.Exists(uploadsPath))
+            {
+                Directory.CreateDirectory(uploadsPath);
+            }
+
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
-                RequestPath = "/Uploads"
+                FileProvider = new PhysicalFileProvider(uploadsPath),
+                RequestPath = "/Uploads"  // This is the URL path, not the filesystem path
             });
+
             //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseSession();
-            app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseCors("AllowAll");
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
