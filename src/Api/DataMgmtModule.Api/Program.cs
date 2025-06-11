@@ -78,6 +78,8 @@ namespace DataMgmtModule.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseSession();
             app.UseHttpsRedirection();
