@@ -24,4 +24,12 @@
     <ProjectReference Include="..\..\Infrastructure\DataMgmtModule.Persistence\DataMgmtModule.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Uploads\PDFs\BankingSystem_20250521120803.pdf" />
+    <None Include="wwwroot\Uploads\PDFs\Capstone_Project_PPT_Poonam_20250502153544_20250521124228.pdf" />
+    <None Include="wwwroot\Uploads\PDFs\Capstone_Project_PPT_Poonam_20250502153544_20250522130301.pdf" />
+    <None Include="wwwroot\Uploads\PDFs\EventBookingSystem_20250527164949.pdf" />
+    <None Include="wwwroot\Uploads\PDFs\NS_Data_Management_Module_SRS_1.2_20250502144727_20250502192418_20250522130255.pdf" />
+  </ItemGroup>
+
 </Project>
