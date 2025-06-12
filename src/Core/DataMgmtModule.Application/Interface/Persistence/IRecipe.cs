@@ -20,7 +20,7 @@ namespace DataMgmtModule.Application.Interface.Persistence
         Task<RecipeProjectDTO> GetRecipeAndProjectById(int id);
         Task<IEnumerable<RecipeComponent>> FindRecipeComponents(int recipeId);
 
-        Task<CommonTestDto> GetTestByRecipe(int id);
+        Task<Test> GetTestByRecipe(int id);
 
 
     }

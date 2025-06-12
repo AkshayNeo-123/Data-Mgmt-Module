@@ -184,6 +184,8 @@ namespace DataMgmtModule.Persistence.Repository
             decimal? charpyImpactMax, decimal? charpyImpactMin,
             decimal? stressAtYieldMax, decimal? stressAtYieldMin)
         {
+
+
             var recipes = await _persistenceDbContext.Recipes
                 .Include(r => r.Project)
                 .Include(r => r.Test)
@@ -197,8 +199,8 @@ namespace DataMgmtModule.Persistence.Repository
                 r.Test != null
                     && r.Test.IsDelete == false
                     && r.Test.IsPublish == true
-                    && r.Test.MechanicalProperty != null;
-                //&& !r.Test.MechanicalProperty.IsDelete;
+                    && r.Test.MechanicalProperty != null
+                && !r.Test.MechanicalProperty.IsDelete;
 
                 return new RecipeProjectDTO
                 {
@@ -208,9 +210,11 @@ namespace DataMgmtModule.Persistence.Repository
                     Description = r.Project.Project_Description,
                     TensileModulus_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.TensileModulus_DAM : null,
                     CharpyImpact_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.CharpyImpact_DAM : null,
-                    StressAtYield_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.StressAtYield_DAM : null
+                    StressAtYield_DAM = includeMechanicalProps ? r.Test.MechanicalProperty.StressAtYield_DAM : null,
+                    TestId = includeMechanicalProps ? r.Test.Id : null
                 };
             });
+
 
             bool hasAnyFilter =
                 tensileModulusMin.HasValue || tensileModulusMAX.HasValue ||
@@ -244,7 +248,7 @@ namespace DataMgmtModule.Persistence.Repository
             }
 
 
-
+            
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -260,6 +264,13 @@ namespace DataMgmtModule.Persistence.Repository
                 .DistinctBy(z => z.RecipeId)
                 .ToList();
         }
+
+
+
+
+
+
+
 
         public async Task<RecipeProjectDTO> GetRecipeAndProjectById(int id)
         {
@@ -281,7 +292,7 @@ namespace DataMgmtModule.Persistence.Repository
 
         }
 
-        public async Task<CommonTestDto>GetTestByRecipe(int id)
+        public async Task<Test>GetTestByRecipe(int id)
         {
 
 
@@ -294,42 +305,9 @@ namespace DataMgmtModule.Persistence.Repository
                 throw new NotFoundException($"Data with Id {id} not found");
             }
 
-            var testDto = _mapper.Map<CommonTestDto>(getTestByRecipe);
+           
 
-            var mech = await _persistenceDbContext.MechanicalProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-            if (mech != null)
-            {
-                testDto.MechanicalPropertyDto = _mapper.Map<MechanicalPropertyDto>(mech);
-            }
-            var electticalPro = await _persistenceDbContext.ElectricalProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-
-            if (electticalPro != null)
-            {
-                testDto.ElectricalPropertyDto = _mapper.Map<ElectricalPropertyDto>(electticalPro);
-            }
-            var tempProperty = await _persistenceDbContext.TemperatureProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-            if (tempProperty != null)
-            {
-                testDto.TemperaturePropertyDto = _mapper.Map<TemperaturePropertyDto>(tempProperty);
-            }
-            var generalProperty = await _persistenceDbContext.GeneralProperties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-            if (generalProperty != null)
-            {
-                testDto.GeneralPropertyDto = _mapper.Map<GeneralPropertyDto>(generalProperty);
-            }
-
-            var properties = await _persistenceDbContext.Properties.FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-            if (properties != null)
-            {
-                testDto.PropertiesDto = _mapper.Map<PropertiesDto>(properties);
-            }
-            var flam = await _persistenceDbContext.FlammabilityProperties
-                    .FirstOrDefaultAsync(x => x.TestId == getTestByRecipe.Id);
-            if (flam != null)
-                testDto.FlammabilityPropertyDto = _mapper.Map<FlammabilityPropertyDto>(flam);
-
-
-            return testDto;
+            return getTestByRecipe;
 
         }
 
