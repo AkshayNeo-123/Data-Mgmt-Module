@@ -13,6 +13,7 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         public bool IsPublish { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
+
         //public string ProductName { get; set; }
     }
     public class ExportAddDto

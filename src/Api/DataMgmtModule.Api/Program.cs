@@ -65,7 +65,7 @@ namespace DataMgmtModule.Api
             builder.Host.UseSerilog();
 
             var app = builder.Build();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             //app.UseStaticFiles();
             //// Create the uploads directory if it doesn't exist
             //var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
@@ -99,11 +99,23 @@ namespace DataMgmtModule.Api
             app.UseSession();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseCors("AllowAll");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // Default route to Swagger UI
 
+            app.MapGet("/", context =>
+
+            {
+
+                context.Response.Redirect("/swagger");
+
+                return Task.CompletedTask;
+
+            });
+
+            // Map controllers
 
             app.MapControllers();
 
