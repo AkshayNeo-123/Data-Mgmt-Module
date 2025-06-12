@@ -19,5 +19,6 @@ namespace DataMgmtModule.Application.Dtos.TestDtos
         public ElectricalPropertyDto? ElectricalProperty { get; set; }
 
         public PropertiesDto? Properties { get; set; }
+
     }
 }

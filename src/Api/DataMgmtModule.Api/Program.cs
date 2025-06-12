@@ -65,6 +65,20 @@ namespace DataMgmtModule.Api
             builder.Host.UseSerilog();
 
             var app = builder.Build();
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            //// Create the uploads directory if it doesn't exist
+            //var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            //if (!Directory.Exists(uploadsPath))
+            //{
+            //    Directory.CreateDirectory(uploadsPath);
+            //}
+
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(uploadsPath),
+            //    RequestPath = "/wwwroot/Uploads"  // This is the URL path, not the filesystem path
+            //});
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -72,21 +86,36 @@ namespace DataMgmtModule.Api
         Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
                 RequestPath = "/Uploads"
             });
+
             //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseSession();
-            app.UseHttpsRedirection();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseCors("AllowAll");
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // Default route to Swagger UI
 
+            app.MapGet("/", context =>
+
+            {
+
+                context.Response.Redirect("/swagger");
+
+                return Task.CompletedTask;
+
+            });
+
+            // Map controllers
 
             app.MapControllers();
 

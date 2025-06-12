@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Uploads\PDFs\BankingSystem_20250521120803.pdf" />
+    <Content Include="Uploads\PDFs\Capstone_Project_PPT_Poonam_20250502153544_20250521124228.pdf" />
+    <Content Include="Uploads\PDFs\Capstone_Project_PPT_Poonam_20250502153544_20250522130301.pdf" />
+    <Content Include="Uploads\PDFs\EventBookingSystem_20250527164949.pdf" />
+    <Content Include="Uploads\PDFs\NS_Data_Management_Module_SRS_1.2_20250502144727_20250502192418_20250522130255.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />

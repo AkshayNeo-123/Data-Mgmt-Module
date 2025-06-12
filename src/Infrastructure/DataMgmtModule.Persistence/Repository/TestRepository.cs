@@ -144,25 +144,27 @@ namespace DataMgmtModule.Persistence.Repository
             existingTest.Comment = request.Test.Comment;
             existingTest.IsPublish = request.Test.IsPublish;
             existingTest.ModifiedDate = DateTime.Now;
+            existingTest.ModifiedBy = request.Test.CreatedBy;
 
             if (existingTest.TemperatureProperty == null)
             {
                 if (request.TemperatureProperty != null)
                 {
 
-                var temp = new TemperatureProperty
-                {
-                    TestId = existingTest.Id,
-                    TempHdtA=request.TemperatureProperty.TempHdtA,
-                    TempHdtB=request.TemperatureProperty.TempHdtB,
-                    CoefficientsTransverse=request.TemperatureProperty.CoefficientsTransverse,
-                    CoefficientsParallel=request.TemperatureProperty.CoefficientsParallel,
-                    MeltingTemp=request.TemperatureProperty.MeltingTemp,
-                    IsDelete=false,
-                    ModifiedDate=DateTime.Now
+                    var temp = new TemperatureProperty
+                    {
+                        TestId = existingTest.Id,
+                        TempHdtA = request.TemperatureProperty.TempHdtA,
+                        TempHdtB = request.TemperatureProperty.TempHdtB,
+                        CoefficientsTransverse = request.TemperatureProperty.CoefficientsTransverse,
+                        CoefficientsParallel = request.TemperatureProperty.CoefficientsParallel,
+                        MeltingTemp = request.TemperatureProperty.MeltingTemp,
+                        IsDelete = false,
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
 
 
-                };
+                    };
                      _persistenceContext.AddAsync(temp);
                 }
 
@@ -174,6 +176,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.TemperatureProperty == null)
                 {
                     existingTest.TemperatureProperty.IsDelete = true;
+                    existingTest.TemperatureProperty.DeletedBy = request.Test.CreatedBy;
+                    existingTest.TemperatureProperty.DeletedDate= DateTime.Now;
 
                 }
                 else
@@ -186,6 +190,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.TemperatureProperty.CoefficientsParallel = request.TemperatureProperty.CoefficientsParallel;
                     existingTest.TemperatureProperty.CoefficientsTransverse = request.TemperatureProperty.CoefficientsTransverse;
                     existingTest.TemperatureProperty.ModifiedDate = DateTime.Now;
+                    existingTest.TemperatureProperty.ModifiedBy = request.Test.CreatedBy;
                 }
 
             }
@@ -204,7 +209,8 @@ namespace DataMgmtModule.Persistence.Repository
                         BurningRateThickness1 = request.FlammabilityProperty.BurningRateThickness1,
                         BurningRateThickness2 = request.FlammabilityProperty.BurningRateThickness2,
                         IsDelete = false,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
                     };
                     _persistenceContext.AddAsync(Flammabilitydata);
                 }
@@ -214,6 +220,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.FlammabilityProperty == null)
                 {
                     existingTest.FlammabilityProperty.IsDelete = true;
+                    existingTest.FlammabilityProperty.DeletedBy = request.Test.CreatedBy;
+                    existingTest.FlammabilityProperty.DeletedDate = DateTime.Now;
                 }
                 else
                 {
@@ -223,6 +231,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.FlammabilityProperty.BurningRateThickness1 = request.FlammabilityProperty.BurningRateThickness1;
                     existingTest.FlammabilityProperty.BurningRateThickness2 = request.FlammabilityProperty.BurningRateThickness2;
                     existingTest.FlammabilityProperty.ModifiedDate = DateTime.Now;
+                    existingTest.FlammabilityProperty.ModifiedBy = request.Test.CreatedBy;
                 }
             }
 
@@ -263,7 +272,8 @@ namespace DataMgmtModule.Persistence.Repository
                         ShoreDHardness_DAM = request.MechanicalProperty.ShoreDHardness_DAM,
                         ShoreDHardness_Conditioned = request.MechanicalProperty.ShoreDHardness_Conditioned,
                         IsDelete = false,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
                     };
                     _persistenceContext.AddAsync(MechanicalData);
                 }
@@ -273,6 +283,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.MechanicalProperty == null)
                 {
                     existingTest.MechanicalProperty.IsDelete = true;
+                    existingTest.MechanicalProperty.DeletedBy = request.Test.CreatedBy;
+                    existingTest.MechanicalProperty.DeletedDate = DateTime.Now;
                 }
                 else
                 {
@@ -314,6 +326,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.MechanicalProperty.ShoreDHardness_DAM = request.MechanicalProperty.ShoreDHardness_DAM;
                     existingTest.MechanicalProperty.ShoreDHardness_Conditioned = request.MechanicalProperty.ShoreDHardness_Conditioned;
                     existingTest.MechanicalProperty.ModifiedDate = DateTime.Now;
+                    existingTest.MechanicalProperty.ModifiedBy = request.Test.CreatedBy;
                 }
             }
 
@@ -332,7 +345,8 @@ namespace DataMgmtModule.Persistence.Repository
                         MFR = request.GeneralProperty.MFR,
                         MVR = request.GeneralProperty.MVR,
                         IsDelete = false,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
                     };
                     _persistenceContext.AddAsync(GeneralData);
                 }
@@ -342,6 +356,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.GeneralProperty == null)
                 {
                     existingTest.GeneralProperty.IsDelete = true;
+                    existingTest.GeneralProperty.DeletedBy = request.Test.CreatedBy;
+                    existingTest.GeneralProperty.DeletedDate = DateTime.Now;
                 }
                 else
                 {
@@ -352,6 +368,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.GeneralProperty.MFR = request.GeneralProperty.MFR;
                     existingTest.GeneralProperty.MVR = request.GeneralProperty.MVR;
                     existingTest.GeneralProperty.ModifiedDate = DateTime.Now;
+                    existingTest.GeneralProperty.ModifiedBy = request.Test.CreatedBy;
                 }
             }
 
@@ -368,7 +385,8 @@ namespace DataMgmtModule.Persistence.Repository
                         SurfaceResistivity = request.ElectricalProperty.SurfaceResistivity,
                         ComparativeTracking = request.ElectricalProperty.ComparativeTracking,
                         IsDelete = false,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
                     };
                     _persistenceContext.AddAsync(ElectricalData);
                 }
@@ -378,6 +396,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.ElectricalProperty == null)
                 {
                     existingTest.ElectricalProperty.IsDelete = true;
+                    existingTest.ElectricalProperty.DeletedBy = request.Test.CreatedBy;
+                    existingTest.ElectricalProperty.DeletedDate = DateTime.Now;
                 }
                 else
                 {
@@ -386,6 +406,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.ElectricalProperty.SurfaceResistivity = request.ElectricalProperty.SurfaceResistivity;
                     existingTest.ElectricalProperty.ComparativeTracking = request.ElectricalProperty.ComparativeTracking;
                     existingTest.ElectricalProperty.ModifiedDate = DateTime.Now;
+                    existingTest.ElectricalProperty.ModifiedBy = request.Test.CreatedBy;
 
                 }
             }
@@ -421,7 +442,8 @@ namespace DataMgmtModule.Persistence.Repository
                         RecycledContent = request.Properties.RecycledContent,
                         AdditiveManufacturing = request.Properties.AdditiveManufacturing,
                         IsDelete = false,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        ModifiedBy = request.Test.CreatedBy
                     };
                     _persistenceContext.AddAsync(PropertiesData);
                 }
@@ -431,6 +453,8 @@ namespace DataMgmtModule.Persistence.Repository
                 if (request.Properties == null)
                 {
                     existingTest.Properties.IsDelete = true;
+                    existingTest.Properties.DeletedBy = request.Test.CreatedBy;
+                    existingTest.Properties.DeletedDate = DateTime.Now;
                 }
                 else
                 {
@@ -457,6 +481,7 @@ namespace DataMgmtModule.Persistence.Repository
                     existingTest.Properties.RecycledContent = request.Properties.RecycledContent;
                     existingTest.Properties.AdditiveManufacturing = request.Properties.AdditiveManufacturing;
                     existingTest.Properties.ModifiedDate = DateTime.Now;
+                    existingTest.Properties.ModifiedBy =request.Test.CreatedBy;
                 }
             }
 
